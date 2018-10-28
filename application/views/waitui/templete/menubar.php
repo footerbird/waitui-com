@@ -7,7 +7,7 @@
                     <li class="<?php if($this->module == 'home'){ echo 'cur'; } ?>"><a href="/">首页</a></li>
                     <li class="<?php if($this->module == 'article'){ echo 'cur'; } ?>"><a href="<?php echo base_url() ?>article_list.html">头条</a></li>
                     <li class="<?php if($this->module == 'mark'){ echo 'cur'; } ?>"><a href="<?php echo base_url() ?>mark_list.html">商标</a></li>
-                    <li class="<?php if($this->module == 'domain'){ echo 'cur'; } ?>"><a href="/">域名</a></li>
+                    <li class="<?php if($this->module == 'domain'){ echo 'cur'; } ?>"><a href="<?php echo base_url() ?>domain_list.html">域名</a></li>
                     <li><a href="/">APP</a></li>
                 </ul>
             </div>

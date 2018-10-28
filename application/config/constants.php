@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 //更新CSS JS缓存时间
-define('CACHE_TIME', '201810281623');
+define('CACHE_TIME', '201810282038');
 
 defined('SHOW_DEBUG_BACKTRACE') OR define('SHOW_DEBUG_BACKTRACE', TRUE);
 
@@ -100,4 +100,4 @@ define('MEMU_MARK','mark');//商标页面
 define('MEMU_DOMAIN','domain');//域名页面
 define('MEMU_MANAGE','manage');//管理中心页面
 
-define('CDN_URL','https://waituidev-1256656797.cos.ap-beijing.myqcloud.com/');//cdn地址
+define('CDN_URL','https://waituicom-1257875732.cos.ap-chengdu.myqcloud.com/');//cdn地址

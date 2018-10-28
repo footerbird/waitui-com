@@ -840,6 +840,42 @@ textarea{resize: none; overflow-y:auto;}
     }
 }
 
+/*分页*/
+.pagination{
+    .after-cls;
+    ul{
+        li{
+            float: left;
+            margin: 0 2px;
+            a{
+                display:block;
+                min-width: 24px;
+                height: 24px;
+                line-height: 22px;
+                padding: 0 5px;
+                text-align: center;
+                font-size: 13px;
+                color: #808080;
+                background-color: #fff;
+                border: 1px solid #ebeced;
+                text-decoration: none;
+                &:hover{
+                    background-color: @base-color;
+                    border-color: @base-color;
+                    color: #fff;
+                }
+            }
+            &.current{
+                a{
+                    background-color: @base-color;
+                    border-color: @base-color;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
 
 /*公共按钮*/
 .pub-btn{/*默认高度36，中型按钮，颜色#ea6f5a默认色*/
@@ -2213,6 +2249,126 @@ textarea{resize: none; overflow-y:auto;}
                 background-color: #fafbfb;
                 text-align: right;
             }
+        }
+    }
+}
+
+/*域名页面*/
+.domain-top{
+    background-color: #fff;
+    border-bottom: 1px solid #e6e8eb;
+    .search{
+        width: 710px;
+        margin: 0 auto;
+        position: relative;
+        .after-cls;
+        input[type=text]{
+            float: left;
+            width: 620px;
+            height: 44px;
+            padding: 0 15px;
+            font-size: 14px;
+            color: #414a60;
+            border: 1px solid @base-color;
+            background-color: #fff;
+            .border-box;
+            .transition-all;
+            &:hover{
+                border-color: @base-color;
+            }
+        }
+        input[type=button]{
+            float: left;
+            width: 90px;
+            height: 44px;
+            text-align: center;
+            font-size: 14px;
+            color: #fff;
+            background-color: @base-color;
+            border: none;
+            cursor: pointer;
+            .border-box;
+            .transition-all;
+            &:hover{
+                .opacity(.8);
+            }
+        }
+    }
+}
+
+.domain-list{
+    width: 1000px;
+    margin-top: 20px;
+    padding-top: 20px;
+    .after-cls;
+    .domain-table{
+        table-layout: fixed;
+        border: 1px solid #f1f1f1;
+        thead{
+            th{
+                line-height: 52px;
+                padding: 0 10px;
+                text-align: left;
+                font-size: 14px;
+                font-weight: bold;
+                background-color: #fafafa;
+                border-bottom: 1px solid #f1f1f1;
+            }
+        }
+        tbody{
+            tr{
+                td{
+                    line-height: 32px;
+                    padding: 8px 10px;
+                    text-align: left;
+                    font-size: 13px;
+                    color: #666;
+                }
+                &:nth-child(even){
+                    background-color: #fafafa;
+                }
+                &:hover{
+                    background-color: #f5faff;
+                    .buy-btn{
+                        color: #fff;
+                        background-color: #f90;
+                        border-color:#f90 ;
+                    }
+                }
+                .domain{
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #5195d5;
+                }
+                .buy-btn{
+                    display: inline-block;
+                    height: 24px;
+                    line-height: 23px;
+                    border: 1px solid #e1e1e1;
+                    font-size: 12px;
+                    color: #666;
+                    background-color: #fff;
+                    text-align: center;
+                    padding: 0 8px;
+                }
+            }
+        }
+    }
+}
+
+.domain-pagination{
+    .after-cls;
+    margin-top: 20px;
+    .pagination{
+        float: right;
+    }
+    .total{
+        float: right;
+        font-size: 13px;
+        line-height: 24px;
+        margin-right: 10px;
+        font{
+            padding: 0 2px;
         }
     }
 }

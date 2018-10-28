@@ -86,6 +86,19 @@ if( !function_exists('format_article_time') )
     }
 }
 
+//格式化域名距到期
+if( !function_exists('format_domain_exptime') )
+{
+    function format_domain_exptime($fmt_time){
+        if(!$fmt_time){
+            return false;
+        }
+        $fmt_time = strtotime($fmt_time);
+        $diff = $fmt_time - time();
+        return floor($diff/86400);
+    }
+}
+
 //格式化商标注册年限
 if( !function_exists('format_markreg_year') )
 {

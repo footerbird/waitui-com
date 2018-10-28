@@ -454,7 +454,75 @@ class Index_controller extends CI_Controller {
         $this->load->view('waitui/mark_detail',$data);
     }
     
-        public function send_smsCodeAjax(){//发送验证码
+    public function domain_list(){//域名首页
+        
+        $page = $this->input->get('page');//得到页码
+        if(empty($page)) $page = 1;//默认页码为1
+        
+        //加载域名模型类
+        $this->load->model('waitui/Domain_model','domain');
+        //get_domainCount方法得到域名总数
+		$count = $this->domain->get_domainCount();
+        
+        $page_size = 20;//单页记录数
+        $offset = ($page-1)*$page_size;//偏移量
+        switch($page){
+        	case 1:
+        		$num_links = 4;//num_links选中页右边的个数
+        		break;
+        	case 2:
+        		$num_links = 3;
+        		break;
+        	case ceil($count/$page_size):
+        		$num_links = 4;
+        		break;
+        	case ceil($count/$page_size)-1:
+        		$num_links = 3;
+        		break;
+        	default:
+        		$num_links = 2;
+        		break;
+        }
+        
+        $this->load->library('pagination');
+        $config['base_url'] = base_url().'domain_list.html';
+        $config['total_rows'] = $count;
+        $config['per_page'] = $page_size;// $pagesize每页条数
+        $config['num_links'] = $num_links;//设置选中页左右两边的页数
+        $this->pagination->initialize($config);
+        $data['page_count'] = $count;
+        $data['page_size'] = $page_size;
+        
+        //get_domainList方法得到域名列表信息
+        $domain_list = $this->domain->get_domainList($offset,$page_size);
+        foreach($domain_list as $domain){
+        	$domain->expired_date = format_domain_exptime($domain->expired_date);
+        }
+        $data['domain_list'] = $domain_list;
+        
+        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
+        if(!empty($session_userinfo->user_id)){
+            $user_id = $session_userinfo->user_id;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //get_userinfoById方法获取用户信息
+            $userinfo = $this->user->get_userinfoById($user_id);
+            $data['userinfo'] = $userinfo;
+        }
+        
+        $this->module = constant('MEMU_DOMAIN');
+        
+        $seo = array(
+            'seo_title'=>'域名市场 - 域名交易就是这么简单 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $this->load->view('waitui/domain_list',$data);
+    }
+    
+    public function send_smsCodeAjax(){//发送验证码
     
         $phone = $this->input->get_post('phone');//得到手机号
         
