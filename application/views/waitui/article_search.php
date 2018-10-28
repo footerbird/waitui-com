@@ -43,6 +43,9 @@
             <?php if(count($article_list) == 10){ ?>
             <div class="article-loadmore" id="article_loading">加载中，请稍后...</div>
             <div class="article-loadmore" id="article_loadnone" style="display: none;">喂喂，你触碰到我的底线了</div>
+            <?php }else{ ?>
+            <div class="article-loadmore" id="mark_loading" style="display: none;">加载中，请稍后...</div>
+            <div class="article-loadmore" id="mark_loadnone">喂喂，你触碰到我的底线了</div>
             <?php } ?>
         </div>
         <div class="article-right" style="padding-top: 55px;">
