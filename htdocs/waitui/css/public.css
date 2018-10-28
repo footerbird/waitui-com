@@ -3139,6 +3139,8 @@ textarea {
   color: #9fa3b0;
   padding: 16px 0;
   line-height: 26px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .article-left .hotwords font {
   display: inline-block;
@@ -3166,7 +3168,7 @@ textarea {
   font-weight: 600;
   color: #9fa3b0;
   display: inline-block;
-  margin-right: 30px;
+  margin-right: 25px;
 }
 .article-left .categorys a:hover {
   color: #ea6f5a;

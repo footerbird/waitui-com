@@ -13,15 +13,9 @@
         <div class="article-left">
             <div class="hotwords">
                 <font>热搜词：</font>
-                <a href="<?php echo base_url() ?>article_search/马云" target="_blank">马云</a>
-                <a href="<?php echo base_url() ?>article_search/创造101" target="_blank">创造101</a>
-                <a href="<?php echo base_url() ?>article_search/小米上市" target="_blank">小米上市</a>
-                <a href="<?php echo base_url() ?>article_search/增长黑客" target="_blank">增长黑客</a>
-                <a href="<?php echo base_url() ?>article_search/名商网" target="_blank">名商网</a>
-                <a href="<?php echo base_url() ?>article_search/哈罗单车" target="_blank">哈罗单车</a>
-                <a href="<?php echo base_url() ?>article_search/华兴资本" target="_blank">华兴资本</a>
-                <a href="<?php echo base_url() ?>article_search/世界杯" target="_blank">世界杯</a>
-                <a href="<?php echo base_url() ?>article_search/papi酱" target="_blank">papi酱</a>
+                <?php foreach ($article_hotword as $hotword){ ?>
+                <a href="<?php echo base_url() ?>article_search/<?php echo $hotword->hotword_name; ?>" target="_blank"><?php echo $hotword->hotword_name; ?></a>
+                <?php } ?>
             </div>
             
             <div class="article-table">

@@ -23,6 +23,10 @@ class Index_controller extends CI_Controller {
         //get_articleRecommend方法得到推荐阅读列表
         $article_recommend = $this->article->get_articleRecommend(0,3);
         $data['article_recommend'] = $article_recommend;
+		
+		//get_articleHotword方法得到热搜词列表
+		$article_hotword = $this->article->get_articleHotword(0,10);
+		$data['article_hotword'] = $article_hotword;
         
         //加载快讯模型类
         $this->load->model('waitui/Flash_model','flash');
@@ -115,6 +119,13 @@ class Index_controller extends CI_Controller {
         //get_articleRecommend方法得到推荐阅读列表
         $article_recommend = $this->article->get_articleRecommend(0,3);
         $data['article_recommend'] = $article_recommend;
+		
+        //add_articleHotword方法添加热搜词
+        $this->article->add_articleHotword(urldecode($keyword));
+        
+		//get_articleHotword方法得到热搜词列表
+		$article_hotword = $this->article->get_articleHotword(0,10);
+		$data['article_hotword'] = $article_hotword;
         
         //加载快讯模型类
         $this->load->model('waitui/Flash_model','flash');
