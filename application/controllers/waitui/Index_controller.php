@@ -459,29 +459,35 @@ class Index_controller extends CI_Controller {
         $page = $this->input->get('page');//得到页码
         if(empty($page)) $page = 1;//默认页码为1
         
+        $keyword = $this->input->get_post('keyword');//得到域名关键字
+        $keyword = $keyword?$keyword:'';
+        
+        $domain_type = $this->input->get_post('domain_type');//得到域名类型
+        $domain_type = $domain_type?$domain_type:'';
+        
         //加载域名模型类
         $this->load->model('waitui/Domain_model','domain');
         //get_domainCount方法得到域名总数
-		$count = $this->domain->get_domainCount();
+        $count = $this->domain->get_domainCount($keyword,$domain_type);
         
         $page_size = 20;//单页记录数
         $offset = ($page-1)*$page_size;//偏移量
         switch($page){
-        	case 1:
-        		$num_links = 4;//num_links选中页右边的个数
-        		break;
-        	case 2:
-        		$num_links = 3;
-        		break;
-        	case ceil($count/$page_size):
-        		$num_links = 4;
-        		break;
-        	case ceil($count/$page_size)-1:
-        		$num_links = 3;
-        		break;
-        	default:
-        		$num_links = 2;
-        		break;
+            case 1:
+                $num_links = 4;//num_links选中页右边的个数
+                break;
+            case 2:
+                $num_links = 3;
+                break;
+            case ceil($count/$page_size):
+                $num_links = 4;
+                break;
+            case ceil($count/$page_size)-1:
+                $num_links = 3;
+                break;
+            default:
+                $num_links = 2;
+                break;
         }
         
         $this->load->library('pagination');
@@ -494,11 +500,13 @@ class Index_controller extends CI_Controller {
         $data['page_size'] = $page_size;
         
         //get_domainList方法得到域名列表信息
-        $domain_list = $this->domain->get_domainList($offset,$page_size);
+        $domain_list = $this->domain->get_domainList($keyword,$offset,$page_size,$domain_type);
         foreach($domain_list as $domain){
-        	$domain->expired_date = format_domain_exptime($domain->expired_date);
+            $domain->expired_date = format_domain_exptime($domain->expired_date);
         }
         $data['domain_list'] = $domain_list;
+        $data['keyword'] = $keyword;
+        $data['domain_type'] = $domain_type;
         
         $session_userinfo = $this->session->userinfo;//从session中获取用户信息
         if(!empty($session_userinfo->user_id)){
