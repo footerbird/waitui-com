@@ -80,7 +80,7 @@
                     <div class="form-input-box">
                         <i class="ico ico-phone"></i>
                         <input type="tel" class="form-input" id="phone_num" placeholder="输入手机号" maxlength="11" required="required" />
-                        <a href="javascript:;" class="form-clear"></a>
+                        <!--<a href="javascript:;" class="form-clear"></a>-->
                     </div>
                 </li>
                 <li id="code_num_box" style="display: none;">
@@ -88,7 +88,7 @@
                         <div class="form-code-box">
                             <i class="ico ico-code"></i>
                             <input type="tel" class="form-input" id="code_num" placeholder="输入验证码" maxlength="6" required="required" />
-                            <a href="javascript:;" class="form-clear"></a>
+                            <!--<a href="javascript:;" class="form-clear"></a>-->
                         </div>
                         <a href="javascript:;" class="form-input-link forbid" id="code_btn" onclick="sendCodeLogin(this,60,$('#phone_num').val(),'upwin_login_error')">获取验证码</a>
                     </div>
@@ -97,7 +97,7 @@
                     <div class="form-input-box">
                         <i class="ico ico-pwd"></i>
                         <input type="password" class="form-input" id="pwd_num" placeholder="输入密码" required="required" />
-                        <a href="javascript:;" class="form-clear"></a>
+                        <!--<a href="javascript:;" class="form-clear"></a>-->
                     </div>
                 </li>
             </ul>
@@ -122,7 +122,7 @@
                     <div class="form-input-box">
                         <i class="ico ico-phone"></i>
                         <input type="tel" class="form-input" id="phone_reg" placeholder="输入手机号" maxlength="11" required="required" />
-                        <a href="javascript:;" class="form-clear"></a>
+                        <!--<a href="javascript:;" class="form-clear"></a>-->
                     </div>
                 </li>
                 <li>
@@ -130,7 +130,7 @@
                         <div class="form-code-box">
                             <i class="ico ico-code"></i>
                             <input type="tel" class="form-input" id="code_reg" placeholder="输入验证码" maxlength="6" required="required" />
-                            <a href="javascript:;" class="form-clear"></a>
+                            <!--<a href="javascript:;" class="form-clear"></a>-->
                         </div>
                         <a href="javascript:;" class="form-input-link forbid" id="code_btn_reg" onclick="sendCodeRegister(this,60,$('#phone_reg').val(),'upwin_register_error')">获取验证码</a>
                     </div>
@@ -139,7 +139,7 @@
                     <div class="form-input-box">
                         <i class="ico ico-pwd"></i>
                         <input type="password" class="form-input" id="pwd_reg" placeholder="设置密码" required="required" />
-                        <a href="javascript:;" class="form-clear"></a>
+                        <!--<a href="javascript:;" class="form-clear"></a>-->
                     </div>
                 </li>
             </ul>
@@ -161,7 +161,7 @@
                     <div class="form-input-box">
                         <i class="ico ico-phone"></i>
                         <input type="tel" class="form-input" id="phone_find" placeholder="输入手机号" maxlength="11" required="required" />
-                        <a href="javascript:;" class="form-clear"></a>
+                        <!--<a href="javascript:;" class="form-clear"></a>-->
                     </div>
                 </li>
                 <li>
@@ -169,7 +169,7 @@
                         <div class="form-code-box">
                             <i class="ico ico-code"></i>
                             <input type="tel" class="form-input" id="code_find" placeholder="输入验证码" maxlength="6" required="required" />
-                            <a href="javascript:;" class="form-clear"></a>
+                            <!--<a href="javascript:;" class="form-clear"></a>-->
                         </div>
                         <a href="javascript:;" class="form-input-link forbid" id="code_btn_find" onclick="sendCodeFindpwd(this,60,$('#phone_find').val(),'upwin_findpwd_error')">获取验证码</a>
                     </div>
@@ -178,7 +178,7 @@
                     <div class="form-input-box">
                         <i class="ico ico-pwd"></i>
                         <input type="password" class="form-input" id="pwd_find" placeholder="重设密码" required="required" />
-                        <a href="javascript:;" class="form-clear"></a>
+                        <!--<a href="javascript:;" class="form-clear"></a>-->
                     </div>
                 </li>
             </ul>
