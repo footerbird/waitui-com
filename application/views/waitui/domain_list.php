@@ -46,7 +46,7 @@
                     <tbody>
                         <?php foreach ($domain_list as $domain){ ?>
                         <tr>
-                            <td class="pl30"><a href="" target="_blank" class="domain"><?php echo $domain->domain_name; ?></a></td>
+                            <td class="pl30"><a href="<?php echo base_url() ?>domain_detail/<?php echo $domain->domain_name; ?>" target="_blank" class="domain"><?php echo $domain->domain_name; ?></a></td>
                             <td><?php echo $domain->domain_summary; ?></td>
                             <td>一口价</td>
                             <td><?php echo $domain->domain_price; ?>元</td>

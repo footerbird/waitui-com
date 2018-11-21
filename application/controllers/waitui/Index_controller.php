@@ -23,10 +23,10 @@ class Index_controller extends CI_Controller {
         //get_articleRecommend方法得到推荐阅读列表
         $article_recommend = $this->article->get_articleRecommend(0,3);
         $data['article_recommend'] = $article_recommend;
-		
-		//get_articleHotword方法得到热搜词列表
-		$article_hotword = $this->article->get_articleHotword(0,10);
-		$data['article_hotword'] = $article_hotword;
+        
+        //get_articleHotword方法得到热搜词列表
+        $article_hotword = $this->article->get_articleHotword(0,10);
+        $data['article_hotword'] = $article_hotword;
         
         //加载快讯模型类
         $this->load->model('waitui/Flash_model','flash');
@@ -528,6 +528,47 @@ class Index_controller extends CI_Controller {
         $data['seo'] = json_decode(json_encode($seo));
         
         $this->load->view('waitui/domain_list',$data);
+    }
+    
+    public function domain_detail($domain_name){//域名详情
+        
+        //加载商标模型类
+        $this->load->model('waitui/Domain_model','domain');
+        //get_domainDetail方法得到域名详情
+        $domain = $this->domain->get_domainDetail($domain_name);
+        if(empty($domain)){
+            $heading = '404 Page Not Found';
+            $message = 'The page you requested was not found.';
+            show_error($message, 404, $heading );
+            exit;
+        }
+        $domain->expired_distance = format_domain_exptime($domain->expired_date);
+        $data['domain'] = $domain;
+        
+        //get_domainRecommend方法得到推荐域名列表
+        $domain_recommend = $this->domain->get_domainRecommend(0,10);
+        $data['domain_recommend'] = $domain_recommend;
+        
+        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
+        if(!empty($session_userinfo->user_id)){
+            $user_id = $session_userinfo->user_id;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //get_userinfoById方法获取用户信息
+            $userinfo = $this->user->get_userinfoById($user_id);
+            $data['userinfo'] = $userinfo;
+        }
+        
+        $this->module = constant('MEMU_DOMAIN');
+        
+        $seo = array(
+            'seo_title'=>'域名市场 - 域名交易就是这么简单 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $this->load->view('waitui/domain_detail',$data);
     }
     
     public function send_smsCodeAjax(){//发送验证码

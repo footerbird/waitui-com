@@ -2147,8 +2147,8 @@ textarea{resize: none; overflow-y:auto;}
 }
 
 .mark-detail{
-   padding: 30px;
-   .thumb-box{
+    padding: 30px;
+    .thumb-box{
         float: left;
         width: 250px;
         height: 250px;
@@ -2395,6 +2395,133 @@ textarea{resize: none; overflow-y:auto;}
         margin-right: 10px;
         font{
             padding: 0 2px;
+        }
+    }
+}
+
+.domain-detail{
+    .domain-left{
+        float: left;
+        width: 700px;
+        padding: 30px;
+        .info-box{
+            .info-name{
+                line-height: 48px;
+                height: 50px;
+                border-bottom: 1px solid #e9e9e9;
+                padding-left: 20px;
+                font-size: 22px;
+                .status{
+                    display: inline-block;
+                    font-size: 13px;
+                    color: #fff;
+                    height: 24px;
+                    line-height: 25px;
+                    background-color: #77abeb;
+                    padding: 0 10px;
+                    margin-left: 10px;
+                    vertical-align: 3px;
+                    .border-radius(2px);
+                }
+            }
+            .info-dl{
+                height: 160px;
+                .after-cls;
+                dl{
+                    float: left;
+                    padding: 10px 0 10px 20px;
+                    line-height: 20px;
+                    font-size: 14px;
+                    color: #666;
+                    width: 50%;
+                    &.long{
+                        width: 100%;
+                    }
+                    dt{
+                        float: left;
+                        width: 80px;
+                    }
+                    dd{
+                        margin-left: 80px;
+                        .distance{
+                            color: @base-color;
+                            padding: 0 5px;
+                        }
+                    }
+                }
+            }
+            .info-bottom{
+                height: 40px;
+                padding-top: 4px;
+                padding-left: 48px;
+                .price{
+                    display: inline-block;
+                    font-size: 14px;
+                    color: #666;
+                    height: 30px;
+                    line-height: 30px;
+                    font{
+                        font-size: 24px;
+                        color: #ffab00;
+                        position: relative;
+                        top: 2px;
+                        margin-left: 8px;
+                    }
+                }
+            }
+        }
+    }
+    .domain-right{
+        float: right;
+        width: 300px;
+        border-left: 1px solid #f1f1f1;
+        padding-top: 32px;
+        padding-bottom: 30px;
+        .recommend{
+            border-top: 2px solid #ea6f5a;
+            .title{
+                font-size: 16px;
+                color: #3d464d;
+                text-align: center;
+                height: 48px;
+                line-height: 50px;
+                border-bottom: 1px solid #e6e8eb;
+                margin-bottom: 20px;
+            }
+            .recommend-item{
+                display: block;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #efefef;
+                margin: 0 10px 10px 10px;
+                position: relative;
+                .name{
+                    display: block;
+                    line-height: 32px;
+                    font-size: 20px;
+                    color: #5195d5;
+                    max-width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                .price{
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    font-size: 18px;
+                    color: @base-color;
+                    line-height: 32px;
+                }
+                .intro{
+                    font-size: 14px;
+                    color: #666;
+                    line-height: 22px;
+                    max-width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
         }
     }
 }
