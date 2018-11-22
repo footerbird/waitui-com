@@ -2760,6 +2760,29 @@ textarea {
   height: 24px;
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACXElEQVRIS6VWy3HCMBDFMMAxlEAqCHQAFQQqAF/43KACkgpCTnwuQAVxKohTQaCCUAIcgQHynkfLLEY2ZNCMRsKS9r19u1rhJGLaYDDIO47zjF7Ctjx6wWyfY1yie4fD4bvdbnNubY7tqzHcg+F6HAFZOx6PU/RXG9AFwGg0quDgBD1nDMzA0k+lUvNGo0HmifF4XNjv9wUQqNBDs2+F0W02m54mdQYA5vVkMknjCTD6RO/Euc99xtu+AIGMizNTATkBGOYfZqELJv1b5JE9OP+Cec/8roonAQBZgPmPkeXfxhVIB/M39BU8KdL7AADodKlGWVqtFmMQNGqdTqeXrutS34s2mUxyu90uL7HhhuFw6Bm5ZvCi7hj2v1wE6qNoTuMApFfzTCZTDoPQ+Ha7/cI6g10UkLA9B+zFrQBRaNLAZrPxcfgpDKKNg8Qim82WNAHxggF39A8dfQLZQPhdmNuMc12ykZITYE6WWh4tdhjErFG+C+Y6diIvJTpyAfJYb7XFE96RSOMCInZvBhBZjAFr4LXnJwCRSGdCWCKtOddsgddnJAPp6dUghwNKQ1HZJSBnQY5L06hsiUthfdmCNL120aICqkFiLxoRpVRg6iGbqjrd7i4V5mKw2LHWP6DfU+xecJ4VdY3ykufttpZrvgMoeu86M67NdbmG9mVUBT/IOH1QPziUCxu7tzw48J4lOqjCkQ+OuoHcODVy8TOfQJbghX4y4SWLIPdKeV/DeEWYi73IRx+sqGftmjRmfQbNO7Z3I7L+SPAxlvi4Y+RfGLIOahGGJUZ658fJ+AdoSfHyrjx4tAAAAABJRU5ErkJggg==) no-repeat;
 }
+/*面包屑导航*/
+.breadcrumbs {
+  height: 60px;
+  line-height: 62px;
+  font-size: 14px;
+}
+.breadcrumbs a {
+  font-size: 14px;
+  color: #ea6f5a;
+  text-decoration: none;
+}
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+.breadcrumbs em {
+  font-size: 14px;
+  color: #666;
+  padding: 0 5px;
+}
+.breadcrumbs span {
+  font-size: 14px;
+  color: #666;
+}
 .footer .footer-box {
   background-color: #fff;
 }
@@ -4849,6 +4872,48 @@ textarea {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+/*协议页面*/
+.agreement-protocol {
+  padding: 50px 100px;
+  background-color: #fff;
+}
+.agreement-protocol .title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 50px;
+  text-align: center;
+}
+.agreement-protocol section {
+  font-size: 16px;
+  line-height: 30px;
+  color: #3d464d;
+}
+.agreement-protocol section p {
+  margin-bottom: 25px;
+}
+.agreement-protocol section img {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.agreement-protocol section h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+.agreement-protocol section h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+.agreement-protocol section a {
+  color: #3d464d;
+  border-style: solid;
+  border-width: 0 0 1px;
+  border-color: #999;
+  padding: 0 0 1px;
+  word-break: break-word;
 }
 /*
  * public End

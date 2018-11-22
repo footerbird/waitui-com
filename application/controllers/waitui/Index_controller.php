@@ -571,6 +571,19 @@ class Index_controller extends CI_Controller {
         $this->load->view('waitui/domain_detail',$data);
     }
     
+    public function agreement(){//用户协议
+        $this->module = '';
+        
+        $seo = array(
+            'seo_title'=>'外推网用户协议 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $this->load->view('waitui/agreement',$data);
+    }
+    
     public function send_smsCodeAjax(){//发送验证码
     
         $phone = $this->input->get_post('phone');//得到手机号

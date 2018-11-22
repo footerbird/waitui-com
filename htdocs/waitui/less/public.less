@@ -846,6 +846,30 @@ textarea{resize: none; overflow-y:auto;}
     }
 }
 
+/*面包屑导航*/
+.breadcrumbs{
+    height: 60px;
+    line-height: 62px;
+    font-size: 14px;
+    a{
+        font-size: 14px;
+        color: @base-color;
+        text-decoration: none;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+    em{
+        font-size: 14px;
+        color: #666;
+        padding: 0 5px;
+    }
+    span{
+        font-size: 14px;
+        color: #666;
+    }
+}
+
 .footer{
     .footer-box{
         background-color: #fff;
@@ -2618,6 +2642,49 @@ textarea{resize: none; overflow-y:auto;}
                     white-space: nowrap;
                 }
             }
+        }
+    }
+}
+
+/*协议页面*/
+.agreement-protocol{
+    padding: 50px 100px;
+    background-color: #fff;
+    .title{
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 50px;
+        text-align: center;
+    }
+    section{
+        font-size: 16px;
+        line-height: 30px;
+        color: #3d464d;
+        p{
+            margin-bottom: 25px;
+        }
+        img{
+            display: block;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        h2{
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+        h4{
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+        a{
+            color: #3d464d;
+            border-style: solid;
+            border-width: 0 0 1px;
+            border-color: #999;
+            padding: 0 0 1px;
+            word-break: break-word;
         }
     }
 }
