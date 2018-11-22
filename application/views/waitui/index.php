@@ -28,7 +28,11 @@
             <div class="intro-box fl-l">
                 <h2>精准的定向能力<br>瞄准活跃客户</h2>
                 <p>我们根据用户的地理位置、使用设备、活跃时间以及用户的操作习惯为您描绘出精确的用户画像，帮助您选择合适的品牌营销群体</p>
-                <a href="/" target="_blank">了解更多>></a>
+                <?php if(empty($userinfo)){ ?>
+                <a href="javascript:;" onclick="func_upwin_login()" >立即体验>></a>
+                <?php }else{ ?>
+                <a href="/" >立即体验>></a>
+                <?php } ?>
             </div>
             <div class="image-box fl-r">
                 <img src="/htdocs/waitui/images/home-topic-target.png" />
@@ -52,7 +56,11 @@
             <div class="intro-box fl-r">
                 <h2 class="col-white">多样的营销方式<br>提升用户体验</h2>
                 <p class="col-white">我们提供首页开屏广告、翻页刷屏广告、品牌品牌报道、品牌活动发现频道以及品牌助力拼团等多种营销方式，帮助企业将信息推送给真正有兴趣的用户</p>
-                <a href="/" target="_blank">了解更多>></a>
+                <?php if(empty($userinfo)){ ?>
+                <a href="javascript:;" onclick="func_upwin_login()" >立即体验>></a>
+                <?php }else{ ?>
+                <a href="/" >立即体验>></a>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -63,7 +71,11 @@
             <div class="intro-box fl-l">
                 <h2>专业的品牌管理<br>提高市场竞争力</h2>
                 <p>我们拥有来自域名、商标、知识产权等行业的专业品牌保护团队，可以解决在品牌建设中会遇到的各种各样的问题，从而帮助企业树立良好的企业形象、打造品牌优势、发展品牌战略。</p>
-                <a href="/" target="_blank">了解更多>></a>
+                <?php if(empty($userinfo)){ ?>
+                <a href="javascript:;" onclick="func_upwin_login()" >立即体验>></a>
+                <?php }else{ ?>
+                <a href="/" >立即体验>></a>
+                <?php } ?>
             </div>
             <div class="image-box fl-r">
                 <img src="/htdocs/waitui/images/home-topic-manage.png" />

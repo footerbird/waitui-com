@@ -25,6 +25,9 @@
                 <section>
                     <?php echo $article->article_content; ?>
                 </section>
+                
+                <a href="javascript:;" class="dashang-btn" onclick="Pop.open('upwin_dashang');">打赏支持</a>
+                
             </article>
             
         </div>
@@ -77,6 +80,36 @@
             
         </div>
     </div>
+    
+    <!--用户登录弹框-->
+    <div id="upwin_dashang" class="upwin" style="border-radius: 8px; display: none;">
+        <a href="javascript:;" class="upwin-title-close" onclick="Pop.exit();"></a>
+        <div class="upwin-content">
+            <div class="upwin-dashang">
+                <img class="dashang-logo" src="/htdocs/waitui/images/dashang-logo.png" />
+                <p class="dashang-thanks">感谢你对外推网的支持！</p>
+                <div class="dashang-qrcode-box">
+                    <img class="dashang-qrcode" id="dashang_qrcode_alipay" src="/htdocs/waitui/images/dashang-alipay.jpg" />
+                    <img class="dashang-qrcode" id="dashang_qrcode_wechat" src="/htdocs/waitui/images/dashang-wechat.jpg" style="display: none;" />
+                </div>
+                <p class="dashang-advice">扫码打赏，建议金额1-10元</p>
+                <div class="dashang-payway">
+                    <label class="dashang-payway-alipay"><input type="radio" name="dashang_payway" id="dashang_payway_alipay" value="alipay" onclick="changeDashangPayway()" checked="checked" /><i></i></label>
+                    <label class="dashang-payway-wechat"><input type="radio" name="dashang_payway" id="dashang_payway_wechat" value="wechat" onclick="changeDashangPayway()" /><i></i></label>
+                </div>
+                <p class="dashang-bottom-tips">提醒：打赏金额将直接进入对方账号，无法退款，请您谨慎操作。</p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    function changeDashangPayway(){
+        if($("#dashang_payway_alipay").is(":checked")){//如果是支付宝打赏
+            $("#dashang_qrcode_alipay").show().siblings().hide();
+        }else{
+            $("#dashang_qrcode_wechat").show().siblings().hide();
+        }
+    }
+    </script>
     
     <?php include_once('templete/pub_foot.php') ?>
     

@@ -5,7 +5,8 @@
         <div class="container pt20 pb20 after-cls">
             <dl>
                 <dt>企业服务</dt>
-                <dd><a href="/" target="_blank">品牌营销</a></dd>
+                <!--<dd><a href="/" target="_blank">品牌营销</a></dd>-->
+                <dd><a href="/" target="_blank">企业名录</a></dd>
                 <dd><a href="<?php echo base_url() ?>/article_list.html" target="_blank">新闻资讯</a></dd>
                 <dd><a href="<?php echo base_url() ?>/mark_list.html" target="_blank">商标和域名服务</a></dd>
             </dl>
@@ -24,7 +25,7 @@
             
             <dl class="fl-r">
                 <dt class="ta-r"><img class="bottom-logo" src="/htdocs/waitui/images/bottom-logo.png" /></dt>
-                <dd class="ta-r"><p>QQ咨询：<a class="in-block" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1003049243&amp;site=qq&amp;menu=yes" target="_blank">1003049243</a></p></dd>
+                <dd class="ta-r"><p>QQ咨询：<a class="in-block" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2165223868&amp;site=qq&amp;menu=yes" target="_blank">2165223868</a></p></dd>
                 <dd class="ta-r"><p>加入我们：<a class="in-block w90" href="mailto:hr@waitui.com" target="_blank">hr@waitui.com</a></p></dd>
                 <dd class="ta-r"><p>商务合作：<a class="in-block w90" href="mailto:bd@waitui.com" target="_blank">bd@waitui.com</a></p></dd>
             </dl>
@@ -43,7 +44,7 @@
                 </ul>
                 <div class="copyright">
                     <span class="mr15">Copyright © 2018 外推网</span>
-                    <span>渝ICP备14009787号-1</span>
+                    <span>浙ICP备14009787号-1</span>
                 </div>
             </div>
         </div>
