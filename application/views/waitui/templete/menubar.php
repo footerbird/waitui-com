@@ -1,6 +1,6 @@
 <div class="header">
     <div class="top-bar <?php if($this->module == 'home'){ echo 'top-bar-home'; } ?>">
-        <div class="container">
+        <div class="container after-cls">
             <a href="/" class="top-logo"></a>
             <div class="top-nav">
                 <ul>
@@ -20,7 +20,7 @@
                     <li class="split"><a href="javascript:;">|</a></li>
                     <li class="mr0"><a href="javascript:;" onclick="func_upwin_login()" class="to-login">登录</a></li>
                     <?php }else{ ?>
-                    <li class="nav-account margin0"><a href="/">管理中心</a>
+                    <li class="nav-account margin0"><a href="<?php echo base_url() ?>my/account">管理中心</a>
                         <div class="dropdown-menu">
                             <dl>
                                 <dt><a href="javascript:;">

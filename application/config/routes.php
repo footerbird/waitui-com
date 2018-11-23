@@ -71,6 +71,8 @@ $route['domain_detail/(:any)'] = 'waitui/Index_controller/domain_detail/$1';
 
 $route['agreement.html'] = 'waitui/Index_controller/agreement';
 
+$route['my/account'] = 'waitui/Index_controller/my_account';
+
 $route['login_out'] = 'waitui/Index_controller/login_out';
 
 /*

@@ -595,6 +595,33 @@ class Index_controller extends CI_Controller {
         $this->load->view('waitui/agreement',$data);
     }
     
+    public function my_account(){//账号中心
+        
+        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
+        if(!empty($session_userinfo->user_id)){
+            $user_id = $session_userinfo->user_id;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //get_userinfoById方法获取用户信息
+            $userinfo = $this->user->get_userinfoById($user_id);
+            $data['userinfo'] = $userinfo;
+        }else{
+            redirect(base_url());
+            exit;
+        }
+        
+        $this->module = constant('MEMU_MY');
+        
+        $seo = array(
+            'seo_title'=>'用户中心 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $this->load->view('waitui/my_account',$data);
+    }
+    
     public function send_smsCodeAjax(){//发送验证码
     
         $phone = $this->input->get_post('phone');//得到手机号
