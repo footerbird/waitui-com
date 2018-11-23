@@ -2768,16 +2768,18 @@ textarea {
 }
 .breadcrumbs a {
   font-size: 14px;
-  color: #ea6f5a;
+  font-weight: 600;
+  color: #333;
   text-decoration: none;
 }
 .breadcrumbs a:hover {
-  text-decoration: underline;
+  color: #ea6f5a;
 }
 .breadcrumbs em {
-  font-size: 14px;
-  color: #666;
-  padding: 0 5px;
+  padding: 0 10px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAkElEQVQ4T2NkoBAwUqifgTYGzJgxYwMTE1NDWlraBUIuxOqCWbNmGfz//38DUHNBeno6iMYJcHph+vTpCoyMjBuABk3IzMxcgMsEvGEwf/58gZ8/fx7AZwjBQCRkCFEG/Pr1a/+/f/8mYvMKQS/g0wwKF7yBCIzK9bhshgUqbaKR4oREKPUhyxOMBUKGUWwAAGFiVhHlRKyUAAAAAElFTkSuQmCC) no-repeat;
+  background-size: 16px 16px;
+  background-position: center center;
 }
 .breadcrumbs span {
   font-size: 14px;

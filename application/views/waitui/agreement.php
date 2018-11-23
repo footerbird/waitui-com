@@ -10,7 +10,7 @@
     <?php include_once('templete/menubar.php') ?>
     
     <div class="container after-cls pb30">
-        <div class="breadcrumbs"><a href="/">首页</a><em>></em><span>用户协议</span></div>
+        <div class="breadcrumbs"><a href="/">首页</a><em></em><span>用户协议</span></div>
         <div class="agreement-protocol">
             
             <div class="title">外推网用户协议</div>
