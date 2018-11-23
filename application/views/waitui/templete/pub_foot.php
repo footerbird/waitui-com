@@ -6,12 +6,12 @@
             <dl>
                 <dt>企业服务</dt>
                 <dd><a href="/" target="_blank">企业名录</a></dd>
-                <dd><a href="<?php echo base_url() ?>/mark_list.html" target="_blank">商标服务</a></dd>
-                <dd><a href="<?php echo base_url() ?>/domain_list.html" target="_blank">域名服务</a></dd>
+                <dd><a href="<?php echo base_url() ?>mark_list.html" target="_blank">商标服务</a></dd>
+                <dd><a href="<?php echo base_url() ?>domain_list.html" target="_blank">域名服务</a></dd>
             </dl>
             <dl>
                 <dt>帮助中心</dt>
-                <dd><a href="<?php echo base_url() ?>/agreement.html" target="_blank">用户协议</a></dd>
+                <dd><a href="<?php echo base_url() ?>agreement.html" target="_blank">用户协议</a></dd>
                 <dd><a href="/" target="_blank">常见问题</a></dd>
                 <dd><a href="/" target="_blank">寻求报道</a></dd>
             </dl>
