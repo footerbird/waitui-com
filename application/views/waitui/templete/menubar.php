@@ -23,7 +23,7 @@
                     <li class="nav-account margin0"><a href="<?php echo base_url() ?>my/account">管理中心</a>
                         <div class="dropdown-menu">
                             <dl>
-                                <dt><a href="javascript:;">
+                                <dt><a href="<?php echo base_url() ?>my/account">
                                     <?php if(empty($userinfo->user_figure)){ ?>
                                     <img class="figure" src="<?php echo CDN_URL; ?>logo.png" />
                                     <?php }else{ ?>

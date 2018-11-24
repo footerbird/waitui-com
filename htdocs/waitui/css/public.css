@@ -2799,6 +2799,7 @@ textarea {
   -moz-border-radius: 50%;
   border-radius: 50%;
   margin-right: 10px;
+  margin-top: 0;
 }
 .header .top-bar .top-nav li .dropdown-menu dl dd {
   padding: 0 15px;
