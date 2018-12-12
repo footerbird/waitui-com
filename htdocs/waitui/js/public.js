@@ -130,6 +130,9 @@ var placeHolder = (function(){
 var Pop = (function(){//弹出框
     var methods = {},$obj;
     methods.open = function(id){
+        if(typeof($obj) != "undefined" && $obj.is(':visible')){
+            methods.exit();
+        }
         $("body").append('<div class="upwin-mask"></div>');
         $obj = $("#"+id);
         resetpop($obj);

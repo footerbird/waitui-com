@@ -291,17 +291,14 @@ $(function(){
     })
     
     $("#upwin_tologin").on("click",function(){
-        Pop.exit();
         func_upwin_login();
     })
     
     $("#upwin_toregister").on("click",function(){
-        Pop.exit();
         func_upwin_register();
     })
     
     $("#upwin_tofindpwd").on("click",function(){
-        Pop.exit();
         $("#upwin_findpwd").addClass("animated zoomIn");
         Pop.open("upwin_findpwd");
     })
