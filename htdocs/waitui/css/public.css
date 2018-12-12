@@ -165,7 +165,7 @@ textarea {
   text-overflow: ellipsis;
 }
 .after-cls:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -2075,7 +2075,7 @@ textarea {
 }
 /*栅格化*/
 .row:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -2226,6 +2226,19 @@ textarea {
 .upwin .upwin-content {
   padding: 0 20px;
   border-radius: 0 0 2px 2px;
+}
+.wrap-upwin {
+  position: fixed;
+  z-index: 997;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.wrap-upwin .upwin {
+  position: absolute;
 }
 .upwin-flip {
   -webkit-transform: perspective(2000px) rotateY(-90deg);
@@ -2399,7 +2412,7 @@ textarea {
   margin-bottom: 25px;
 }
 .upwin-form .form-input-box:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -2514,7 +2527,7 @@ textarea {
   margin-bottom: 34px;
 }
 .upwin-dashang .dashang-payway:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -2569,7 +2582,7 @@ textarea {
   padding-bottom: 100px;
 }
 .my-container:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -2677,7 +2690,7 @@ textarea {
   transition: all linear 0.2s;
 }
 .header .top-bar:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -2695,7 +2708,7 @@ textarea {
   float: left;
 }
 .header .top-bar .top-nav:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -3031,7 +3044,7 @@ textarea {
 }
 /*分页*/
 .pagination:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -3406,7 +3419,7 @@ textarea {
   width: 710px;
 }
 .article-left .search:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -3665,7 +3678,7 @@ textarea {
   transition: all linear 0.2s;
 }
 .article-list .article-item:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -3750,7 +3763,7 @@ textarea {
   box-sizing: border-box;
 }
 .article-right .search:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -3967,7 +3980,7 @@ textarea {
   position: relative;
 }
 .mark-top .search:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -4078,7 +4091,7 @@ textarea {
   height: auto;
 }
 .mark-top .category:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -4098,7 +4111,7 @@ textarea {
   width: 920px;
 }
 .mark-top .category ul:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -4148,7 +4161,7 @@ textarea {
   height: 40px;
 }
 .mark-top .filter:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -4233,7 +4246,7 @@ textarea {
   background-repeat: no-repeat;
 }
 .mark-block .tab:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -4277,7 +4290,7 @@ textarea {
   background-color: #fff;
 }
 .mark-block .list:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -4355,7 +4368,7 @@ textarea {
   margin-top: 20px;
 }
 .mark-list:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -4684,7 +4697,7 @@ textarea {
   height: 160px;
 }
 .mark-detail .info-box .info-dl:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -4763,7 +4776,7 @@ textarea {
   position: relative;
 }
 .domain-top .search:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -4818,7 +4831,7 @@ textarea {
   padding: 10px 0;
 }
 .domain-top .quick:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -4843,7 +4856,7 @@ textarea {
   padding-top: 20px;
 }
 .domain-list:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -4903,7 +4916,7 @@ textarea {
   margin-top: 20px;
 }
 .domain-pagination:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;
@@ -4951,7 +4964,7 @@ textarea {
   height: 160px;
 }
 .domain-detail .domain-left .info-box .info-dl:after {
-  content: ".";
+  content: " ";
   display: block;
   height: 0;
   visibility: hidden;

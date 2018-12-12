@@ -138,6 +138,10 @@ var Pop = (function(){//弹出框
     methods.exit = function(){//open方法的关闭
         $obj.hide();
         $(".upwin-mask").remove();
+        if($(".wrap-upwin").length > 0){
+            $("body").append($obj);
+            $(".wrap-upwin").remove();
+        }
     }
 
     methods.alert = function(){
@@ -238,10 +242,20 @@ var Pop = (function(){//弹出框
         //外部宽度（默认包括补白和边框）,计算边距在内
         var curDivWidth = $ob.width();
         var curDivHeight = $ob.height();
-        $ob.css({
-            "margin-left" : -curDivWidth/2,
-            "margin-top"  : -curDivHeight/2
-        }).show();
+        if(curDivHeight > $(window).height()){
+            $ob.wrap('<div class="wrap-upwin"></div>');
+            $ob.css({
+                "margin-left"   : -curDivWidth/2,
+                "top"           : 0,
+                "margin-top"    : "40px",
+                "margin-bottom" : "40px"
+            }).show();
+        }else{
+            $ob.css({
+                "margin-left" : -curDivWidth/2,
+                "margin-top"  : -curDivHeight/2
+            }).show();
+        }
     }
 
     return methods;

@@ -88,7 +88,7 @@ textarea{resize: none; overflow-y:auto;}
 }
 .after-cls{//清除浮动
     &:after{
-        content: "."; display: block; height: 0;
+        content: " "; display: block; height: 0;
         visibility: hidden; clear: both;
     }
 }
@@ -359,6 +359,19 @@ textarea{resize: none; overflow-y:auto;}
     .upwin-content{
         padding: 0 20px;
         border-radius: 0 0 2px 2px;
+    }
+}
+.wrap-upwin{
+    position:fixed;
+    z-index:997;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    .upwin{
+        position: absolute;
     }
 }
 
