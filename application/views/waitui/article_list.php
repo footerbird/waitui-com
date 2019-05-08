@@ -59,7 +59,7 @@
                 <?php foreach ($article_list as $article){ ?>
                 <a href="<?php echo base_url() ?>article_detail/<?php echo $article->article_id ?>.html" target="_blank" class="article-item">
                     <div class="thumb">
-                        <img data-src="<?php echo $article->thumb_path; ?>" src="<?php echo CDN_URL; ?>favicon_220X140.svg" alt="<?php echo $article->article_title; ?>" />
+                        <img data-src="<?php echo $article->thumb_path; ?>" src="<?php echo CDN_URL; ?>favicon_220X140.png" alt="<?php echo $article->article_title; ?>" />
                     </div>
                     <div class="limit">
                         <h4 class="title"><?php echo $article->article_title; ?></h4>

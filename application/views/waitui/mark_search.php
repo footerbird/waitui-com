@@ -124,7 +124,7 @@
                     <!--<div class="tag-type"><i class="type1"></i></div>-->
                     
                     <div class="tag-type"><i class="type<?php echo $mark->mark_category; ?>"></i></div>
-                    <img class="thumb" data-src="<?php echo $mark->image_path; ?>" src="<?php echo CDN_URL; ?>favicon_120X90.svg" />
+                    <img class="thumb" data-src="<?php echo $mark->image_path; ?>" src="<?php echo CDN_URL; ?>favicon_120X90.png" />
                     <div class="limit">
                         <h4 class="price">¥<?php echo $mark->mark_price; ?></h4>
                         <h5 class="category"><?php echo $mark->mark_category<10?'0'.$mark->mark_category:$mark->mark_category; ?>类<i></i><?php echo $mark->mark_name; ?></h5>
