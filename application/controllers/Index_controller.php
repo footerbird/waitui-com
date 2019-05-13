@@ -1,6 +1,15 @@
 <?php
 class Index_controller extends CI_Controller {
     
+    public function __construct()
+    {
+        parent::__construct();
+        // Your own constructor code
+        if(in_array($_SERVER["REMOTE_ADDR"],$this->config->item('forbid_ips'))){
+            die("Your IP Address is forbiden to view this page!");
+        }
+    }
+    
     public function index(){//主页路由
         
         //301重定向，将waitui.com跳转到www.waitui.com

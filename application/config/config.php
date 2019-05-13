@@ -519,7 +519,12 @@ $config['rewrite_short_tags'] = FALSE;
 | Comma-separated:	'10.0.1.200,192.168.5.0/24'
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
-$config['proxy_ips'] = '';
+$config['proxy_ips'] = '';//代理服务器IP
+
+$config['forbid_ips'] = array(//禁止IP黑名单
+    '62.210.201.91',
+    '62.210.202.81'
+);
 
 /*设置时区，不然上传后会报错*/
 date_default_timezone_set('Asia/ShangHai');

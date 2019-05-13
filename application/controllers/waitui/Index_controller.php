@@ -1,6 +1,15 @@
 <?php
 class Index_controller extends CI_Controller {
     
+    public function __construct()
+    {
+        parent::__construct();
+        // Your own constructor code
+        if(in_array($_SERVER["REMOTE_ADDR"],$this->config->item('forbid_ips'))){
+            die("Your IP Address is forbiden to view this page!");
+        }
+    }
+    
     public function article_list(){//文章列表
         
         //加载头条模型类
