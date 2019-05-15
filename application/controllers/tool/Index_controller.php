@@ -1,4 +1,8 @@
 <?php
+require 'QueryList/phpQuery.php';
+require 'QueryList/QueryList.php';
+use QL\QueryList;
+
 class Index_controller extends CI_Controller {
     
     public function get_tmkoo_info(){//从标库网info接口获取商标数据
@@ -104,6 +108,138 @@ class Index_controller extends CI_Controller {
         }
         $this->load->view('tool/get_tmkoo_info',$data);
         
+    }
+    
+    public function batch_company_info(){//从企查查网站抓取企业基本数据
+        header("Content-Type: text/html;charset=utf-8");
+        
+        $data = array();
+        $site_list = trim($this->input->get_post('site_list'));//得到企业详情页面列表
+        if(!empty($site_list)){
+            
+            $data["site_list"] = $site_list;
+            $result_list = array();
+            $site_list_arr = explode("\r\n", $site_list);
+            
+            foreach ($site_list_arr as $item){
+                $base_info = $this->get_company_detail(trim($item));
+                if(is_array($base_info)){//如果采到了企业基础数据
+                    
+                    if(strpos($base_info['Name'],"公司") != -1){//是公司的才去采集
+                        
+                        $company_id = md5($base_info['Name'].$base_info['OperName'].random_string_numlet(6));
+                        //加载企业模型类
+                        $this->load->model('tool/Company_model','company');
+                        $addStatus = $this->company->add_companyOne($company_id,$base_info['Name'],$base_info['OperName'],$base_info['RegistCapi'],$base_info['RealCapi'],$base_info['Status'],$base_info['StartDate'],$base_info['CreditCode'],$base_info['TaxNo'],$base_info['No'],$base_info['OrgNo'],$base_info['EconKind'],$base_info['Industry'],$base_info['CheckDate'],$base_info['BelongOrg'],$base_info['Province'],$base_info['EnName'],$base_info['OriginalName'],$base_info['InsuredPerson'],$base_info['StaffSize'],$base_info['BusinessTerm'],$base_info['Address'],$base_info['Scope'],'');
+                        if($addStatus){
+                            $result["status"] = 1;//1-成功，0-失败
+                            $result["msg"] = "插入成功，企业名称 => ".$base_info['Name'];
+                        }else{
+                            $result["status"] = 0;
+                            $result["msg"] = $base_info['Name']." => 插入失败";
+                        }
+                        
+                    }else{
+                        $result["status"] = 0;
+                        $result["msg"] = $base_info['Name']." => 企业类型不匹配";
+                    }
+                    
+                }else{
+                    $result["status"] = 0;
+                    $result["msg"] = $base_info;
+                }
+                
+                array_push($result_list,$result);
+                $data["result_list"] = $result_list;
+                sleep(1);
+                
+            }
+            
+        }else{
+            
+        }
+        $this->load->view('tool/batch_company_info',$data);
+        
+    }
+    
+    public function get_company_detail($url){
+        header("Content-Type: text/html;charset=utf-8");
+        
+        $html = file_get_contents($url);
+        $data = QueryList::Query($html,array(
+                'Name' => array('#company-top > div.row > div.content > div.row.title.jk-tip > h1','text'),
+                'OperName' => array('#Cominfo > table h2.seo','text'),
+                'Info'=> array('#Cominfo > table:nth-child(4)','text'),
+              ))->data;
+        
+        if(is_array($data) && !empty($data[0]) && !empty($data[0]['Name']) && !empty($data[0]['OperName'])){
+            $company = array();
+            $company['Name'] = $data[0]['Name'];//公司名称
+            $company['OperName'] = $data[0]['OperName'];//法定代表人
+            
+            preg_match_all('/注册资本([\s\S]*?)实缴资本/i',$data[0]['Info'],$resRegistCapi);
+            $company['RegistCapi'] = trim($resRegistCapi[1][0]);//注册资本
+            
+            preg_match_all('/实缴资本([\s\S]*?)经营状态/i',$data[0]['Info'],$resRealCapi);
+            $company['RealCapi'] = trim($resRealCapi[1][0]);//实缴资本
+            
+            preg_match_all('/经营状态([\s\S]*?)成立日期/i',$data[0]['Info'],$resStatus);
+            $company['Status'] = trim($resStatus[1][0]);//经营状态
+            
+            preg_match_all('/成立日期([\s\S]*?)统一社会信用代码/i',$data[0]['Info'],$resStartDate);
+            $company['StartDate'] = trim($resStartDate[1][0]);//成立日期
+            
+            preg_match_all('/统一社会信用代码([\s\S]*?)纳税人识别号/i',$data[0]['Info'],$resCreditCode);
+            $company['CreditCode'] = trim($resCreditCode[1][0]);//统一社会信用代码
+            
+            preg_match_all('/纳税人识别号([\s\S]*?)注册号/i',$data[0]['Info'],$resTaxNo);
+            $company['TaxNo'] = trim($resTaxNo[1][0]);//纳税人识别号
+            
+            preg_match_all('/注册号([\s\S]*?)组织机构代码/i',$data[0]['Info'],$resNo);
+            $company['No'] = trim($resNo[1][0]);//注册号
+            
+            preg_match_all('/组织机构代码([\s\S]*?)企业类型/i',$data[0]['Info'],$resOrgNo);
+            $company['OrgNo'] = trim($resOrgNo[1][0]);//组织机构代码
+            
+            preg_match_all('/企业类型([\s\S]*?)所属行业/i',$data[0]['Info'],$resEconKind);
+            $company['EconKind'] = trim($resEconKind[1][0]);//企业类型
+            
+            preg_match_all('/所属行业([\s\S]*?)核准日期/i',$data[0]['Info'],$resIndustry);
+            $company['Industry'] = trim($resIndustry[1][0]);//所属行业
+            
+            preg_match_all('/核准日期([\s\S]*?)登记机关/i',$data[0]['Info'],$resCheckDate);
+            $company['CheckDate'] = trim($resCheckDate[1][0]);//核准日期
+            
+            preg_match_all('/登记机关([\s\S]*?)所属地区/i',$data[0]['Info'],$resBelongOrg);
+            $company['BelongOrg'] = trim($resBelongOrg[1][0]);//登记机关
+            
+            preg_match_all('/所属地区([\s\S]*?)英文名/i',$data[0]['Info'],$resProvince);
+            $company['Province'] = trim($resProvince[1][0]);//所属地区
+            
+            preg_match_all('/英文名([\s\S]*?)曾用名/i',$data[0]['Info'],$resEnName);
+            $company['EnName'] = trim($resEnName[1][0]);//英文名
+            
+            preg_match_all('/曾用名([\s\S]*?)参保人数/i',$data[0]['Info'],$resOriginalName);
+            $company['OriginalName'] = trim($resOriginalName[1][0]);//曾用名
+            
+            preg_match_all('/参保人数([\s\S]*?)人员规模/i',$data[0]['Info'],$resInsuredPerson);
+            $company['InsuredPerson'] = trim($resInsuredPerson[1][0]);//参保人数
+            
+            preg_match_all('/人员规模([\s\S]*?)营业期限/i',$data[0]['Info'],$resStaffSize);
+            $company['StaffSize'] = trim($resStaffSize[1][0]);//人员规模
+            
+            preg_match_all('/营业期限([\s\S]*?)企业地址/i',$data[0]['Info'],$resBusinessTerm);
+            $company['BusinessTerm'] = trim($resBusinessTerm[1][0]);//营业期限
+            
+            preg_match_all('/企业地址([\s\S]*?)经营范围/i',$data[0]['Info'],$resAddress);
+            $company['Address'] = trim(explode('查看地图',$resAddress[1][0])[0]);//企业地址
+            
+            $company['Scope'] = trim(substr($data[0]['Info'],strpos($data[0]['Info'],"经营范围")+12));//经营范围
+            
+            return $company;
+        }else{
+            return 'error => '.$url;
+        }
     }
     
 }
