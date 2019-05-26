@@ -25,7 +25,7 @@
             
             <input type="hidden" id="article_page" value="1" />
             
-            <div class="article-list" style="border-top: 1px solid #e6e8eb;">
+            <div class="article-list" id="article_list" style="border-top: 1px solid #e6e8eb;">
                 <?php foreach ($article_list as $article){ ?>
                 <a href="<?php echo base_url() ?>article_detail/<?php echo $article->article_id ?>.html" target="_blank" class="article-item">
                     <div class="thumb">
@@ -150,7 +150,7 @@
                     page: current_page+1
                 },
                 success:function(html){
-                    var $html = $(html);
+                    var $html = $(html.replace(/[\r\n]/g,""));
                     if($html.length < 10){
                         $("#article_loading").hide();
                         $("#article_loadnone").show();

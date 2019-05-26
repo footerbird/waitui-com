@@ -85,7 +85,7 @@
                     page: current_page+1
                 },
                 success:function(html){
-                    var $html = $(html);
+                    var $html = $(html.replace(/[\r\n]/g,""));
                     if($html.length < 10){
                         $("#article_loading").hide();
                         $("#article_loadnone").show();
