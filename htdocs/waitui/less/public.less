@@ -78,6 +78,7 @@ textarea{resize: none; overflow-y:auto;}
 
 /*变量*/
 @base-color: #ea6f5a;//基本色号
+@my-color: #13426b;//控制中心色号
 
 
 /*常用的一些混合*/
@@ -681,6 +682,7 @@ textarea{resize: none; overflow-y:auto;}
         float: left;
         width: 220px;
         padding-right: 30px;
+        margin-top: -15px;
         .module-li{
             position: relative;
             padding: 8px 0;
@@ -788,6 +790,47 @@ textarea{resize: none; overflow-y:auto;}
         background-color: #fff;
         .border-radius(3px);
         box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.05);
+        .panel-title{
+            margin-top: -30px;
+            font-size: 14px;
+            color: @my-color;
+            height: 44px;
+            line-height: 46px;
+            border-bottom: 2px solid #f2f6f8;
+        }
+        .my-table{
+            border: 1px solid #f2f6f8;
+            thead{
+                background-color: #f2f6f8;
+                color: @my-color;
+                th{
+                    padding: 15px;
+                    font-size: 14px;
+                    font-weight: normal;
+                }
+            }
+            tbody{
+                tr{
+                    border-top: 1px solid #f2f6f8;
+                    td{
+                        padding: 11px 15px;
+                        line-height: 22px;
+                        font-size: 12px;
+                        word-break: break-all;
+                        a{
+                            font-size: 13px;
+                            color: @my-color;
+                            &:hover{
+                                color: @base-color;
+                                .thumb{
+                                    border: 1px solid @base-color;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -956,6 +999,14 @@ textarea{resize: none; overflow-y:auto;}
             li{
                 a{
                     color: #333;
+                    .arrow{
+                        /*用户灰色向下箭头*/
+                        display: inline-block;
+                        width: 11px;
+                        height: 6px;
+                        vertical-align: middle;
+                        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAGBAMAAADnHHnLAAAAJFBMVEUAAACnp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6eurR2EAAAAC3RSTlMA0r+xhxYPCregndIG2TQAAAAqSURBVAjXY/DeDQQODFxAcicDA4P17t0GQKpo96YCIMUmLcYAAhEBDAwAPgALe/StsTIAAAAASUVORK5CYII=) no-repeat 50%;
+                    }
                 }
             }
         }
@@ -1202,6 +1253,40 @@ textarea{resize: none; overflow-y:auto;}
 }
 .pub-lg-btn{/*默认高度44，大型按钮，颜色#ea6f5a默认色*/
     
+}
+
+//分页
+.route-pagination{
+    .after-cls;
+    margin-top: 20px;
+    .pagination{
+        float: right;
+    }
+    .total{
+        float: right;
+        font-size: 13px;
+        line-height: 24px;
+        margin-right: 10px;
+        font{
+            padding: 0 2px;
+        }
+    }
+}
+.ajax-pagination{
+    .after-cls;
+    margin-top: 20px;
+    .pagination{
+        float: right;
+    }
+    .total{
+        float: right;
+        font-size: 13px;
+        line-height: 24px;
+        margin-right: 10px;
+        font{
+            padding: 0 2px;
+        }
+    }
 }
 
 
@@ -2697,23 +2782,6 @@ textarea{resize: none; overflow-y:auto;}
                     padding: 0 8px;
                 }
             }
-        }
-    }
-}
-
-.domain-pagination{
-    .after-cls;
-    margin-top: 20px;
-    .pagination{
-        float: right;
-    }
-    .total{
-        float: right;
-        font-size: 13px;
-        line-height: 24px;
-        margin-right: 10px;
-        font{
-            padding: 0 2px;
         }
     }
 }

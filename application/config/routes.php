@@ -66,12 +66,15 @@ $route['mark_search.html'] = 'waitui/Index_controller/mark_search';//不传关�
 $route['mark_search/(:any)'] = 'waitui/Index_controller/mark_search/$1';//传关键词
 $route['mark_detail/(:any)\.html'] = 'waitui/Index_controller/mark_detail/$1';
 
-$route['domain_list.html'] = 'waitui/Index_controller/domain_list/$1';
+$route['domain_list.html'] = 'waitui/Index_controller/domain_list';
 $route['domain_detail/(:any)'] = 'waitui/Index_controller/domain_detail/$1';
 
 $route['agreement.html'] = 'waitui/Index_controller/agreement';
 
-$route['my/account'] = 'waitui/Index_controller/my_account';
+$route['my_account'] = 'waitui/Index_controller/my_account';
+$route['my_domain'] = 'waitui/Index_controller/my_domain';
+$route['my_mark'] = 'waitui/Index_controller/my_mark';
+$route['my_mark/([\d]+)'] = 'waitui/Index_controller/my_mark/$1';
 
 $route['login_out'] = 'waitui/Index_controller/login_out';
 

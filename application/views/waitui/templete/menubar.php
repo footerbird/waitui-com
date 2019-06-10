@@ -20,10 +20,10 @@
                     <li class="split"><a href="javascript:;">|</a></li>
                     <li class="mr0"><a href="javascript:;" onclick="func_upwin_login()" class="to-login">登录</a></li>
                     <?php }else{ ?>
-                    <li class="nav-account margin0"><a href="<?php echo base_url() ?>my/account">管理中心</a>
+                    <li class="nav-account margin0"><a href="<?php echo base_url() ?>my_account">管理中心</a>
                         <div class="dropdown-menu">
                             <dl>
-                                <dt><a href="<?php echo base_url() ?>my/account">
+                                <dt><a href="<?php echo base_url() ?>my_account">
                                     <?php if(empty($userinfo->user_figure)){ ?>
                                     <img class="figure" src="<?php echo CDN_URL; ?>logo.png" />
                                     <?php }else{ ?>

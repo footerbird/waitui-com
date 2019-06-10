@@ -2,12 +2,12 @@
 <html>
     
     <head>
-    <?php include_once('templete/pub_head.php') ?>
+    <?php include_once(VIEWPATH.'waitui/templete/pub_head.php') ?>
     </head>
     
     <body>
     
-    <?php include_once('templete/menubar.php') ?>
+    <?php include_once(VIEWPATH.'waitui/templete/menubar.php') ?>
     
     <div class="home-banner home-banner<?php echo rand(0,9) ?>">
         <div class="fly-box"><i class="fly"></i></div>
@@ -83,7 +83,7 @@
         </div>
     </div>
     
-    <?php include_once('templete/pub_foot.php') ?>
+    <?php include_once(VIEWPATH.'waitui/templete/pub_foot.php') ?>
     
     <script type="text/javascript">
     $(function(){

@@ -2,12 +2,12 @@
 <html>
     
     <head>
-    <?php include_once('templete/pub_head.php') ?>
+    <?php include_once(VIEWPATH.'waitui/templete/pub_head.php') ?>
     </head>
     
     <body>
     
-    <?php include_once('templete/menubar.php') ?>
+    <?php include_once(VIEWPATH.'waitui/templete/menubar.php') ?>
     
     <div class="domain-top">
     <form id="search_form" action="<?php echo base_url() ?>domain_list.html" method="post">
@@ -67,7 +67,7 @@
                     </tbody>
                 </table>
                 
-                <div class="domain-pagination">
+                <div class="route-pagination">
                 <?php echo $this->pagination->create_links(); ?>
                 <div class="total">共<font><?php echo $page_count; ?></font>条，每页显示<font><?php echo $page_size; ?></font>条</div>
                 </div>
@@ -76,7 +76,7 @@
         </div>
     </div>
     
-    <?php include_once('templete/pub_foot.php') ?>
+    <?php include_once(VIEWPATH.'waitui/templete/pub_foot.php') ?>
     
     <script type="text/javascript">
     

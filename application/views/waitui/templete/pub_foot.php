@@ -17,7 +17,7 @@
             </dl>
             <dl>
                 <dt>联系我们</dt>
-                <dd><a href="/" target="_blank">杭州再下一城网络科技有限公司</a></dd>
+                <dd><a href="/" target="_blank">杭州外推网络科技有限公司</a></dd>
                 <dd><p>公司地址&nbsp;&nbsp;杭州拱墅区上塘路333号海外海写字楼11楼</p></dd>
                 <dd><p>公司电话&nbsp;&nbsp;400-889-0135（09:00~18:00）</p></dd>
             </dl>

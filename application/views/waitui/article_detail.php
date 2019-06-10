@@ -2,7 +2,7 @@
 <html>
     
     <head>
-    <?php include_once('templete/pub_head.php') ?>
+    <?php include_once(VIEWPATH.'waitui/templete/pub_head.php') ?>
     <script type="text/javascript">
     function loadHtmlImg(obj){}
     </script>
@@ -10,7 +10,7 @@
     
     <body>
     
-    <?php include_once('templete/menubar.php') ?>
+    <?php include_once(VIEWPATH.'waitui/templete/menubar.php') ?>
     
     <div class="container after-cls pt30 pb30">
         <div class="article-left bg-white pl20 pr20">
@@ -111,7 +111,7 @@
     }
     </script>
     
-    <?php include_once('templete/pub_foot.php') ?>
+    <?php include_once(VIEWPATH.'waitui/templete/pub_foot.php') ?>
     
     <script type="text/javascript">
     $(function(){

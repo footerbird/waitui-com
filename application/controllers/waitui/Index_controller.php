@@ -628,7 +628,106 @@ class Index_controller extends CI_Controller {
         );
         $data['seo'] = json_decode(json_encode($seo));
         
-        $this->load->view('waitui/my_account',$data);
+        $this->load->view('waitui/my/my_account',$data);
+    }
+    
+    public function my_domain(){//我的域名
+        
+        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
+        if(!empty($session_userinfo->user_id)){
+            $user_id = $session_userinfo->user_id;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //get_userinfoById方法获取用户信息
+            $userinfo = $this->user->get_userinfoById($user_id);
+            $data['userinfo'] = $userinfo;
+        }else{
+            redirect(base_url());
+            exit;
+        }
+        
+        $this->module = constant('MEMU_MY');
+        
+        $seo = array(
+            'seo_title'=>'我的域名 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $this->load->view('waitui/my/my_domain',$data);
+    }
+    
+    public function my_mark($page = 1){//我的商标
+        
+        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
+        if(!empty($session_userinfo->user_id)){
+            $user_id = $session_userinfo->user_id;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //get_userinfoById方法获取用户信息
+            $userinfo = $this->user->get_userinfoById($user_id);
+            $data['userinfo'] = $userinfo;
+        }else{
+            redirect(base_url());
+            exit;
+        }
+        
+        //加载商标模型类
+        $this->load->model('waitui/Mark_model','mark');
+        //get_markCount方法得到商标总数
+        $count = $this->mark->get_markCount('');
+        
+        $page_size = 10;//单页记录数
+        $offset = ($page-1)*$page_size;//偏移量
+        switch($page){
+            case 1:
+                $num_links = 4;//num_links选中页右边的个数
+                break;
+            case 2:
+                $num_links = 3;
+                break;
+            case ceil($count/$page_size):
+                $num_links = 4;
+                break;
+            case ceil($count/$page_size)-1:
+                $num_links = 3;
+                break;
+            default:
+                $num_links = 2;
+                break;
+        }
+        
+        $this->load->library('pagination');
+        $config['page_query_string'] = FALSE;//使用 URI 段
+        $config['reuse_query_string'] = TRUE;//将查询字符串参数添加到 URI 分段的后面
+        $config['base_url'] = base_url().'my_mark';
+        $config['total_rows'] = $count;
+        $config['per_page'] = $page_size;// $pagesize每页条数
+        $config['num_links'] = $num_links;//设置选中页左右两边的页数
+        $this->pagination->initialize($config);
+        $data['page_count'] = $count;
+        $data['page_size'] = $page_size;
+        
+        //get_markList方法得到商标列表信息
+        $mark_list = $this->mark->get_markList('',$offset,$page_size);
+        foreach($mark_list as $mark){
+            //get_categoryName获取大类名称
+            $category = $this->mark->get_categoryName($mark->mark_category);
+            $mark->category_name = $category->category_name;
+        }
+        $data['mark_list'] = $mark_list;
+        
+        $this->module = constant('MEMU_MY');
+        
+        $seo = array(
+            'seo_title'=>'我的商标 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $this->load->view('waitui/my/my_mark',$data);
     }
     
     public function send_smsCodeAjax(){//发送验证码

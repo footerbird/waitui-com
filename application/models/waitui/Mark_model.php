@@ -8,14 +8,23 @@ class Mark_model extends CI_Model {
     
     public function get_markList($category,$start,$length){//商标列表页面,传入mark_category,如'15',输出前$length条数
         if($category == ''){
-            $sql = "select mark_regno,regno_md,mark_name,image_path,mark_category,app_range,mark_price from mark_info "
+            $sql = "select mark_regno,regno_md,mark_name,image_path,mark_category,private_limit,app_range,mark_price from mark_info "
                 ." limit ".$start.",".$length;
         }else{
-            $sql = "select mark_regno,regno_md,mark_name,image_path,mark_category,app_range,mark_price from mark_info "
+            $sql = "select mark_regno,regno_md,mark_name,image_path,mark_category,private_limit,app_range,mark_price from mark_info "
                 ." where mark_category = ".$category." limit ".$start.",".$length;
         }
         $query = $this->db->query($sql);
         return $query->result();
+    }
+    
+    public function get_markCount($category){//在售商标总数
+        $sql = "select mark_regno from mark_info";
+        if($category != ""){
+            $sql = $sql." where mark_category = '".$category."'";
+        }
+        $query = $this->db->query($sql);
+        return $query->num_rows();
     }
     
     public function get_markCategory(){//商标页面,输出商标大类信息

@@ -2,12 +2,12 @@
 <html>
     
     <head>
-    <?php include_once('templete/pub_head.php') ?>
+    <?php include_once(VIEWPATH.'waitui/templete/pub_head.php') ?>
     </head>
     
     <body>
     
-    <?php include_once('templete/menubar.php') ?>
+    <?php include_once(VIEWPATH.'waitui/templete/menubar.php') ?>
     
     <div class="container after-cls pb30">
         <div class="breadcrumbs"><a href="/">首页</a><em></em><span>用户协议</span></div>
@@ -15,7 +15,7 @@
             
             <div class="title">外推网用户协议</div>
             <section>
-                <p>感谢您申请外推网账户！在成为外推网用户之前，请您仔细阅读以下条文，确保您理解并同意本协议全部内容。外推网平台是由杭州再下一城网络科技有限公司运营的品牌管理综合平台，域名为waitui.com。以下内容将构成您和杭州再下一城网络科技有限公司之间的服务合同条款。</p>
+                <p>感谢您申请外推网账户！在成为外推网用户之前，请您仔细阅读以下条文，确保您理解并同意本协议全部内容。外推网平台是由杭州外推网络科技有限公司运营的品牌管理综合平台，域名为waitui.com。以下内容将构成您和杭州外推网络科技有限公司之间的服务合同条款。</p>
                 <h4>一、用户注册</h4>
                 <p>您同意本协议并注册成功即成为外推网的注册用户直至您的账户注销。外推网可能在必要的时候对本协议条款及外推网各单项服务协议进行更改，此种更改在外推网上公布或在具体服务过程中经双方以口头、书面等形式协商一致生效。您可以选择停止使用外推网相关的服务或者注销您在外推网的账户，否则外推网将认为您同意更改后的服务条款。未在外推网发布或在具体服务过程中未经外推网告知的服务条款将不具有法律效力，除非签有书面协议，并且仅对签署协议的当事人有效。</p>
                 <h4>二、用户账户</h4>
@@ -71,7 +71,7 @@
         </div>
     </div>
     
-    <?php include_once('templete/pub_foot.php') ?>
+    <?php include_once(VIEWPATH.'waitui/templete/pub_foot.php') ?>
     
     <script type="text/javascript">
     $(function(){
