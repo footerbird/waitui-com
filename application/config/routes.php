@@ -75,6 +75,10 @@ $route['my_account'] = 'waitui/Index_controller/my_account';
 $route['my_domain'] = 'waitui/Index_controller/my_domain';
 $route['my_mark'] = 'waitui/Index_controller/my_mark';
 $route['my_mark/([\d]+)'] = 'waitui/Index_controller/my_mark/$1';
+$route['my_message'] = 'waitui/Index_controller/my_message';
+$route['my_message/([\d]+)'] = 'waitui/Index_controller/my_message/$1';
+$route['login_log'] = 'waitui/Index_controller/login_log';
+$route['login_log/([\d]+)'] = 'waitui/Index_controller/login_log/$1';
 
 $route['login_out'] = 'waitui/Index_controller/login_out';
 

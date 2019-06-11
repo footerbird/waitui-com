@@ -620,6 +620,7 @@ class Index_controller extends CI_Controller {
         }
         
         $this->module = constant('MEMU_MY');
+        $this->leftmenu = 'my_account';
         
         $seo = array(
             'seo_title'=>'用户中心 | 外推网',
@@ -647,6 +648,7 @@ class Index_controller extends CI_Controller {
         }
         
         $this->module = constant('MEMU_MY');
+        $this->leftmenu = 'my_domain';
         
         $seo = array(
             'seo_title'=>'我的域名 | 外推网',
@@ -719,6 +721,7 @@ class Index_controller extends CI_Controller {
         $data['mark_list'] = $mark_list;
         
         $this->module = constant('MEMU_MY');
+        $this->leftmenu = 'my_mark';
         
         $seo = array(
             'seo_title'=>'我的商标 | 外推网',
@@ -728,6 +731,62 @@ class Index_controller extends CI_Controller {
         $data['seo'] = json_decode(json_encode($seo));
         
         $this->load->view('waitui/my/my_mark',$data);
+    }
+    
+    public function my_message($page = 1){//我的消息
+        
+        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
+        if(!empty($session_userinfo->user_id)){
+            $user_id = $session_userinfo->user_id;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //get_userinfoById方法获取用户信息
+            $userinfo = $this->user->get_userinfoById($user_id);
+            $data['userinfo'] = $userinfo;
+        }else{
+            redirect(base_url());
+            exit;
+        }
+        
+        $this->module = constant('MEMU_MY');
+        $this->leftmenu = 'my_message';
+        
+        $seo = array(
+            'seo_title'=>'我的消息 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $this->load->view('waitui/my/my_message',$data);
+    }
+    
+    public function login_log(){//登录日志
+        
+        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
+        if(!empty($session_userinfo->user_id)){
+            $user_id = $session_userinfo->user_id;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //get_userinfoById方法获取用户信息
+            $userinfo = $this->user->get_userinfoById($user_id);
+            $data['userinfo'] = $userinfo;
+        }else{
+            redirect(base_url());
+            exit;
+        }
+        
+        $this->module = constant('MEMU_MY');
+        $this->leftmenu = 'login_log';
+        
+        $seo = array(
+            'seo_title'=>'登录日志 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $this->load->view('waitui/my/login_log',$data);
     }
     
     public function send_smsCodeAjax(){//发送验证码
