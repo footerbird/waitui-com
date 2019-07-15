@@ -6,13 +6,13 @@ class User_model extends CI_Model {
         parent::__construct();
     }
     
-    public function get_userinfoById($user_id){//根据用户id查询用户信息
+    public function get_userDetail($user_id){//根据用户id查询用户信息
         $sql = "select * from user_info where user_id = ".$user_id;
         $query = $this->db->query($sql);
         return $query->row();
     }
     
-    public function get_userinfoByPhone($phone){//根据用户手机号查询用户信息
+    public function get_userByPhone($phone){//根据用户手机号查询用户信息
         $sql = "select * from user_info where user_phone = '".$phone."'";
         $query = $this->db->query($sql);
         return $query->row();
@@ -24,7 +24,7 @@ class User_model extends CI_Model {
         return $query->num_rows();
     }
     
-    public function add_userinfoOne($phone,$pwd,$name){//创建用户新账户
+    public function add_userOne($phone,$pwd,$name){//创建用户新账户
         $sql = "insert into user_info(user_phone,user_pwd,user_name)values('".$phone."','".$pwd."','".$name."')";
         $query = $this->db->query($sql);
         return $query;

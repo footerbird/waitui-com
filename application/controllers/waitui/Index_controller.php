@@ -13,11 +13,7 @@ class Index_controller extends CI_Controller {
     public function get_userinfo(){//验证是否登录,并获取用户信息
         $session_userinfo = $this->session->userinfo;//从session中获取用户信息
         if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
+            $userinfo = $session_userinfo;
             return $userinfo;
         }else{
             if($this->module == constant('MEMU_MY')){
@@ -40,7 +36,7 @@ class Index_controller extends CI_Controller {
         $article_list = $this->article->get_articleList('',0,10);
         foreach($article_list as $article){
             $article->create_time = format_article_time($article->create_time);
-            $author_info = $this->article->get_authorinfoById($article->author_id);
+            $author_info = $this->article->get_authorDetail($article->author_id);
             $article->author_name = $author_info->author_name;
         }
         $data['article_first'] = $article_list[0];
@@ -101,7 +97,7 @@ class Index_controller extends CI_Controller {
         $article_list = $this->article->get_articleList($category,$offset,$page_size);
         foreach($article_list as $article){
             $article->create_time = format_article_time($article->create_time);
-            $author_info = $this->article->get_authorinfoById($article->author_id);
+            $author_info = $this->article->get_authorDetail($article->author_id);
             $article->author_name = $author_info->author_name;
         }
         
@@ -130,7 +126,7 @@ class Index_controller extends CI_Controller {
         $article_list = $this->article->get_articleSearch(urldecode($keyword),0,10);
         foreach($article_list as $article){
             $article->create_time = format_article_time($article->create_time);
-            $author_info = $this->article->get_authorinfoById($article->author_id);
+            $author_info = $this->article->get_authorDetail($article->author_id);
             $article->author_name = $author_info->author_name;
         }
         $data['article_list'] = $article_list;
@@ -187,7 +183,7 @@ class Index_controller extends CI_Controller {
         $article_list = $this->article->get_articleSearch(urldecode($keyword),$offset,$page_size);
         foreach($article_list as $article){
             $article->create_time = format_article_time($article->create_time);
-            $author_info = $this->article->get_authorinfoById($article->author_id);
+            $author_info = $this->article->get_authorDetail($article->author_id);
             $article->author_name = $author_info->author_name;
         }
         $data['article_list'] = $article_list;
@@ -214,7 +210,7 @@ class Index_controller extends CI_Controller {
         }
         $article->create_time = format_article_time($article->create_time);
         
-        $author_info = $this->article->get_authorinfoById($article->author_id);
+        $author_info = $this->article->get_authorDetail($article->author_id);
         $article->author_name = $author_info->author_name;
         $article->figure_path = $author_info->figure_path;
         $data['article'] = $article;
@@ -993,7 +989,7 @@ class Index_controller extends CI_Controller {
         
         if($login_success == 1){//如果正确，则登录
             //根据手机号拿到用户信息
-            $userinfo = $this->user->get_userinfoByPhone($phone);
+            $userinfo = $this->user->get_userByPhone($phone);
             
             if(isset($userinfo) && !empty($userinfo)){
                 //记录用户登录日志
@@ -1048,12 +1044,12 @@ class Index_controller extends CI_Controller {
         if($smsValid == 1){//如果正确，则添加新账户
             //加载用户模型类
             $this->load->model('waitui/User_model','user');
-            //add_userinfoOne方法添加新账户
-            $createStatus = $this->user->add_userinfoOne($phone,md5($pwd),$phone);
+            //add_userOne方法添加新账户
+            $createStatus = $this->user->add_userOne($phone,md5($pwd),$phone);
             if($createStatus){//如果添加成功
                 
                 //根据手机号拿到用户信息
-                $userinfo = $this->user->get_userinfoByPhone($phone);
+                $userinfo = $this->user->get_userByPhone($phone);
                 if(isset($userinfo) && !empty($userinfo)){
                     //记录用户登录日志
                     $this->record_user_login_info($userinfo,$ip_address);
@@ -1111,7 +1107,7 @@ class Index_controller extends CI_Controller {
             if($resetStatus){//如果重设密码成功
                 
                 //根据手机号拿到用户信息
-                $userinfo = $this->user->get_userinfoByPhone($phone);
+                $userinfo = $this->user->get_userByPhone($phone);
                 if(isset($userinfo) && !empty($userinfo)){
                     
                     $data['state'] = 'success';

@@ -44,11 +44,7 @@ class Index_controller extends CI_Controller {
             
             $session_userinfo = $this->session->userinfo;//从session中获取用户信息
             if(!empty($session_userinfo->user_id)){
-                $user_id = $session_userinfo->user_id;
-                //加载用户模型类
-                $this->load->model('waitui/User_model','user');
-                //get_userinfoById方法获取用户信息
-                $userinfo = $this->user->get_userinfoById($user_id);
+                $userinfo = $session_userinfo;
                 $data['userinfo'] = $userinfo;
             }
             

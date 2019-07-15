@@ -19,7 +19,7 @@ class Index_controller extends CI_Controller {
         //加载用户模型类
         $this->load->model('mobile/User_model','user');
         foreach($ad_list as $advertisement){
-            $author_info = $this->user->get_userinfoById($advertisement->author_id);
+            $author_info = $this->user->get_userDetail($advertisement->author_id);
             $advertisement->author_name = $author_info->user_name;
             $advertisement->author_figure = $author_info->user_figure;
         }
@@ -35,8 +35,8 @@ class Index_controller extends CI_Controller {
                 $advertisement->is_heart = $this->advertisement->isheart_adUserHeart($advertisement->ad_id,$user_id);
             }
             
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
+            //get_userDetail方法获取用户信息
+            $userinfo = $this->user->get_userDetail($user_id);
             $data['userinfo'] = $userinfo;
         }
         
@@ -71,7 +71,7 @@ class Index_controller extends CI_Controller {
         //加载用户模型类
         $this->load->model('mobile/User_model','user');
         foreach($ad_list as $advertisement){
-            $author_info = $this->user->get_userinfoById($advertisement->author_id);
+            $author_info = $this->user->get_userDetail($advertisement->author_id);
             $advertisement->author_name = $author_info->user_name;
             $advertisement->author_figure = $author_info->user_figure;
         }
@@ -87,8 +87,8 @@ class Index_controller extends CI_Controller {
                 $advertisement->is_heart = $this->advertisement->isheart_adUserHeart($advertisement->ad_id,$user_id);
             }
             
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
+            //get_userDetail方法获取用户信息
+            $userinfo = $this->user->get_userDetail($user_id);
             $data['userinfo'] = $userinfo;
         }
         
@@ -108,7 +108,7 @@ class Index_controller extends CI_Controller {
         //加载用户模型类
         $this->load->model('mobile/User_model','user');
         foreach($ad_list as $advertisement){
-            $author_info = $this->user->get_userinfoById($advertisement->author_id);
+            $author_info = $this->user->get_userDetail($advertisement->author_id);
             $advertisement->author_name = $author_info->user_name;
             $advertisement->author_figure = $author_info->user_figure;
         }
@@ -124,8 +124,8 @@ class Index_controller extends CI_Controller {
                 $advertisement->is_heart = $this->advertisement->isheart_adUserHeart($advertisement->ad_id,$user_id);
             }
             
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
+            //get_userDetail方法获取用户信息
+            $userinfo = $this->user->get_userDetail($user_id);
             $data['userinfo'] = $userinfo;
         }
         
@@ -145,7 +145,7 @@ class Index_controller extends CI_Controller {
         //加载用户模型类
         $this->load->model('mobile/User_model','user');
         foreach($ad_list as $advertisement){
-            $author_info = $this->user->get_userinfoById($advertisement->author_id);
+            $author_info = $this->user->get_userDetail($advertisement->author_id);
             $advertisement->author_name = $author_info->user_name;
             $advertisement->author_figure = $author_info->user_figure;
         }
@@ -161,8 +161,8 @@ class Index_controller extends CI_Controller {
                 $advertisement->is_heart = $this->advertisement->isheart_adUserHeart($advertisement->ad_id,$user_id);
             }
             
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
+            //get_userDetail方法获取用户信息
+            $userinfo = $this->user->get_userDetail($user_id);
             $data['userinfo'] = $userinfo;
         }
         
@@ -180,7 +180,7 @@ class Index_controller extends CI_Controller {
         //加载用户模型类
         $this->load->model('mobile/User_model','user');
         foreach($ad_list as $advertisement){
-            $author_info = $this->user->get_userinfoById($advertisement->author_id);
+            $author_info = $this->user->get_userDetail($advertisement->author_id);
             $advertisement->author_name = $author_info->user_name;
             $advertisement->author_figure = $author_info->user_figure;
         }
@@ -196,8 +196,8 @@ class Index_controller extends CI_Controller {
                 $advertisement->is_heart = $this->advertisement->isheart_adUserHeart($advertisement->ad_id,$user_id);
             }
             
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
+            //get_userDetail方法获取用户信息
+            $userinfo = $this->user->get_userDetail($user_id);
             $data['userinfo'] = $userinfo;
         }
         
@@ -214,15 +214,15 @@ class Index_controller extends CI_Controller {
         $ad_info = $this->advertisement->get_adinfoById($ad_id);
         //加载用户模型类
         $this->load->model('mobile/User_model','user');
-        $author_info = $this->user->get_userinfoById($ad_info->author_id);
+        $author_info = $this->user->get_userDetail($ad_info->author_id);
         $ad_info->author_name = $author_info->user_name;
         $data['ad_info'] = $ad_info;
         
         $session_userinfo = $this->session->userinfo;//从session中获取用户信息
         if(!empty($session_userinfo->user_id)){
             $user_id = $session_userinfo->user_id;
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
+            //get_userDetail方法获取用户信息
+            $userinfo = $this->user->get_userDetail($user_id);
             $data['userinfo'] = $userinfo;
         }
         
@@ -260,8 +260,8 @@ class Index_controller extends CI_Controller {
             $user_id = $session_userinfo->user_id;
             //加载用户模型类
             $this->load->model('mobile/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
+            //get_userDetail方法获取用户信息
+            $userinfo = $this->user->get_userDetail($user_id);
             $data['userinfo'] = $userinfo;
         }
         
@@ -328,7 +328,7 @@ class Index_controller extends CI_Controller {
         $article = $this->article->get_articleDetail($article_id);
         $article->create_time = format_article_time($article->create_time);
         
-        $author_info = $this->article->get_authorinfoById($article->author_id);
+        $author_info = $this->article->get_authorDetail($article->author_id);
         $article->author_name = $author_info->author_name;
         $article->figure_path = $author_info->figure_path;
         $data['article'] = $article;
@@ -356,7 +356,7 @@ class Index_controller extends CI_Controller {
         $article = $this->article->get_articleDetail($article_id);
         $article->create_time = format_article_time($article->create_time);
         
-        $author_info = $this->article->get_authorinfoById($article->author_id);
+        $author_info = $this->article->get_authorDetail($article->author_id);
         $article->author_name = $author_info->author_name;
         $article->figure_path = $author_info->figure_path;
         $data['article'] = $article;
@@ -393,8 +393,8 @@ class Index_controller extends CI_Controller {
             $user_id = $session_userinfo->user_id;
             //加载用户模型类
             $this->load->model('mobile/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
+            //get_userDetail方法获取用户信息
+            $userinfo = $this->user->get_userDetail($user_id);
             $data['userinfo'] = $userinfo;
         }
         
@@ -446,8 +446,8 @@ class Index_controller extends CI_Controller {
             $user_id = $session_userinfo->user_id;
             //加载用户模型类
             $this->load->model('mobile/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
+            //get_userDetail方法获取用户信息
+            $userinfo = $this->user->get_userDetail($user_id);
             $data['userinfo'] = $userinfo;
         }
         
@@ -468,8 +468,8 @@ class Index_controller extends CI_Controller {
             $user_id = $session_userinfo->user_id;
             //加载用户模型类
             $this->load->model('mobile/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
+            //get_userDetail方法获取用户信息
+            $userinfo = $this->user->get_userDetail($user_id);
             $data['userinfo'] = $userinfo;
             //get_unreadMsg方法获取未读消息数量
             $msg_count = $this->user->get_unreadMsg($user_id);
@@ -508,8 +508,8 @@ class Index_controller extends CI_Controller {
             $user_id = $session_userinfo->user_id;
             //加载用户模型类
             $this->load->model('mobile/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
+            //get_userDetail方法获取用户信息
+            $userinfo = $this->user->get_userDetail($user_id);
             $data['userinfo'] = $userinfo;
         }else{
             redirect(base_url().'m/');
@@ -537,8 +537,8 @@ class Index_controller extends CI_Controller {
             $user_id = $session_userinfo->user_id;
             //加载用户模型类
             $this->load->model('mobile/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
+            //get_userDetail方法获取用户信息
+            $userinfo = $this->user->get_userDetail($user_id);
             $data['userinfo'] = $userinfo;
         }else{
             redirect(base_url().'m/');
@@ -564,8 +564,8 @@ class Index_controller extends CI_Controller {
             $user_id = $session_userinfo->user_id;
             //加载用户模型类
             $this->load->model('mobile/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
+            //get_userDetail方法获取用户信息
+            $userinfo = $this->user->get_userDetail($user_id);
             
             $imgInfo = getimagesize($figure_path);
             switch($imgInfo[2]){
@@ -637,8 +637,8 @@ class Index_controller extends CI_Controller {
         $user_id = $session_userinfo->user_id;
         //加载用户模型类
         $this->load->model('mobile/User_model','user');
-        //get_userinfoById方法获取用户信息
-        $userinfo = $this->user->get_userinfoById($user_id);
+        //get_userDetail方法获取用户信息
+        $userinfo = $this->user->get_userDetail($user_id);
         
         $randScore = rand(1,5);
         //加载广告模型类
@@ -680,8 +680,8 @@ class Index_controller extends CI_Controller {
         $user_id = $session_userinfo->user_id;
         //加载用户模型类
         $this->load->model('mobile/User_model','user');
-        //get_userinfoById方法获取用户信息
-        $userinfo = $this->user->get_userinfoById($user_id);
+        //get_userDetail方法获取用户信息
+        $userinfo = $this->user->get_userDetail($user_id);
         
         $randScore = rand(1,5);
         
@@ -835,7 +835,7 @@ class Index_controller extends CI_Controller {
         
         if($login_success == 1){//如果正确，则登录
             //根据手机号拿到用户信息
-            $userinfo = $this->user->get_userinfoByPhone($phone);
+            $userinfo = $this->user->get_userByPhone($phone);
             
             if(isset($userinfo) && !empty($userinfo)){
                 //记录用户登录日志
@@ -890,12 +890,12 @@ class Index_controller extends CI_Controller {
         if($smsValid == 1){//如果正确，则添加新账户
             //加载用户模型类
             $this->load->model('mobile/User_model','user');
-            //add_userinfoOne方法添加新账户
-            $createStatus = $this->user->add_userinfoOne($phone,md5($pwd),$phone);
+            //add_userOne方法添加新账户
+            $createStatus = $this->user->add_userOne($phone,md5($pwd),$phone);
             if($createStatus){//如果添加成功
                 
                 //根据手机号拿到用户信息
-                $userinfo = $this->user->get_userinfoByPhone($phone);
+                $userinfo = $this->user->get_userByPhone($phone);
                 if(isset($userinfo) && !empty($userinfo)){
                     //记录用户登录日志
                     $this->record_user_login_info($userinfo,$ip_address);
@@ -953,7 +953,7 @@ class Index_controller extends CI_Controller {
             if($resetStatus){//如果重设密码成功
                 
                 //根据手机号拿到用户信息
-                $userinfo = $this->user->get_userinfoByPhone($phone);
+                $userinfo = $this->user->get_userByPhone($phone);
                 if(isset($userinfo) && !empty($userinfo)){
                     
                     $data['state'] = 'success';

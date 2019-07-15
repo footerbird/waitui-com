@@ -32,7 +32,7 @@ class Article_model extends CI_Model {
         return $query;
     }
     
-    public function get_authorinfoById($author_id){//获取作者信息，传入author_id
+    public function get_authorDetail($author_id){//获取作者信息，传入author_id
         $sql = "select * from article_author where author_id = ".$author_id;
         $query = $this->db->query($sql);
         return $query->row();
