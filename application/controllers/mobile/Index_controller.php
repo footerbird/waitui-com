@@ -984,7 +984,7 @@ class Index_controller extends CI_Controller {
         if(isset($_SESSION['userinfo'])){
             unset($_SESSION['userinfo']);
         }
-        redirect(base_url());
+        redirect(base_url().'m/');
     }
     
     public function set_adHeartAjax(){//ajax点赞广告或者取消广告

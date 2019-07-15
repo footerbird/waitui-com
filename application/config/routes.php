@@ -71,12 +71,28 @@ $route['domain_detail/(:any)'] = 'waitui/Index_controller/domain_detail/$1';
 
 $route['agreement.html'] = 'waitui/Index_controller/agreement';
 
-$route['my_account'] = 'waitui/Index_controller/my_account';
+$route['my_console'] = 'waitui/Index_controller/my_console';
+
 $route['my_domain'] = 'waitui/Index_controller/my_domain';
+
 $route['my_mark'] = 'waitui/Index_controller/my_mark';
 $route['my_mark/([\d]+)'] = 'waitui/Index_controller/my_mark/$1';
+
+$route['my_order'] = 'waitui/Index_controller/my_order';
+$route['my_order/([\d]+)'] = 'waitui/Index_controller/my_order/$1';
+
+$route['my_invoice'] = 'waitui/Index_controller/my_invoice';
+$route['invoice_record'] = 'waitui/Index_controller/invoice_record';
+
+$route['my_coupon'] = 'waitui/Index_controller/my_coupon';
+$route['my_coupon/([\d]+)'] = 'waitui/Index_controller/my_coupon/$1';
+
+$route['my_account'] = 'waitui/Index_controller/my_account';
+$route['company_certify'] = 'waitui/Index_controller/company_certify';
+
 $route['my_message'] = 'waitui/Index_controller/my_message';
 $route['my_message/([\d]+)'] = 'waitui/Index_controller/my_message/$1';
+
 $route['login_log'] = 'waitui/Index_controller/login_log';
 $route['login_log/([\d]+)'] = 'waitui/Index_controller/login_log/$1';
 
@@ -108,3 +124,25 @@ $route['m/nickname.html'] = 'mobile/Index_controller/nickname';
 $route['m/about.html'] = 'mobile/Index_controller/about';
 
 $route['m/agreement.html'] = 'mobile/Index_controller/agreement';
+
+/*
+ * 管理后台
+ * */
+$route['admin'] = 'admin/Index_controller';
+
+$route['admin/login'] = 'admin/Index_controller/login';
+
+$route['admin/admin_list'] = 'admin/Index_controller/admin_list';
+$route['admin/admin_update'] = 'admin/Index_controller/admin_update';
+$route['admin/admin_update_do'] = 'admin/Index_controller/admin_update_do';
+
+$route['admin/butler_list'] = 'admin/Index_controller/butler_list';
+$route['admin/butler_update'] = 'admin/Index_controller/butler_update';
+$route['admin/butler_update_do'] = 'admin/Index_controller/butler_update_do';
+
+$route['admin/user_list'] = 'admin/Index_controller/user_list';
+$route['admin/user_update'] = 'admin/Index_controller/user_update';
+$route['admin/user_update_do'] = 'admin/Index_controller/user_update_do';
+
+$route['admin/login_out'] = 'admin/Index_controller/login_out';
+

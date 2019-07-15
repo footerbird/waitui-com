@@ -13,6 +13,15 @@
         <?php include_once(VIEWPATH.'waitui/templete/my_leftmenu.php') ?>
         <div class="my-mainpanel">
             <div class="panel-title mb20">我的商标</div>
+            <div class="my-table-filter after-cls">
+                <input type="text" placeholder="输入商标名称" class="fl-l mr10" />
+                <a href="javascript:;" class="pub-btn fl-l mr10">搜索</a>
+                <a href="<?php echo base_url() ?>mark_list.html" target="_blank" class="pub-btn-yellow fl-l"><i class="ico-shop"></i>淘商标</a>
+                <div class="fl-r">
+                    <a href="javascript:;" class="pub-btn-blue mr10" onclick="contactAdmin()">求购商标</a>
+                    <a href="javascript:;" class="pub-btn-green" onclick="contactAdmin()">注册商标</a>
+                </div>
+            </div>
             <table class="my-table" width="100%">
                 <thead>
                     <tr>

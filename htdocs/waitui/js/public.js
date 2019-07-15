@@ -390,3 +390,7 @@ var scrollTop = function(id){
         $("html,body").animate({scrollTop:0},500);
     })
 }
+
+function contactAdmin(){
+    Pop.alert('<p class="ta-c">请联系您的品牌管家！</p><br><p>电话：<font class="col-blue">18767120068</font>&nbsp;&nbsp;&nbsp;&nbsp;QQ：<font class="col-blue">1003049243</font></p>');
+}

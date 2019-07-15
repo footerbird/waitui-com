@@ -19,7 +19,7 @@
                         <input type="file" name="file" accept="image/png,image/jpeg,image/gif" id="upload_figure" />
                     </form>
                     <?php if(empty($userinfo->user_figure)){ ?>
-                    <img class="userinfo-figure" src="<?php echo CDN_URL; ?>logo.png" />
+                    <img class="userinfo-figure" src="/htdocs/mobile/images/user-figure.png" />
                     <?php }else{ ?>
                     <img class="userinfo-figure" src="<?php echo $userinfo->user_figure; ?>" />
                     <?php } ?>

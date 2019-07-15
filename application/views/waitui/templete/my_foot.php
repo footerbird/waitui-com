@@ -44,9 +44,5 @@ $(function(){
         $(this).find(".dropdown-menu").hide();
     })
     
-    $(".my-mainpanel[data-screenh]").css({
-        "min-height" : ($(window).height()-210) + "px"
-    })
-    
 })
 </script>

@@ -10,7 +10,26 @@ class Index_controller extends CI_Controller {
         }
     }
     
+    public function get_userinfo(){//验证是否登录,并获取用户信息
+        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
+        if(!empty($session_userinfo->user_id)){
+            $user_id = $session_userinfo->user_id;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //get_userinfoById方法获取用户信息
+            $userinfo = $this->user->get_userinfoById($user_id);
+            return $userinfo;
+        }else{
+            if($this->module == constant('MEMU_MY')){
+                redirect(base_url());
+                exit;
+            }
+        }
+    }
+    
     public function article_list(){//文章列表
+        $this->module = constant('MEMU_ARTICLE');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         //加载头条模型类
         $this->load->model('waitui/Article_model','article');
@@ -46,17 +65,6 @@ class Index_controller extends CI_Controller {
         }
         $data['flash_list'] = $flash_list;
         
-        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
-        if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
-            $data['userinfo'] = $userinfo;
-        }
-        
-        $this->module = constant('MEMU_ARTICLE');
         $this->footer = 'no';//默认有底部
         
         $seo = array(
@@ -111,6 +119,8 @@ class Index_controller extends CI_Controller {
     }
     
     public function article_search($keyword){//文章搜索
+        $this->module = constant('MEMU_ARTICLE');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         $data['keyword'] = urldecode($keyword);
         
@@ -144,18 +154,6 @@ class Index_controller extends CI_Controller {
             $flash->create_time = format_article_time($flash->create_time);
         }
         $data['flash_list'] = $flash_list;
-        
-        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
-        if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
-            $data['userinfo'] = $userinfo;
-        }
-        
-        $this->module = constant('MEMU_ARTICLE');
         
         $seo = array(
             'seo_title'=>'外推头条 - 专业的品牌资讯分享平台 | 外推网',
@@ -198,6 +196,8 @@ class Index_controller extends CI_Controller {
     }
     
     public function article_detail($article_id){//文章详情
+        $this->module = constant('MEMU_ARTICLE');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         //加载头条模型类
         $this->load->model('waitui/Article_model','article');
@@ -238,18 +238,6 @@ class Index_controller extends CI_Controller {
         }
         $data['flash_list'] = $flash_list;
         
-        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
-        if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
-            $data['userinfo'] = $userinfo;
-        }
-        
-        $this->module = constant('MEMU_ARTICLE');
-        
         $seo = array(
             'seo_title'=>$article->article_title.' | 外推头条',
             'seo_keywords'=>'',
@@ -269,6 +257,8 @@ class Index_controller extends CI_Controller {
     }
     
     public function mark_list(){//商标首页
+        $this->module = constant('MEMU_MARK');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         //加载商标模型类
         $this->load->model('waitui/Mark_model','mark');
@@ -282,18 +272,6 @@ class Index_controller extends CI_Controller {
             array_push($mark_list,$this->mark->get_markList($i*9+1,0,8));
         }
         $data['mark_list'] = $mark_list;
-        
-        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
-        if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
-            $data['userinfo'] = $userinfo;
-        }
-        
-        $this->module = constant('MEMU_MARK');
         
         $seo = array(
             'seo_title'=>'商标市场 - 让商标转让更简单 | 外推网',
@@ -321,6 +299,8 @@ class Index_controller extends CI_Controller {
     }
     
     public function mark_search($keyword = ''){//商标搜索
+        $this->module = constant('MEMU_MARK');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         $data['keyword'] = urldecode($keyword);
         $filter_category = $this->input->get_post('filter_category');//得到商标大类
@@ -339,17 +319,6 @@ class Index_controller extends CI_Controller {
         $mark_count = $this->mark->get_markSearchCount(urldecode($keyword),$filter_category,'','','');
         $data['mark_count'] = $mark_count;
         
-        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
-        if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
-            $data['userinfo'] = $userinfo;
-        }
-        
-        $this->module = constant('MEMU_MARK');
         $this->footer = 'no';//默认有底部
         
         $seo = array(
@@ -422,6 +391,8 @@ class Index_controller extends CI_Controller {
     }
     
     public function mark_detail($regno_md){//商标详情
+        $this->module = constant('MEMU_MARK');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         //加载商标模型类
         $this->load->model('waitui/Mark_model','mark');
@@ -441,18 +412,6 @@ class Index_controller extends CI_Controller {
         $mark->regno_encode = strtoupper(random_string_numlet(6)).str_replace("=","",base64_encode($mark->mark_regno));//把非法字符'='替换掉
         $data['mark'] = $mark;
         
-        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
-        if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
-            $data['userinfo'] = $userinfo;
-        }
-        
-        $this->module = constant('MEMU_MARK');
-        
         $seo = array(
             'seo_title'=>'商标市场 - 让商标转让更简单 | 外推网',
             'seo_keywords'=>'',
@@ -464,6 +423,8 @@ class Index_controller extends CI_Controller {
     }
     
     public function domain_list(){//域名首页
+        $this->module = constant('MEMU_DOMAIN');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         $page = $this->input->get('page');//得到页码
         if(empty($page)) $page = 1;//默认页码为1
@@ -517,18 +478,6 @@ class Index_controller extends CI_Controller {
         $data['keyword'] = $keyword;
         $data['domain_type'] = $domain_type;
         
-        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
-        if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
-            $data['userinfo'] = $userinfo;
-        }
-        
-        $this->module = constant('MEMU_DOMAIN');
-        
         $seo = array(
             'seo_title'=>'域名市场 - 域名交易就是这么简单 | 外推网',
             'seo_keywords'=>'',
@@ -540,6 +489,8 @@ class Index_controller extends CI_Controller {
     }
     
     public function domain_detail($domain_name){//域名详情
+        $this->module = constant('MEMU_DOMAIN');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         //加载商标模型类
         $this->load->model('waitui/Domain_model','domain');
@@ -558,18 +509,6 @@ class Index_controller extends CI_Controller {
         $domain_recommend = $this->domain->get_domainRecommend(0,10);
         $data['domain_recommend'] = $domain_recommend;
         
-        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
-        if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
-            $data['userinfo'] = $userinfo;
-        }
-        
-        $this->module = constant('MEMU_DOMAIN');
-        
         $seo = array(
             'seo_title'=>'域名市场 - 域名交易就是这么简单 | 外推网',
             'seo_keywords'=>'',
@@ -581,18 +520,8 @@ class Index_controller extends CI_Controller {
     }
     
     public function agreement(){//用户协议
-        
-        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
-        if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
-            $data['userinfo'] = $userinfo;
-        }
-        
         $this->module = '';
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         $seo = array(
             'seo_title'=>'外推网用户协议 | 外推网',
@@ -604,50 +533,54 @@ class Index_controller extends CI_Controller {
         $this->load->view('waitui/agreement',$data);
     }
     
-    public function my_account(){//账号中心
-        
-        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
-        if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
-            $data['userinfo'] = $userinfo;
-        }else{
-            redirect(base_url());
-            exit;
-        }
-        
+    public function my_console(){//控制台
         $this->module = constant('MEMU_MY');
-        $this->leftmenu = 'my_account';
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        //加载快讯模型类
+        $this->load->model('waitui/Flash_model','flash');
+        //get_flashList方法得到头条列表
+        $flash_list = $this->flash->get_flashList(0,5);
+        foreach($flash_list as $flash){
+            $flash->create_time = format_article_time($flash->create_time);
+        }
+        $data['flash_list'] = $flash_list;
+        
+        //加载商标模型类
+        $this->load->model('waitui/Mark_model','mark');
+        //get_markList方法得到商标列表信息
+        $mark_list = $this->mark->get_markList('',0,3);
+        foreach($mark_list as $mark){
+            //get_categoryName获取大类名称
+            $category = $this->mark->get_categoryName($mark->mark_category);
+            $mark->category_name = $category->category_name;
+        }
+        $data['mark_list'] = $mark_list;
+        
+        $this->leftmenu = 'my_console';
         
         $seo = array(
-            'seo_title'=>'用户中心 | 外推网',
+            'seo_title'=>'控制台 | 外推网',
             'seo_keywords'=>'',
             'seo_description'=>''
         );
         $data['seo'] = json_decode(json_encode($seo));
         
-        $this->load->view('waitui/my/my_account',$data);
+        $data['styles'] = array(
+            '/htdocs/waitui/css/swiper.min.css?'.CACHE_TIME
+        );
+        $data['scripts'] = array(
+            '/htdocs/waitui/js/swiper.min.js?'.CACHE_TIME,
+            '/htdocs/waitui/js/swiper.animate.min.js?'.CACHE_TIME
+        );
+        
+        $this->load->view('waitui/my/my_console',$data);
     }
     
     public function my_domain(){//我的域名
-        
-        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
-        if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
-            $data['userinfo'] = $userinfo;
-        }else{
-            redirect(base_url());
-            exit;
-        }
-        
         $this->module = constant('MEMU_MY');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
         $this->leftmenu = 'my_domain';
         
         $seo = array(
@@ -661,19 +594,8 @@ class Index_controller extends CI_Controller {
     }
     
     public function my_mark($page = 1){//我的商标
-        
-        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
-        if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
-            $data['userinfo'] = $userinfo;
-        }else{
-            redirect(base_url());
-            exit;
-        }
+        $this->module = constant('MEMU_MY');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         //加载商标模型类
         $this->load->model('waitui/Mark_model','mark');
@@ -720,7 +642,6 @@ class Index_controller extends CI_Controller {
         }
         $data['mark_list'] = $mark_list;
         
-        $this->module = constant('MEMU_MY');
         $this->leftmenu = 'my_mark';
         
         $seo = array(
@@ -733,22 +654,202 @@ class Index_controller extends CI_Controller {
         $this->load->view('waitui/my/my_mark',$data);
     }
     
-    public function my_message($page = 1){//我的消息
+    public function my_order($page = 1){//我的订单
+        $this->module = constant('MEMU_MY');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
-        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
-        if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
-            $data['userinfo'] = $userinfo;
-        }else{
-            redirect(base_url());
-            exit;
+        $count = 360;
+        $page_size = 10;//单页记录数
+        $offset = ($page-1)*$page_size;//偏移量
+        switch($page){
+            case 1:
+                $num_links = 4;//num_links选中页右边的个数
+                break;
+            case 2:
+                $num_links = 3;
+                break;
+            case ceil($count/$page_size):
+                $num_links = 4;
+                break;
+            case ceil($count/$page_size)-1:
+                $num_links = 3;
+                break;
+            default:
+                $num_links = 2;
+                break;
         }
         
+        $this->load->library('pagination');
+        $config['page_query_string'] = FALSE;//使用 URI 段
+        $config['reuse_query_string'] = TRUE;//将查询字符串参数添加到 URI 分段的后面
+        $config['base_url'] = base_url().'my_order';
+        $config['total_rows'] = $count;
+        $config['per_page'] = $page_size;// $pagesize每页条数
+        $config['num_links'] = $num_links;//设置选中页左右两边的页数
+        $this->pagination->initialize($config);
+        $data['page_count'] = $count;
+        $data['page_size'] = $page_size;
+        
+        $this->leftmenu = 'my_order';
+        
+        $seo = array(
+            'seo_title'=>'我的订单 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $this->load->view('waitui/my/my_order',$data);
+    }
+    
+    public function my_invoice(){//发票管理
         $this->module = constant('MEMU_MY');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $this->leftmenu = 'my_invoice';
+        
+        $seo = array(
+            'seo_title'=>'发票管理 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $this->load->view('waitui/my/my_invoice',$data);
+    }
+    
+    public function invoice_record(){//发票申请记录
+        $this->module = constant('MEMU_MY');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $this->leftmenu = 'my_invoice';
+        
+        $seo = array(
+            'seo_title'=>'发票申请记录 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $this->load->view('waitui/my/invoice_record',$data);
+    }
+    
+    public function my_coupon($page = 1){//优惠券
+        $this->module = constant('MEMU_MY');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $count = 24;
+        $page_size = 9;//单页记录数
+        $offset = ($page-1)*$page_size;//偏移量
+        switch($page){
+            case 1:
+                $num_links = 4;//num_links选中页右边的个数
+                break;
+            case 2:
+                $num_links = 3;
+                break;
+            case ceil($count/$page_size):
+                $num_links = 4;
+                break;
+            case ceil($count/$page_size)-1:
+                $num_links = 3;
+                break;
+            default:
+                $num_links = 2;
+                break;
+        }
+        
+        $this->load->library('pagination');
+        $config['page_query_string'] = FALSE;//使用 URI 段
+        $config['reuse_query_string'] = TRUE;//将查询字符串参数添加到 URI 分段的后面
+        $config['base_url'] = base_url().'my_coupon';
+        $config['total_rows'] = $count;
+        $config['per_page'] = $page_size;// $pagesize每页条数
+        $config['num_links'] = $num_links;//设置选中页左右两边的页数
+        $this->pagination->initialize($config);
+        $data['page_count'] = $count;
+        $data['page_size'] = $page_size;
+        
+        $this->leftmenu = 'my_coupon';
+        
+        $seo = array(
+            'seo_title'=>'优惠券 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $this->load->view('waitui/my/my_coupon',$data);
+    }
+    
+    public function my_account(){//账号中心
+        $this->module = constant('MEMU_MY');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $this->leftmenu = 'my_account';
+        
+        $seo = array(
+            'seo_title'=>'个人资料 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $this->load->view('waitui/my/my_account',$data);
+    }
+    
+    public function company_certify(){//公司认证
+        $this->module = constant('MEMU_MY');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $this->leftmenu = 'my_account';
+        
+        $seo = array(
+            'seo_title'=>'公司认证 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $this->load->view('waitui/my/company_certify',$data);
+    }
+    
+    public function my_message($page = 1){//我的消息
+        $this->module = constant('MEMU_MY');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $count = 360;
+        $page_size = 10;//单页记录数
+        $offset = ($page-1)*$page_size;//偏移量
+        switch($page){
+            case 1:
+                $num_links = 4;//num_links选中页右边的个数
+                break;
+            case 2:
+                $num_links = 3;
+                break;
+            case ceil($count/$page_size):
+                $num_links = 4;
+                break;
+            case ceil($count/$page_size)-1:
+                $num_links = 3;
+                break;
+            default:
+                $num_links = 2;
+                break;
+        }
+        
+        $this->load->library('pagination');
+        $config['page_query_string'] = FALSE;//使用 URI 段
+        $config['reuse_query_string'] = TRUE;//将查询字符串参数添加到 URI 分段的后面
+        $config['base_url'] = base_url().'my_message';
+        $config['total_rows'] = $count;
+        $config['per_page'] = $page_size;// $pagesize每页条数
+        $config['num_links'] = $num_links;//设置选中页左右两边的页数
+        $this->pagination->initialize($config);
+        $data['page_count'] = $count;
+        $data['page_size'] = $page_size;
+        
         $this->leftmenu = 'my_message';
         
         $seo = array(
@@ -762,21 +863,9 @@ class Index_controller extends CI_Controller {
     }
     
     public function login_log(){//登录日志
-        
-        $session_userinfo = $this->session->userinfo;//从session中获取用户信息
-        if(!empty($session_userinfo->user_id)){
-            $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
-            //get_userinfoById方法获取用户信息
-            $userinfo = $this->user->get_userinfoById($user_id);
-            $data['userinfo'] = $userinfo;
-        }else{
-            redirect(base_url());
-            exit;
-        }
-        
         $this->module = constant('MEMU_MY');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
         $this->leftmenu = 'login_log';
         
         $seo = array(

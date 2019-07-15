@@ -38,7 +38,7 @@
                             <label><input type="checkbox" name="message" /><i></i></label>
                         </td>
                         <td>
-                            <p><a href="javascript:;" class="f14 col-default user-message-title"><i class="badge mr5"></i>2019年外推网五一劳动节放假公告</a></p>
+                            <p><a href="javascript:;" class="f14 user-message-title"><i class="badge mr5"></i>2019年外推网五一劳动节放假公告</a></p>
                             <p class="f12 col-gray9 user-message-content" style="display: none;">您好！根据国家法定节假日并结合实际情况，外推网2019年五一劳动节假期安排如下：2019年5月1日至5月4日放假，假期共4天。假日期间，官网将暂停相关服务工作，感谢您一直以来对官网的关注和支持！</p>
                             <p class="f12 col-gray6">2019-01-09 10:00:00</p>
                         </td>
@@ -48,7 +48,7 @@
                             <label><input type="checkbox" name="message" /><i></i></label>
                         </td>
                         <td>
-                            <p><a href="javascript:;" class="f14 col-default user-message-title"></i>2019年外推网清明节放假公告</a></p>
+                            <p><a href="javascript:;" class="f14 user-message-title"></i>2019年外推网清明节放假公告</a></p>
                             <p class="f12 col-gray9 user-message-content" style="display: none;">您好！根据国家法定节假日并结合实际情况，外推网2019年清明节假期安排如下：2019年5月1日至5月4日放假，假期共4天。假日期间，官网将暂停相关服务工作，感谢您一直以来对官网的关注和支持！</p>
                             <p class="f12 col-gray6">2019-01-09 10:00:00</p>
                         </td>
@@ -64,6 +64,10 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="route-pagination">
+            <?php echo $this->pagination->create_links(); ?>
+            <div class="total">共<font><?php echo $page_count; ?></font>条，每页显示<font><?php echo $page_size; ?></font>条</div>
+            </div>
         </div>
     </div>
     

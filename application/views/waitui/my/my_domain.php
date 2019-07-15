@@ -13,6 +13,15 @@
         <?php include_once(VIEWPATH.'waitui/templete/my_leftmenu.php') ?>
         <div class="my-mainpanel">
             <div class="panel-title mb20">我的域名</div>
+            <div class="my-table-filter after-cls">
+                <input type="text" placeholder="输入域名" class="fl-l mr10" />
+                <a href="javascript:;" class="pub-btn fl-l mr10">搜索</a>
+                <a href="<?php echo base_url() ?>domain_list.html" target="_blank" class="pub-btn-yellow fl-l"><i class="ico-shop"></i>淘域名</a>
+                <div class="fl-r">
+                    <a href="javascript:;" class="pub-btn-blue mr10" onclick="contactAdmin()">求购域名</a>
+                    <a href="javascript:;" class="pub-btn-green" onclick="contactAdmin()">注册域名</a>
+                </div>
+            </div>
             <table class="my-table" width="100%">
                 <thead>
                     <tr>
@@ -33,8 +42,8 @@
                         <td>杭州外推网络科技有限公司</td>
                         <td align="right" class="pr30">
                             <a href="javascript:;" class="ml10">续费</a>
-                            <a href="javascript:;" class="ml10">解析</a>
-                            <a href="javascript:;" class="ml10">转出</a>
+                            <a href="javascript:;" class="ml10" onclick="contactAdmin()">解析</a>
+                            <a href="javascript:;" class="ml10" onclick="contactAdmin()">转出</a>
                         </td>
                     </tr>
                     <tr>
@@ -50,7 +59,7 @@
                     <tr>
                         <td class="f14 col-gray9 pl30">wtwl.com.cn<span class="f13">（已过期）</span></td>
                         <td colspan="5" align="right" class="pr30">
-                            <a href="javascript:;" class="ml10">购买</a>
+                            <a href="javascript:;" class="ml10" onclick="contactAdmin()">购买</a>
                         </td>
                     </tr>
                     <tr>
