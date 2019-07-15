@@ -21,39 +21,53 @@ class Index_controller extends CI_Controller {
         }
     }
     
-    public function login(){//管理员登录
+    public function login(){//管理员登录初始页
+        $session_admininfo = $this->session->admininfo;//从session中获取管理员信息
+        if(!empty($session_admininfo->admin_id)){
+            redirect(base_url().'admin');
+        }else{
+            $this->load->view('admin/login');
+        }
+    }
+    
+    public function login_do(){//管理员登录
         
         $admin_name = $this->input->get_post('admin_name');//得到用户名
         $admin_pwd = $this->input->get_post('admin_pwd');//得到登录密码
         
-        if(!empty($admin_name) && !empty($admin_pwd)){
-            //加载用户模型类
-            $this->load->model('admin/Admin_model','admin');
-            //isvalid_pwdName方法判断用户名密码是否正确
-            $login_status = $this->admin->isvalid_pwdName($admin_name,$admin_pwd);
-            
-            if($login_status == 1){//如果正确，则登录
-                //根据登录账号拿到管理员信息
-                $admininfo = $this->admin->get_adminByName($admin_name);
-                if($admininfo->status != 1){
-                    echo "该用户已被冻结，请联系管理员";
-                }elseif(isset($admininfo) && !empty($admininfo)){
-                    $this->load->library('user_agent');
-                    $this->load->helper('cookie');
-                    //设session
-                    $this->session->admininfo = $admininfo;
-                    //设cookie
-                    set_cookie('admin_name',$admininfo->admin_name,259200);
-                    redirect(base_url().'admin');
-                }else{
-                    echo "程序错误，请重试";
-                }
+        //加载用户模型类
+        $this->load->model('admin/Admin_model','admin');
+        //isvalid_pwdName方法判断用户名密码是否正确
+        $login_status = $this->admin->isvalid_pwdName($admin_name,$admin_pwd);
+        
+        if($login_status == 1){//如果正确，则登录
+            //根据登录账号拿到管理员信息
+            $admininfo = $this->admin->get_adminByName($admin_name);
+            if($admininfo->status != 1){
+                $data['state'] = 'failed';
+                $data['msg'] = '该用户已被冻结，请联系管理员';
+            }elseif(isset($admininfo) && !empty($admininfo)){
+                $this->load->library('user_agent');
+                $this->load->helper('cookie');
+                //设session
+                $this->session->admininfo = $admininfo;
+                //设cookie
+                set_cookie('admin_name',$admininfo->admin_name,259200);
+                $data['state'] = 'success';
+                $data['msg'] = '登录成功';
+                $data['admininfo'] = array(
+                    'admin_name'=>$admininfo->admin_name
+                );
             }else{
-                echo "用户名密码错误，请重试";
+                $data['state'] = 'failed';
+                $data['msg'] = '程序错误，请重试';
             }
         }else{
-            $this->load->view('admin/login');
+            $data['state'] = 'failed';
+            $data['msg'] = '用户名密码错误，请重试';
         }
+        
+        echo json_encode($data);
     }
     
     public function index(){//管理员主页
@@ -163,19 +177,41 @@ class Index_controller extends CI_Controller {
         $admin_pwd_confirm = $this->input->get_post('admin_pwd_confirm');//确认密码
         $status = $this->input->get_post('status');//状态
         if($admin_pwd != $admin_pwd_confirm){
-            echo '密码与确认密码不一致！请重新填写';
-            exit;
+            $data['state'] = 'failed';
+            $data['msg'] = '密码与确认密码不一致！请重新填写';
         }
         //加载管理员模型类
         $this->load->model('admin/Admin_model','admin');
         if($operate == 'add'){//添加
-            //add_adminOne方法添加一条管理员记录
-            $addStatus = $this->admin->add_adminOne($admin_name,$admin_pwd,$real_name,$status);
+            //根据登录账号拿到管理员信息
+            $admininfo = $this->admin->get_adminByName($admin_name);
+            if(isset($admininfo) && !empty($admininfo)){
+                $data['state'] = 'failed';
+                $data['msg'] = '该账号已被使用，请更换';
+            }else{
+                //add_adminOne方法添加一条管理员记录
+                $addStatus = $this->admin->add_adminOne($admin_name,$admin_pwd,$real_name,$status);
+                if($addStatus){
+                    $data['state'] = 'success';
+                    $data['msg'] = '添加成功';
+                }else{
+                    $data['state'] = 'failed';
+                    $data['msg'] = '添加失败，请重试';
+                }
+            }
         }else{//修改
             //edit_adminOne方法修改管理员信息
             $updateStatus = $this->admin->edit_adminOne($admin_id,$admin_name,$admin_pwd,$real_name,$status);
+            if($updateStatus){
+                $data['state'] = 'success';
+                $data['msg'] = '修改成功';
+            }else{
+                $data['state'] = 'failed';
+                $data['msg'] = '修改失败，请重试';
+            }
         }
-        redirect(base_url().'admin/admin_list');
+        
+        echo json_encode($data);
     }
     
     public function butler_list(){//品牌管家列表
@@ -282,13 +318,35 @@ class Index_controller extends CI_Controller {
         //加载品牌管家模型类
         $this->load->model('admin/Butler_model','butler');
         if($operate == 'add'){//添加
-            //add_butlerOne方法添加一条管家记录
-            $addStatus = $this->butler->add_butlerOne($butler_name,$real_name,$butler_phone,$butler_qq,$butler_wechat,$status);
+            //根据登录账号拿到管理员信息
+            $butlerinfo = $this->butler->get_butlerByName($butler_name);
+            if(isset($butlerinfo) && !empty($butlerinfo)){
+                $data['state'] = 'failed';
+                $data['msg'] = '该昵称已被使用，请更换';
+            }else{
+                //add_butlerOne方法添加一条管家记录
+                $addStatus = $this->butler->add_butlerOne($butler_name,$real_name,$butler_phone,$butler_qq,$butler_wechat,$status);
+                if($addStatus){
+                    $data['state'] = 'success';
+                    $data['msg'] = '添加成功';
+                }else{
+                    $data['state'] = 'failed';
+                    $data['msg'] = '添加失败，请重试';
+                }
+            }
         }else{//修改
             //edit_butlerOne方法修改管家信息
             $updateStatus = $this->butler->edit_butlerOne($butler_id,$butler_name,$real_name,$butler_phone,$butler_qq,$butler_wechat,$status);
+            if($updateStatus){
+                $data['state'] = 'success';
+                $data['msg'] = '修改成功';
+            }else{
+                $data['state'] = 'failed';
+                $data['msg'] = '修改失败，请重试';
+            }
         }
-        redirect(base_url().'admin/butler_list');
+        
+        echo json_encode($data);
     }
     
     public function upload_butlerWechatAjax(){//ajax上传管家微信二维码临时路径

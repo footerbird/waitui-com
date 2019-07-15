@@ -38,32 +38,32 @@
           <div class="panel panel-default">
             
             <div class="panel-body">
-                <form role="form" action="<?php echo base_url() ?>admin/butler_update_do" method="post" class="form-horizontal" id="sForm">
+                <form role="form" class="form-horizontal" id="sForm">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">管家昵称</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="butler_name" required="required" placeholder="请输入管家昵称" value="<?php if(isset($butler)){ echo $butler->butler_name; } ?>">
+                            <input type="text" class="form-control" name="butler_name" id="butler_name" required="required" placeholder="请输入管家昵称" value="<?php if(isset($butler)){ echo $butler->butler_name; } ?>">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">真实姓名</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="real_name" required="required" placeholder="请输入真实姓名" value="<?php if(isset($butler)){ echo $butler->real_name; } ?>">
+                            <input type="text" class="form-control" name="real_name" id="real_name" required="required" placeholder="请输入真实姓名" value="<?php if(isset($butler)){ echo $butler->real_name; } ?>">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">电话号码</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="butler_phone" required="required" placeholder="请输入电话号码" value="<?php if(isset($butler)){ echo $butler->butler_phone; } ?>">
+                            <input type="text" class="form-control" name="butler_phone" id="butler_phone" required="required" placeholder="请输入电话号码" value="<?php if(isset($butler)){ echo $butler->butler_phone; } ?>">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">QQ号码</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="butler_qq" required="required" placeholder="请输入QQ号码" value="<?php if(isset($butler)){ echo $butler->butler_qq; } ?>">
+                            <input type="text" class="form-control" name="butler_qq" id="butler_qq" required="required" placeholder="请输入QQ号码" value="<?php if(isset($butler)){ echo $butler->butler_qq; } ?>">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
@@ -95,7 +95,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-10">
-                            <input type="submit" class="btn btn-orange" id="submitBtn" value="提交">
+                            <input type="button" class="btn btn-orange" id="submitBtn" onclick="form_submit()" value="提交">
                             <a href="<?php echo base_url() ?>admin/butler_list" class="btn btn-white btn-sm ">返回</a>
                         </div>
                     </div>
@@ -119,6 +119,46 @@
 <?php include_once('templete/pub_foot.php') ?>
 <script src="/htdocs/admin/js/dropzone/dropzone.min.js?<?php echo CACHE_TIME; ?>"></script>
 <script type="text/javascript">
+function form_submit(){
+    if($("#butler_name").val() == ""){
+        toastr.error("管家昵称不能为空");
+        return;
+    }
+    if($("#real_name").val() == ""){
+        toastr.error("真实姓名不能为空");
+        return;
+    }
+    if($("#butler_phone").val() == ""){
+        toastr.error("电话号码不能为空");
+        return;
+    }
+    if($("#butler_qq").val() == ""){
+        toastr.error("QQ号码不能为空");
+        return;
+    }
+    if($("#butler_wechat").val() == ""){
+        toastr.error("微信二维码不能为空");
+        return;
+    }
+    
+    $("#sForm").ajaxForm({
+        url:'/admin/Index_controller/butler_update_do',
+        type:'post',
+        dataType:'json',
+        beforeSubmit:function () {
+        },
+        success:function (data) {
+            if(data.state == "success"){
+                location.href = '<?php echo base_url() ?>admin/butler_list';
+            }else{
+                toastr.error(data.msg);
+            }
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            toastr.error("程序异常："+errorThrown+"<br>请联系管理员");
+        }
+    }).submit();
+}
 $(function(){
     $("#advancedDropzone").dropzone({
         url: '<?php echo base_url() ?>admin/Upload_controller',

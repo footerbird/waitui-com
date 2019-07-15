@@ -134,15 +134,12 @@ $route['admin/login'] = 'admin/Index_controller/login';
 
 $route['admin/admin_list'] = 'admin/Index_controller/admin_list';
 $route['admin/admin_update'] = 'admin/Index_controller/admin_update';
-$route['admin/admin_update_do'] = 'admin/Index_controller/admin_update_do';
 
 $route['admin/butler_list'] = 'admin/Index_controller/butler_list';
 $route['admin/butler_update'] = 'admin/Index_controller/butler_update';
-$route['admin/butler_update_do'] = 'admin/Index_controller/butler_update_do';
 
 $route['admin/user_list'] = 'admin/Index_controller/user_list';
 $route['admin/user_update'] = 'admin/Index_controller/user_update';
-$route['admin/user_update_do'] = 'admin/Index_controller/user_update_do';
 
 $route['admin/login_out'] = 'admin/Index_controller/login_out';
 

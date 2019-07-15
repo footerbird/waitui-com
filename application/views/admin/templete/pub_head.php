@@ -14,7 +14,8 @@
 <link rel="stylesheet" href="/htdocs/admin/css/xenon-components.css?<?php echo CACHE_TIME; ?>">
 <link rel="stylesheet" href="/htdocs/admin/css/xenon-skins.css?<?php echo CACHE_TIME; ?>">
 <link rel="stylesheet" href="/htdocs/admin/css/custom.css?<?php echo CACHE_TIME; ?>">
-<script src="/htdocs/admin/js/jquery-1.11.1.min.js"></script>
+<script src="/htdocs/admin/js/jquery-1.11.1.min.js?<?php echo CACHE_TIME; ?>"></script>
+<script src="/htdocs/admin/js/jquery.form.js?<?php echo CACHE_TIME; ?>"></script>
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>

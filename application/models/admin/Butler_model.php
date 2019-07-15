@@ -25,6 +25,12 @@ class Butler_model extends CI_Model {
         return $query->row();
     }
     
+    public function get_butlerByName($butler_name){//根据昵称查询管家信息
+        $sql = "select * from butler_info where butler_name = '".$butler_name."'";
+        $query = $this->db->query($sql);
+        return $query->row();
+    }
+    
     public function add_butlerOne($butler_name,$real_name,$butler_phone,$butler_qq,$butler_wechat,$status){//新增一条管家记录
         $sql = "insert into butler_info(butler_name,real_name,butler_phone,butler_qq,butler_wechat,status"
             .")values('".$butler_name."','".$real_name."','".$butler_phone."','".$butler_qq."','".$butler_wechat."',".$status.")";

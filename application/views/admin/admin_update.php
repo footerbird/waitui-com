@@ -37,32 +37,32 @@
           <div class="panel panel-default">
             
             <div class="panel-body">
-                <form role="form" action="<?php echo base_url() ?>admin/admin_update_do" method="post" class="form-horizontal" id="sForm">
+                <form role="form" class="form-horizontal" id="sForm">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">用户名</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="admin_name" required="required" placeholder="请输入用户名" value="<?php if(isset($admin)){ echo $admin->admin_name; } ?>">
+                            <input type="text" class="form-control" name="admin_name" id="admin_name" required="required" placeholder="请输入用户名" value="<?php if(isset($admin)){ echo $admin->admin_name; } ?>">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">真实姓名</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="real_name" required="required" placeholder="请输入真实姓名" value="<?php if(isset($admin)){ echo $admin->real_name; } ?>">
+                            <input type="text" class="form-control" name="real_name" id="real_name" required="required" placeholder="请输入真实姓名" value="<?php if(isset($admin)){ echo $admin->real_name; } ?>">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">密码</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" name="admin_pwd" required="required" placeholder="请输入密码" value="<?php if(isset($admin)){ echo $admin->admin_pwd; } ?>">
+                            <input type="password" class="form-control" name="admin_pwd" id="admin_pwd" required="required" placeholder="请输入密码" value="<?php if(isset($admin)){ echo $admin->admin_pwd; } ?>">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">确认密码</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" name="admin_pwd_confirm" required="required" placeholder="请输入确认密码" value="<?php if(isset($admin)){ echo $admin->admin_pwd; } ?>">
+                            <input type="password" class="form-control" name="admin_pwd_confirm" id="admin_pwd_confirm" required="required" placeholder="请输入确认密码" value="<?php if(isset($admin)){ echo $admin->admin_pwd; } ?>">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
@@ -83,7 +83,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-10">
-                            <input type="submit" class="btn btn-orange" id="submitBtn" value="提交">
+                            <input type="button" class="btn btn-orange" id="submitBtn" onclick="form_submit()" value="提交">
                             <a href="<?php echo base_url() ?>admin/admin_list" class="btn btn-white btn-sm ">返回</a>
                         </div>
                     </div>
@@ -106,6 +106,46 @@
   
 <?php include_once('templete/pub_foot.php') ?>
 <script type="text/javascript">
+function form_submit(){
+    if($("#admin_name").val() == ""){
+        toastr.error("用户名不能为空");
+        return;
+    }
+    if($("#real_name").val() == ""){
+        toastr.error("真实姓名不能为空");
+        return;
+    }
+    if($("#admin_pwd").val() == ""){
+        toastr.error("密码不能为空");
+        return;
+    }
+    if($("#admin_pwd_confirm").val() == ""){
+        toastr.error("确认密码不能为空");
+        return;
+    }
+    if($("#admin_pwd").val() != $("#admin_pwd_confirm").val()){
+        toastr.error("密码与确认密码不一致");
+        return;
+    }
+    
+    $("#sForm").ajaxForm({
+        url:'/admin/Index_controller/admin_update_do',
+        type:'post',
+        dataType:'json',
+        beforeSubmit:function () {
+        },
+        success:function (data) {
+            if(data.state == "success"){
+                location.href = '<?php echo base_url() ?>admin/admin_list';
+            }else{
+                toastr.error(data.msg);
+            }
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            toastr.error("程序异常："+errorThrown+"<br>请联系管理员");
+        }
+    }).submit();
+}
 $(function(){
     
 })
