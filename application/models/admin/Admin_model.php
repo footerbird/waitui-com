@@ -49,6 +49,14 @@ class Admin_model extends CI_Model {
         return $query;
     }
     
+    public function edit_adminLoginTime($admin_id,$login_time){//修改管理员登录时间
+        $sql = "update admin_info set"
+            ." login_time='".$login_time
+            ."' where admin_id=".$admin_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
     public function isvalid_pwdName($admin_name,$admin_pwd){//判断登录账号，登录密码是否正确,1表示登录成功，0表示登录失败
         $sql = "select * from admin_info where admin_name = '".$admin_name."' and admin_pwd = '".$admin_pwd."'";
         $query = $this->db->query($sql);

@@ -25,8 +25,8 @@
             <dl class="fl-r">
                 <dt class="ta-r"><img class="bottom-logo" src="/htdocs/waitui/images/bottom-logo.png" /></dt>
                 <dd class="ta-r"><p>QQ咨询：<a class="in-block" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2165223868&amp;site=qq&amp;menu=yes" target="_blank">2165223868</a></p></dd>
-                <dd class="ta-r"><p>加入我们：<a class="in-block w90" href="mailto:hr@waitui.com" target="_blank">hr@waitui.com</a></p></dd>
-                <dd class="ta-r"><p>商务合作：<a class="in-block w90" href="mailto:bd@waitui.com" target="_blank">bd@waitui.com</a></p></dd>
+                <dd class="ta-r"><p>加入我们：<a class="in-block w90" href="mailto:hr@waitui.com">hr@waitui.com</a></p></dd>
+                <dd class="ta-r"><p>商务合作：<a class="in-block w90" href="mailto:bd@waitui.com">bd@waitui.com</a></p></dd>
             </dl>
             
             <div class="fl-r"></div>

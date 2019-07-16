@@ -23,17 +23,7 @@
       </div>
       <!-- Table Styles -->
       <div class="row">
-        <div class="col-md-12">
-        
-          <div class="panel panel-default">
-            
-            <div class="panel-body">
-              hello world!
-            </div>
-            
-          </div>
-          
-        </div>
+        <div class="col-md-12">您的上次登陆时间是：<?php echo $admininfo->login_time; ?>；为了确保帐户安全，离开请点击 “<a href="<?php echo base_url() ?>admin/login_out" style="color: #0a8ddf;">注销</a>”。</div>
       </div>
       
       <?php include_once('templete/copyright.php') ?>

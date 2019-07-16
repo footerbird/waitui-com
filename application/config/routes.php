@@ -105,8 +105,6 @@ $route['m'] = 'mobile/Index_controller';
 
 $route['m/share/(:any)'] = 'mobile/Index_controller/share/$1';
 
-$route['m/login_out'] = 'mobile/Index_controller/login_out';
-
 $route['m/article_list.html'] = 'mobile/Index_controller/article_list';
 
 $route['m/article_detail/([\d]+)\.html'] = 'mobile/Index_controller/article_detail/$1';
@@ -125,6 +123,8 @@ $route['m/about.html'] = 'mobile/Index_controller/about';
 
 $route['m/agreement.html'] = 'mobile/Index_controller/agreement';
 
+$route['m/login_out'] = 'mobile/Index_controller/login_out';
+
 /*
  * 管理后台
  * */
@@ -140,6 +140,9 @@ $route['admin/butler_update'] = 'admin/Index_controller/butler_update';
 
 $route['admin/user_list'] = 'admin/Index_controller/user_list';
 $route['admin/user_update'] = 'admin/Index_controller/user_update';
+
+$route['admin/domain_list'] = 'admin/Index_controller/domain_list';
+$route['admin/domain_update'] = 'admin/Index_controller/domain_update';
 
 $route['admin/login_out'] = 'admin/Index_controller/login_out';
 

@@ -47,6 +47,10 @@ class Index_controller extends CI_Controller {
                 $data['state'] = 'failed';
                 $data['msg'] = '该用户已被冻结，请联系管理员';
             }elseif(isset($admininfo) && !empty($admininfo)){
+                $login_time = date("Y-m-d H:i:s", time());
+                //edit_adminLoginTime方法修改管理员登录时间
+                $recordLogin = $this->admin->edit_adminLoginTime($admininfo->admin_id,$login_time);
+                
                 $this->load->library('user_agent');
                 $this->load->helper('cookie');
                 //设session
@@ -71,12 +75,16 @@ class Index_controller extends CI_Controller {
     }
     
     public function index(){//管理员主页
+        $this->module = 'console';
+        $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
         $this->load->view('admin/index',$data);
     }
     
     public function admin_list(){//管理员列表
+        $this->module = 'admin';
+        $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
         $page = $this->input->get('page');//得到页码
@@ -137,13 +145,15 @@ class Index_controller extends CI_Controller {
         $data['page_size'] = $page_size;
         
         //get_adminList方法到管理员列表信息
-        $adminList = $this->admin->get_adminList($offset,$page_size);
-        $data['admin_list'] = $adminList;
+        $admin_list = $this->admin->get_adminList($offset,$page_size);
+        $data['admin_list'] = $admin_list;
         
         $this->load->view('admin/admin_list',$data);
     }
     
     public function admin_update(){//管理员编辑初始页
+        $this->module = 'console';
+        $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
         $admin_id = $this->input->get('admin_id');//得到管理员编号
@@ -215,6 +225,8 @@ class Index_controller extends CI_Controller {
     }
     
     public function butler_list(){//品牌管家列表
+        $this->module = 'butler';
+        $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
         $page = $this->input->get('page');//得到页码
@@ -275,13 +287,15 @@ class Index_controller extends CI_Controller {
         $data['page_size'] = $page_size;
         
         //get_butlerList方法到管家列表信息
-        $butlerList = $this->butler->get_butlerList($offset,$page_size);
-        $data['butler_list'] = $butlerList;
+        $butler_list = $this->butler->get_butlerList($offset,$page_size);
+        $data['butler_list'] = $butler_list;
         
         $this->load->view('admin/butler_list',$data);
     }
     
     public function butler_update(){//管家编辑初始页
+        $this->module = 'butler';
+        $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
         $butler_id = $this->input->get('butler_id');//得到管家编号
@@ -379,6 +393,8 @@ class Index_controller extends CI_Controller {
     }
     
     public function user_list(){//用户列表
+        $this->module = 'user';
+        $this->sub_menu = 'user';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
         $page = $this->input->get('page');//得到页码
@@ -439,13 +455,15 @@ class Index_controller extends CI_Controller {
         $data['page_size'] = $page_size;
         
         //get_userList方法到用户列表信息
-        $userList = $this->user->get_userList($offset,$page_size);
-        $data['user_list'] = $userList;
+        $user_list = $this->user->get_userList($offset,$page_size);
+        $data['user_list'] = $user_list;
         
         $this->load->view('admin/user_list',$data);
     }
     
     public function user_update(){//用户编辑初始页
+        $this->module = 'user';
+        $this->sub_menu = 'user';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
         $user_id = $this->input->get('user_id');//得到用户编号
@@ -467,6 +485,150 @@ class Index_controller extends CI_Controller {
         }
         
         $this->load->view('admin/user_update',$data);
+    }
+    
+    public function domain_list(){//出售域名列表
+        $this->module = 'domain';
+        $this->sub_menu = '';
+        $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
+        
+        $page = $this->input->get('page');//得到页码
+        if(empty($page)) $page = 1;//默认页码为1
+        
+        //加载域名模型类
+        $this->load->model('admin/Domain_model','domain');
+        //get_domainCount方法得到域名总数
+        $count = $this->domain->get_domainCount();
+        
+        $page_size = 20;//单页记录数
+        $offset = ($page-1)*$page_size;//偏移量
+        switch($page){
+            case 1:
+                $num_links = 4;//num_links选中页右边的个数
+                break;
+            case 2:
+                $num_links = 3;
+                break;
+            case ceil($count/$page_size):
+                $num_links = 4;
+                break;
+            case ceil($count/$page_size)-1:
+                $num_links = 3;
+                break;
+            default:
+                $num_links = 2;
+                break;
+        }
+        
+        $this->load->library('pagination');
+        $config['base_url'] = base_url().'admin/domain_list';
+        $config['total_rows'] = $count;
+        $config['per_page'] = $page_size;// $pagesize每页条数
+        $config['num_links'] = $num_links;//设置选中页左右两边的页数
+        
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_tag_open'] = '<li class="paginate_button first">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li class="paginate_button last">';
+        $config['last_tag_close'] = '</li>';
+        $config['next_tag_open'] = '<li class="paginate_button next">';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_tag_open'] = '<li class="paginate_button previous">';
+        $config['prev_tag_close'] = '</li>';
+        $config['num_tag_open'] = '<li class="paginate_button">';
+        $config['num_tag_close'] = '</li>';
+        $config['cur_tag_open'] = ' <li class="paginate_button active"><a>'; // 当前页开始样式   
+        $config['cur_tag_close'] = '</a></li>'; 
+        $config['first_link'] = '首页'; // 第一页显示   
+        $config['last_link'] = '尾页'; // 最后一页显示   
+        $config['next_link'] = '下一页'; // 下一页显示   
+        $config['prev_link'] = '上一页'; // 上一页显示 
+        
+        $this->pagination->initialize($config);
+        $data['page_count'] = $count;
+        $data['page_size'] = $page_size;
+        
+        //get_domainList方法到域名列表信息
+        $domain_list = $this->domain->get_domainList($offset,$page_size);
+        foreach($domain_list as $domain){
+            $domain->expired_date = format_domain_exptime($domain->expired_date);
+        }
+        $data['domain_list'] = $domain_list;
+        
+        $this->load->view('admin/domain_list',$data);
+    }
+    
+    public function domain_update(){//域名编辑初始页
+        $this->module = 'domain';
+        $this->sub_menu = '';
+        $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
+        
+        $domain_name = $this->input->get('domain_name');//得到域名
+        if(!empty($domain_name)){
+            $data['operate'] = 'update';
+            //加载域名模型类
+            $this->load->model('admin/Domain_model','domain');
+            //get_domainDetail方法得到域名详情
+            $domain = $this->domain->get_domainDetail($domain_name);
+            if(empty($domain)){
+                $heading = '404 Page Not Found';
+                $message = 'The page you requested was not found.';
+                show_error($message, 404, $heading );
+                exit;
+            }
+            $data['domain'] = $domain;
+        }else{
+            $data['operate'] = 'add';
+        }
+        
+        $this->load->view('admin/domain_update',$data);
+    }
+    
+    public function domain_update_do(){//域名编辑
+        
+        $operate = $this->input->get_post('operate');//得到操作
+        $domain_name = $this->input->get_post('domain_name');//域名
+        $register_registrar = $this->input->get_post('register_registrar');//注册商
+        $register_name = $this->input->get_post('register_name');//注册人
+        $register_email = $this->input->get_post('register_email');//注册邮箱
+        $created_date = $this->input->get_post('created_date');//注册日期
+        $expired_date = $this->input->get_post('expired_date');//过期日期
+        $domain_type = $this->input->get_post('domain_type');//域名类型
+        $domain_price = $this->input->get_post('domain_price');//域名价格
+        $domain_summary = $this->input->get_post('domain_summary');//域名价格
+        //加载域名模型类
+        $this->load->model('admin/Domain_model','domain');
+        if($operate == 'add'){//添加
+            //根据域名名称拿到域名信息
+            $domaininfo = $this->domain->get_domainDetail($domain_name);
+            if(isset($domaininfo) && !empty($domaininfo)){
+                $data['state'] = 'failed';
+                $data['msg'] = '该域名已被添加，请更换';
+            }else{
+                //add_domainOne方法添加一条域名记录
+                $addStatus = $this->domain->add_domainOne($domain_name,$register_registrar,$register_name,$register_email,$created_date,$expired_date,$domain_type,$domain_price,$domain_summary);
+                if($addStatus){
+                    $data['state'] = 'success';
+                    $data['msg'] = '添加成功';
+                }else{
+                    $data['state'] = 'failed';
+                    $data['msg'] = '添加失败，请重试';
+                }
+            }
+        }else{//修改
+            //edit_domainOne方法修改域名信息
+            $updateStatus = $this->domain->edit_domainOne($domain_name,$register_registrar,$register_name,$register_email,$created_date,$expired_date,$domain_type,$domain_price,$domain_summary);
+            if($updateStatus){
+                $data['state'] = 'success';
+                $data['msg'] = '修改成功';
+            }else{
+                $data['state'] = 'failed';
+                $data['msg'] = '修改失败，请重试';
+            }
+        }
+        
+        echo json_encode($data);
     }
     
     public function login_out(){//退出登录
