@@ -20,7 +20,7 @@
             </div>
             <div class="my-infomation mt40">
                 <label class="info-figure">
-                    <form action="<?php echo base_url() ?>Upload_controller" method="post" enctype="multipart/form-data" style="display: none;">
+                    <form action="<?php echo base_url() ?>" method="post" enctype="multipart/form-data" style="display: none;">
                         <input type="file" name="file" accept="image/png,image/jpeg,image/gif" id="upload_figure">
                     </form>
                     <?php if(empty($userinfo->user_figure) || !@file_get_contents($userinfo->user_figure)){ ?>

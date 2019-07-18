@@ -363,6 +363,12 @@ class Index_controller extends CI_Controller {
         echo json_encode($data);
     }
     
+    public function upload_butlerWechatTemp(){//本地上传微信二维码到临时目录
+        $wechatUpload = $_FILES['file'];
+        $result = upload_images_temp($wechatUpload);
+        echo json_encode($result);
+    }
+    
     public function upload_butlerWechatAjax(){//ajax上传管家微信二维码临时路径
     
         $wechat_path = $this->input->get_post('wechat_path');//得到管家微信二维码临时目录

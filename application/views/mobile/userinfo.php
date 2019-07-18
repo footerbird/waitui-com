@@ -15,7 +15,7 @@
                     <p>头像</p>
                 </div>
                 <div class="weui-cell__ft">
-                    <form action="<?php echo base_url() ?>mobile/Upload_controller" method="post" enctype="multipart/form-data" style="display: none;">
+                    <form enctype="multipart/form-data" style="display: none;">
                         <input type="file" name="file" accept="image/png,image/jpeg,image/gif" id="upload_figure" />
                     </form>
                     <?php if(empty($userinfo->user_figure)){ ?>
@@ -63,9 +63,13 @@
                 $.showLoading();
                 var $form = $this.parent();
                 $form.ajaxForm({
+                    url:'/mobile/Index_controller/upload_userFigureTemp',
+                    type:'post',
+                    beforeSubmit:function () {
+                    },
                     success: function (res) {
                         var result = eval('('+res+')');
-                        if(result.status == 'success'){
+                        if(result.state == 'success'){
                             $.ajax({
                                 type:"post",
                                 url:"<?php echo base_url() ?>mobile/Index_controller/upload_userFigureAjax",

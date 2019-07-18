@@ -161,14 +161,14 @@ function form_submit(){
 }
 $(function(){
     $("#advancedDropzone").dropzone({
-        url: '<?php echo base_url() ?>admin/Upload_controller',
+        url: '<?php echo base_url() ?>admin/Index_controller/upload_butlerWechatTemp',
         maxFiles: 1,
         maxFilesize: 5,
         acceptedFiles: ".jpeg,.jpg,.gif,.png,.JPEG,.JPG,.GIF,.PNG",
         success: function(file,res){
             var result = eval('('+res+')');
-            if(result.status == 'success'){
-                $.ajax({
+            if(result.state == 'success'){
+                $.ajax({//因为不能确定修改时有没有修改二维码,所以不能在提交的时候去移动临时目录的二维码图片,得提前移动
                     type:"post",
                     url:"<?php echo base_url() ?>admin/Index_controller/upload_butlerWechatAjax",
                     async:true,

@@ -555,6 +555,12 @@ class Index_controller extends CI_Controller {
         $this->load->view('mobile/nickname',$data);
     }
     
+    public function upload_userFigureTemp(){//本地上传用户头像到临时目录
+        $figureUpload = $_FILES['file'];
+        $result = upload_images_temp($figureUpload);
+        echo json_encode($result);
+    }
+    
     public function upload_userFigureAjax(){//ajax上传用户头像临时路径
     
         $figure_path = $this->input->get_post('figure_path');//得到用户头像临时目录
@@ -562,10 +568,7 @@ class Index_controller extends CI_Controller {
         $session_userinfo = $this->session->userinfo;//从session中获取用户信息
         if(!empty($session_userinfo->user_id)){
             $user_id = $session_userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('mobile/User_model','user');
-            //get_userDetail方法获取用户信息
-            $userinfo = $this->user->get_userDetail($user_id);
+            $user_phone = $session_userinfo->user_phone;
             
             $imgInfo = getimagesize($figure_path);
             switch($imgInfo[2]){
@@ -584,13 +587,18 @@ class Index_controller extends CI_Controller {
             }
             $html = file_get_contents($figure_path);
             $rand = rand(pow(10, 5), (pow(10, 6)-1));
-            file_put_contents('uploads/images/figure/figure_'.md5($userinfo->user_phone.$rand).'.'.$imgType, $html);
-            $user_figure = '/uploads/images/figure/figure_'.md5($userinfo->user_phone.$rand).'.'.$imgType;
+            file_put_contents('uploads/images/figure/figure_'.md5($user_phone.$rand).'.'.$imgType, $html);
+            $user_figure = '/uploads/images/figure/figure_'.md5($user_phone.$rand).'.'.$imgType;
+            //加载用户模型类
+            $this->load->model('mobile/User_model','user');
             //edit_userFigure方法改变用户头像
             $updateStatus = $this->user->edit_userFigure($user_id,$user_figure);
             if($updateStatus){
                 $data['state'] = 'success';
                 $data['figure'] = $user_figure;
+                //修改完用户信息一定要重新载入用户session
+                $userinfo_new = $this->user->get_userDetail($user_id);
+                $this->session->userinfo = $userinfo_new;
             }else{
                 $data['state'] = 'failed';
                 $data['msg'] = '程序错误，请重试';
@@ -616,6 +624,9 @@ class Index_controller extends CI_Controller {
             if($updateStatus){
                 $data['state'] = 'success';
                 $data['user_name'] = $user_name;
+                //修改完用户信息一定要重新载入用户session
+                $userinfo_new = $this->user->get_userDetail($user_id);
+                $this->session->userinfo = $userinfo_new;
             }else{
                 $data['state'] = 'failed';
                 $data['msg'] = '程序错误，请重试';

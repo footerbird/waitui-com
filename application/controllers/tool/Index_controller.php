@@ -125,7 +125,7 @@ class Index_controller extends CI_Controller {
                 $base_info = $this->get_company_detail(trim($item));
                 if(is_array($base_info)){//如果采到了企业基础数据
                     
-                    if(strpos($base_info['Name'],"公司") != -1){//是公司的才去采集
+                    if(strpos($base_info['Name'],"公司") !== false){//是公司的才去采集
                         
                         $company_id = md5($base_info['Name'].$base_info['OperName'].random_string_numlet(6));
                         //加载企业模型类

@@ -6,7 +6,7 @@
                 <ul>
                     <li class="nav-account margin0">
                         <a href="<?php echo base_url() ?>my_account">
-                            <?php if(empty($userinfo->user_figure) || !@file_get_contents($userinfo->user_figure)){ ?>
+                            <?php if(empty($userinfo->user_figure)){ ?>
                             <img class="figure" src="/htdocs/waitui/images/user-figure.png" />
                             <?php }else{ ?>
                             <img class="figure" src="<?php echo $userinfo->user_figure; ?>" />
