@@ -43,7 +43,7 @@
                         </td>
                         <td><?php echo $mark->mark_regno; ?></td>
                         <td><?php echo $mark->private_limit; ?></td>
-                        <td>商标已注册</td>
+                        <td><?php echo $mark->mark_status; ?></td>
                         <td align="right" class="pr30">
                             <a class="ml10" href="<?php echo base_url() ?>mark_detail/<?php echo $mark->regno_md; ?>.html" target="_blank">查看</a>
                         </td>

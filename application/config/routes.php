@@ -144,5 +144,8 @@ $route['admin/user_update'] = 'admin/Index_controller/user_update';
 $route['admin/domain_list'] = 'admin/Index_controller/domain_list';
 $route['admin/domain_update'] = 'admin/Index_controller/domain_update';
 
+$route['admin/mark_list'] = 'admin/Index_controller/mark_list';
+$route['admin/mark_update'] = 'admin/Index_controller/mark_update';
+
 $route['admin/login_out'] = 'admin/Index_controller/login_out';
 

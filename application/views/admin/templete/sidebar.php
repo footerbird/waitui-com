@@ -9,11 +9,11 @@
       
       <!-- logo -->
       <div class="logo">
-        <a href="<?php echo base_url() ?>admin/table" class="logo-expanded">
+        <a href="<?php echo base_url() ?>admin" class="logo-expanded">
           <img src="/htdocs/admin/images/logo@2x.png?<?php echo CACHE_TIME; ?>" width="80" alt="" />
         </a>
         
-        <a href="<?php echo base_url() ?>admin/table" class="logo-collapsed">
+        <a href="<?php echo base_url() ?>admin" class="logo-collapsed">
           <img src="/htdocs/admin/images/logo-collapsed@2x.png?<?php echo CACHE_TIME; ?>" width="40" alt="" />
         </a>
       </div>
@@ -72,6 +72,12 @@
         <a href="<?php echo base_url() ?>admin/domain_list">
           <i class="linecons-star"></i>
           <span class="title">出售域名管理</span>
+        </a>
+      </li>
+      <li class="<?php if($this->module == 'mark'){ echo 'active'; } ?>">
+        <a href="<?php echo base_url() ?>admin/mark_list">
+          <i class="linecons-star"></i>
+          <span class="title">出售商标管理</span>
         </a>
       </li>
     </ul>

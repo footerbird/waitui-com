@@ -637,6 +637,135 @@ class Index_controller extends CI_Controller {
         echo json_encode($data);
     }
     
+    public function mark_list(){//出售商标列表
+        $this->module = 'mark';
+        $this->sub_menu = '';
+        $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
+        
+        $page = $this->input->get('page');//得到页码
+        if(empty($page)) $page = 1;//默认页码为1
+        
+        //加载商标模型类
+        $this->load->model('admin/Mark_model','mark');
+        //get_markCount方法得到商标总数
+        $count = $this->mark->get_markCount('');
+        
+        $page_size = 20;//单页记录数
+        $offset = ($page-1)*$page_size;//偏移量
+        switch($page){
+            case 1:
+                $num_links = 4;//num_links选中页右边的个数
+                break;
+            case 2:
+                $num_links = 3;
+                break;
+            case ceil($count/$page_size):
+                $num_links = 4;
+                break;
+            case ceil($count/$page_size)-1:
+                $num_links = 3;
+                break;
+            default:
+                $num_links = 2;
+                break;
+        }
+        
+        $this->load->library('pagination');
+        $config['base_url'] = base_url().'admin/mark_list';
+        $config['total_rows'] = $count;
+        $config['per_page'] = $page_size;// $pagesize每页条数
+        $config['num_links'] = $num_links;//设置选中页左右两边的页数
+        
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_tag_open'] = '<li class="paginate_button first">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li class="paginate_button last">';
+        $config['last_tag_close'] = '</li>';
+        $config['next_tag_open'] = '<li class="paginate_button next">';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_tag_open'] = '<li class="paginate_button previous">';
+        $config['prev_tag_close'] = '</li>';
+        $config['num_tag_open'] = '<li class="paginate_button">';
+        $config['num_tag_close'] = '</li>';
+        $config['cur_tag_open'] = ' <li class="paginate_button active"><a>'; // 当前页开始样式   
+        $config['cur_tag_close'] = '</a></li>'; 
+        $config['first_link'] = '首页'; // 第一页显示   
+        $config['last_link'] = '尾页'; // 最后一页显示   
+        $config['next_link'] = '下一页'; // 下一页显示   
+        $config['prev_link'] = '上一页'; // 上一页显示 
+        
+        $this->pagination->initialize($config);
+        $data['page_count'] = $count;
+        $data['page_size'] = $page_size;
+        
+        //get_markList方法到商标列表信息
+        $mark_list = $this->mark->get_markList('',$offset,$page_size);
+        foreach($mark_list as $mark){
+            //get_categoryName获取大类名称
+            $category = $this->mark->get_categoryName($mark->mark_category);
+            $mark->category_name = $category->category_name;
+        }
+        $data['mark_list'] = $mark_list;
+        
+        $this->load->view('admin/mark_list',$data);
+    }
+    
+    public function mark_update(){//商标编辑初始页
+        $this->module = 'mark';
+        $this->sub_menu = '';
+        $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
+        
+        $mark_regno = $this->input->get('mark_regno');//得到商标注册号
+        if(!empty($mark_regno)){
+            $data['operate'] = 'update';
+            //加载商标模型类
+            $this->load->model('admin/Mark_model','mark');
+            //get_markDetail方法得到商标详情
+            $mark = $this->mark->get_markDetail($mark_regno);
+            //get_categoryName获取大类名称
+            $category = $this->mark->get_categoryName($mark->mark_category);
+            $mark->category_name = $category->category_name;
+            if(empty($mark)){
+                $heading = '404 Page Not Found';
+                $message = 'The page you requested was not found.';
+                show_error($message, 404, $heading );
+                exit;
+            }
+            $data['mark'] = $mark;
+        }else{
+            $data['operate'] = 'add';
+        }
+        
+        $this->load->view('admin/mark_update',$data);
+    }
+    
+    public function mark_update_do(){//商标编辑
+        
+        $operate = $this->input->get_post('operate');//得到操作
+        $mark_regno = $this->input->get_post('mark_regno');//商标注册号
+        $mark_price = $this->input->get_post('mark_price');//商标价格
+        //加载商标模型类
+        $this->load->model('admin/Mark_model','mark');
+        if($operate == 'add'){//添加
+            //添加商标记录不能手动添加,需要通过接口添加
+            $data['state'] = 'failed';
+            $data['msg'] = '只能修改价格，不能添加';
+        }else{//修改
+            //edit_markPrice方法修改商标价格
+            $updateStatus = $this->mark->edit_markPrice($mark_regno,$mark_price);
+            if($updateStatus){
+                $data['state'] = 'success';
+                $data['msg'] = '修改成功';
+            }else{
+                $data['state'] = 'failed';
+                $data['msg'] = '修改失败，请重试';
+            }
+        }
+        
+        echo json_encode($data);
+    }
+    
     public function login_out(){//退出登录
         //删除登录信息session
         if(isset($_SESSION['admininfo'])){
