@@ -31,6 +31,7 @@
 </div>
 
 <script src="/htdocs/waitui/js/jquery-1.11.1.min.js?<?php echo CACHE_TIME; ?>"></script>
+<script src="/htdocs/waitui/js/jquery.form.js?<?php echo CACHE_TIME; ?>"></script>
 <?php if(isset($scripts)){ foreach($scripts as $script){ echo '<script src="'.$script.'"></script>';} }?>
 <script src="/htdocs/waitui/js/public.js?<?php echo CACHE_TIME; ?>"></script>
 <script src="/htdocs/waitui/js/dom-ready.js?<?php echo CACHE_TIME; ?>"></script>

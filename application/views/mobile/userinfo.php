@@ -88,7 +88,7 @@
                                 }
                             });
                         }else{
-                            $.alert(result);
+                            $.alert('程序错误，请重试');
                         }
                     },
                     error:function(XmlHttpRequest,textStatus,errorThrown){

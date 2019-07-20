@@ -794,6 +794,234 @@ class Index_controller extends CI_Controller {
         $this->load->view('waitui/my/my_account',$data);
     }
     
+    public function upload_userFigureTemp(){//本地上传用户头像到临时目录
+        $figureUpload = $_FILES['file'];
+        $result = upload_images_temp($figureUpload);
+        echo json_encode($result);
+    }
+    
+    public function upload_userFigureAjax(){//ajax上传用户头像临时路径
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+    
+        $figure_path = $this->input->get_post('figure_path');//得到用户头像临时目录
+        if(!empty($userinfo->user_id)){
+            $user_id = $userinfo->user_id;
+            $user_phone = $userinfo->user_phone;
+            
+            $imgInfo = getimagesize($figure_path);
+            switch($imgInfo[2]){
+                case 1:
+                    $imgType = 'gif';
+                    break;
+                case 2:
+                    $imgType = 'jpg';
+                    break;
+                case 3:
+                    $imgType = 'png';
+                    break;
+                default:
+                    $imgType = 'png';
+                    break;
+            }
+            $html = file_get_contents($figure_path);
+            $rand = rand(pow(10, 5), (pow(10, 6)-1));
+            file_put_contents('uploads/images/figure/figure_'.md5($user_phone.$rand).'.'.$imgType, $html);
+            $user_figure = '/uploads/images/figure/figure_'.md5($user_phone.$rand).'.'.$imgType;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //edit_userFigure方法改变用户头像
+            $updateStatus = $this->user->edit_userFigure($user_id,$user_figure);
+            if($updateStatus){
+                $data['state'] = 'success';
+                $data['figure'] = $user_figure;
+                //修改完用户信息一定要重新载入用户session
+                $userinfo_new = $this->user->get_userDetail($user_id);
+                $this->session->userinfo = $userinfo_new;
+            }else{
+                $data['state'] = 'failed';
+                $data['msg'] = '程序错误，请重试';
+            }
+        }else{
+            $data['state'] = 'failed';
+            $data['msg'] = '程序错误，请重试';
+        }
+        echo json_encode($data);
+    }
+    
+    public function edit_userNameAjax(){
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $user_name = $this->input->get_post('user_name');//得到用户昵称
+        if(!empty($userinfo->user_id)){
+            $user_id = $userinfo->user_id;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //edit_userName方法改变用户昵称
+            $updateStatus = $this->user->edit_userName($user_id,$user_name);
+            if($updateStatus){
+                $data['state'] = 'success';
+                $data['user_name'] = $user_name;
+                //修改完用户信息一定要重新载入用户session
+                $userinfo_new = $this->user->get_userDetail($user_id);
+                $this->session->userinfo = $userinfo_new;
+            }else{
+                $data['state'] = 'failed';
+                $data['msg'] = '程序错误，请重试';
+            }
+        }else{
+            $data['state'] = 'failed';
+            $data['msg'] = '程序错误，请重试';
+        }
+        echo json_encode($data);
+    }
+    
+    public function edit_realNameAjax(){
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $real_name = $this->input->get_post('real_name');//得到真实姓名
+        if(!empty($userinfo->user_id)){
+            $user_id = $userinfo->user_id;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //edit_realName方法改变真实姓名
+            $updateStatus = $this->user->edit_realName($user_id,$real_name);
+            if($updateStatus){
+                $data['state'] = 'success';
+                $data['real_name'] = $real_name;
+                //修改完用户信息一定要重新载入用户session
+                $userinfo_new = $this->user->get_userDetail($user_id);
+                $this->session->userinfo = $userinfo_new;
+            }else{
+                $data['state'] = 'failed';
+                $data['msg'] = '程序错误，请重试';
+            }
+        }else{
+            $data['state'] = 'failed';
+            $data['msg'] = '程序错误，请重试';
+        }
+        echo json_encode($data);
+    }
+    
+    public function edit_userPhoneAjax(){
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $user_phone = $this->input->get_post('user_phone');//得到手机号码
+        if($user_phone == $userinfo->user_phone){//如果手机号相同,说明没改
+            $data['state'] = 'success';
+            $data['user_phone'] = $user_phone;
+        }else{//手机号改了
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //根据手机号拿到用户信息
+            $phoneInfo = $this->user->get_userByPhone($user_phone);
+            if(isset($phoneInfo) && !empty($phoneInfo)){//判断新改手机号是否已经注册
+                $data['state'] = 'failed';
+                $data['msg'] = '该手机号已被注册，请重新输入';
+            }else{
+                if(!empty($userinfo->user_id)){
+                    $user_id = $userinfo->user_id;
+                    //edit_userPhone方法改变手机号码
+                    $updateStatus = $this->user->edit_userPhone($user_id,$user_phone);
+                    if($updateStatus){
+                        $data['state'] = 'success';
+                        $data['user_phone'] = $user_phone;
+                        //修改完用户信息一定要重新载入用户session
+                        $userinfo_new = $this->user->get_userDetail($user_id);
+                        $this->session->userinfo = $userinfo_new;
+                    }else{
+                        $data['state'] = 'failed';
+                        $data['msg'] = '程序错误，请重试';
+                    }
+                }else{
+                    $data['state'] = 'failed';
+                    $data['msg'] = '程序错误，请重试';
+                }
+            }
+        }
+        echo json_encode($data);
+    }
+    
+    public function edit_userQQAjax(){
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $user_qq = $this->input->get_post('user_qq');//得到QQ号码
+        if(!empty($userinfo->user_id)){
+            $user_id = $userinfo->user_id;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //edit_userQQ方法改变QQ号码
+            $updateStatus = $this->user->edit_userQQ($user_id,$user_qq);
+            if($updateStatus){
+                $data['state'] = 'success';
+                $data['user_qq'] = $user_qq;
+                //修改完用户信息一定要重新载入用户session
+                $userinfo_new = $this->user->get_userDetail($user_id);
+                $this->session->userinfo = $userinfo_new;
+            }else{
+                $data['state'] = 'failed';
+                $data['msg'] = '程序错误，请重试';
+            }
+        }else{
+            $data['state'] = 'failed';
+            $data['msg'] = '程序错误，请重试';
+        }
+        echo json_encode($data);
+    }
+    
+    public function edit_userEmailAjax(){
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $user_email = $this->input->get_post('user_email');//得到用户邮箱
+        if(!empty($userinfo->user_id)){
+            $user_id = $userinfo->user_id;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //edit_userEmail方法改变用户邮箱
+            $updateStatus = $this->user->edit_userEmail($user_id,$user_email);
+            if($updateStatus){
+                $data['state'] = 'success';
+                $data['user_email'] = $user_email;
+                //修改完用户信息一定要重新载入用户session
+                $userinfo_new = $this->user->get_userDetail($user_id);
+                $this->session->userinfo = $userinfo_new;
+            }else{
+                $data['state'] = 'failed';
+                $data['msg'] = '程序错误，请重试';
+            }
+        }else{
+            $data['state'] = 'failed';
+            $data['msg'] = '程序错误，请重试';
+        }
+        echo json_encode($data);
+    }
+    
+    public function edit_userWechatAjax(){
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $user_wechat = $this->input->get_post('user_wechat');//得到微信号码
+        if(!empty($userinfo->user_id)){
+            $user_id = $userinfo->user_id;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //edit_userWechat方法改变微信号码
+            $updateStatus = $this->user->edit_userWechat($user_id,$user_wechat);
+            if($updateStatus){
+                $data['state'] = 'success';
+                $data['user_wechat'] = $user_wechat;
+                //修改完用户信息一定要重新载入用户session
+                $userinfo_new = $this->user->get_userDetail($user_id);
+                $this->session->userinfo = $userinfo_new;
+            }else{
+                $data['state'] = 'failed';
+                $data['msg'] = '程序错误，请重试';
+            }
+        }else{
+            $data['state'] = 'failed';
+            $data['msg'] = '程序错误，请重试';
+        }
+        echo json_encode($data);
+    }
+    
     public function company_certify(){//公司认证
         $this->module = constant('MEMU_MY');
         $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息

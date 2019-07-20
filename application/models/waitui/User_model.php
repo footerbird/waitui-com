@@ -103,5 +103,45 @@ class User_model extends CI_Model {
         $query = $this->db->query($sql);
         return $query;
     }
+    
+    public function edit_realName($user_id,$real_name){//改变真实姓名
+        $sql = "update user_info set"
+            ." real_name='".$real_name
+            ."' where user_id=".$user_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function edit_userPhone($user_id,$user_phone){//改变手机号码
+        $sql = "update user_info set"
+            ." user_phone='".$user_phone
+            ."' where user_id=".$user_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function edit_userQQ($user_id,$user_qq){//改变QQ号码
+        $sql = "update user_info set"
+            ." user_qq='".$user_qq
+            ."' where user_id=".$user_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function edit_userEmail($user_id,$user_email){//改变用户邮箱
+        $sql = "update user_info set"
+            ." user_email='".$user_email
+            ."' where user_id=".$user_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function edit_userWechat($user_id,$user_wechat){//改变微信号码
+        $sql = "update user_info set"
+            ." user_wechat='".$user_wechat
+            ."' where user_id=".$user_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
 }
 ?>
