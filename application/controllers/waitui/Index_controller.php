@@ -1086,9 +1086,51 @@ class Index_controller extends CI_Controller {
         $this->load->view('waitui/my/my_message',$data);
     }
     
-    public function login_log(){//登录日志
+    public function login_log($page = 1){//登录日志
         $this->module = constant('MEMU_MY');
-        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        $data['userinfo'] = $userinfo;
+        
+        $user_id = $userinfo->user_id;
+        //加载用户模型类
+        $this->load->model('waitui/User_model','user');
+        //get_loginCount方法得到登录日志总数
+        $count = $this->user->get_loginCount($user_id);
+        
+        $page_size = 10;//单页记录数
+        $offset = ($page-1)*$page_size;//偏移量
+        switch($page){
+            case 1:
+                $num_links = 4;//num_links选中页右边的个数
+                break;
+            case 2:
+                $num_links = 3;
+                break;
+            case ceil($count/$page_size):
+                $num_links = 4;
+                break;
+            case ceil($count/$page_size)-1:
+                $num_links = 3;
+                break;
+            default:
+                $num_links = 2;
+                break;
+        }
+        
+        $this->load->library('pagination');
+        $config['page_query_string'] = FALSE;//使用 URI 段
+        $config['reuse_query_string'] = TRUE;//将查询字符串参数添加到 URI 分段的后面
+        $config['base_url'] = base_url().'login_log';
+        $config['total_rows'] = $count;
+        $config['per_page'] = $page_size;// $pagesize每页条数
+        $config['num_links'] = $num_links;//设置选中页左右两边的页数
+        $this->pagination->initialize($config);
+        $data['page_count'] = $count;
+        $data['page_size'] = $page_size;
+        
+        //get_loginRecord方法得到登录日志列表信息
+        $login_list = $this->user->get_loginRecord($user_id,$offset,$page_size);
+        $data['login_list'] = $login_list;
         
         $this->leftmenu = 'login_log';
         

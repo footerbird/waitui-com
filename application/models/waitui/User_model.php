@@ -143,5 +143,19 @@ class User_model extends CI_Model {
         $query = $this->db->query($sql);
         return $query;
     }
+    
+    public function get_loginRecord($user_id,$start,$length){//登录日志列表页面,输入用户编号$user_id,输出前$length条数
+        $sql = "select * from login_record "
+            ." where login_userid = ".$user_id." order by login_time desc limit ".$start.",".$length;
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+    
+    public function get_loginCount($user_id){//登录日志总数
+        $sql = "select * from login_record"
+            ." where login_userid = ".$user_id;
+        $query = $this->db->query($sql);
+        return $query->num_rows();
+    }
 }
 ?>
