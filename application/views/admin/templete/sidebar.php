@@ -80,6 +80,29 @@
           <span class="title">出售商标管理</span>
         </a>
       </li>
+      <li class="<?php if($this->module == 'article'){ echo 'active opened'; } ?>">
+        <a href="<?php echo base_url() ?>admin/article_list">
+          <i class="linecons-star"></i>
+          <span class="title">文章管理</span>
+        </a>
+        <ul>
+          <li class="<?php if($this->sub_menu == 'article'){ echo 'active'; } ?>">
+            <a href="<?php echo base_url() ?>admin/article_list">
+              <span class="title">文章列表</span>
+            </a>
+          </li>
+          <li class="<?php if($this->sub_menu == 'article_category'){ echo 'active'; } ?>">
+            <a href="<?php echo base_url() ?>admin/article_category_list">
+              <span class="title">文章类型</span>
+            </a>
+          </li>
+          <li class="<?php if($this->sub_menu == 'article_author'){ echo 'active'; } ?>">
+            <a href="<?php echo base_url() ?>admin/article_author_list">
+              <span class="title">文章作者</span>
+            </a>
+          </li>
+        </ul>
+      </li>
     </ul>
         
   </div>

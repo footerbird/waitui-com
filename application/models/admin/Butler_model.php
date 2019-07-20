@@ -7,14 +7,14 @@ class Butler_model extends CI_Model {
     }
     
     public function get_butlerList($start,$length){//管家列表页面,输出前$length条数
-        $sql = "select butler_id,butler_name,real_name,butler_phone,status from butler_info "
+        $sql = "select * from butler_info "
             ." order by create_time desc limit ".$start.",".$length;
         $query = $this->db->query($sql);
         return $query->result();
     }
     
     public function get_butlerCount(){//管家总数
-        $sql = "select butler_name from butler_info";
+        $sql = "select * from butler_info";
         $query = $this->db->query($sql);
         return $query->num_rows();
     }

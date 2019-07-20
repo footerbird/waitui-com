@@ -41,21 +41,21 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">商标名称</label>
                         <div class="col-sm-10">
-                            <?php echo $mark->mark_name; ?>
+                            <input type="text" class="form-control" value="<?php echo $mark->mark_name; ?>" disabled="disabled" />
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">注册号</label>
                         <div class="col-sm-10">
-                            <?php echo $mark->mark_regno; ?>
+                            <input type="text" class="form-control" value="<?php echo $mark->mark_regno; ?>" disabled="disabled" />
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">商标大类</label>
                         <div class="col-sm-10">
-                            [<?php echo $mark->mark_category<10?'0'.$mark->mark_category:$mark->mark_category; ?>&nbsp;&nbsp;<?php echo $mark->category_name; ?>]
+                            <input type="text" class="form-control" value="[<?php echo $mark->mark_category<10?'0'.$mark->mark_category:$mark->mark_category; ?>&nbsp;&nbsp;<?php echo $mark->category_name; ?>]" disabled="disabled" />
                         </div>
                     </div>
                     <div class="form-group-separator"></div>

@@ -7,14 +7,14 @@ class Admin_model extends CI_Model {
     }
     
     public function get_adminList($start,$length){//管理员列表页面,输出前$length条数
-        $sql = "select admin_id,admin_name,real_name,status from admin_info "
+        $sql = "select * from admin_info "
             ." order by create_time desc limit ".$start.",".$length;
         $query = $this->db->query($sql);
         return $query->result();
     }
     
     public function get_adminCount(){//管理员总数
-        $sql = "select admin_name from admin_info";
+        $sql = "select * from admin_info";
         $query = $this->db->query($sql);
         return $query->num_rows();
     }

@@ -69,14 +69,24 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">注册日期</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control datepicker" name="created_date" id="created_date" placeholder="请输入注册日期" value="<?php if(isset($domain)){ echo $domain->created_date; } ?>" data-format="yyyy-mm-dd">
+                            <div class="input-group">
+                                <input type="text" class="form-control datepicker" name="created_date" id="created_date" placeholder="请输入注册日期" value="<?php if(isset($domain)){ echo $domain->created_date; } ?>" data-format="yyyy-mm-dd">
+                                <div class="input-group-addon">
+                                    <a href="#"><i class="linecons-calendar"></i></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">过期日期</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control datepicker" name="expired_date" id="expired_date" placeholder="请输入过期日期" value="<?php if(isset($domain)){ echo $domain->expired_date; } ?>" data-format="yyyy-mm-dd">
+                            <div class="input-group">
+                                <input type="text" class="form-control datepicker" name="expired_date" id="expired_date" placeholder="请输入过期日期" value="<?php if(isset($domain)){ echo $domain->expired_date; } ?>" data-format="yyyy-mm-dd">
+                                <div class="input-group-addon">
+                                    <a href="#"><i class="linecons-calendar"></i></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group-separator"></div>

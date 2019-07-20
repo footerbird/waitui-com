@@ -185,16 +185,16 @@ $(function(){
                                 $("#advancedDropzone").after('<img id="butler_wechat_preview" src="'+data.wechat+'" width="150" height="150" class="ml20" />');
                             }
                         }else{
-                            alert(data.msg);
+                            toastr.error(data.msg);
                         }
                     }
                 });
             }else{
-                alert("上传失败");
+                toastr.error("上传失败");
             }
         },
         error: function(file,res){
-            alert("上传失败");
+            toastr.error("上传失败");
         },
         addedfile: function(file){}//阻止默认行为
     });
