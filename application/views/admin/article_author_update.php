@@ -102,7 +102,7 @@ function form_submit(){
     }
     
     $("#sForm").ajaxForm({
-        url:'/admin/Index_controller/article_author_update_do',
+        url:'/admin/Article_controller/article_author_update_do',
         type:'post',
         dataType:'json',
         beforeSubmit:function () {
@@ -121,7 +121,7 @@ function form_submit(){
 }
 $(function(){
     $("#advancedDropzone").dropzone({
-        url: '<?php echo base_url() ?>admin/Index_controller/upload_authorFigure',
+        url: '<?php echo base_url() ?>admin/Article_controller/upload_authorFigure',
         maxFiles: 1,
         maxFilesize: 5,
         acceptedFiles: ".jpeg,.jpg,.gif,.png,.JPEG,.JPG,.GIF,.PNG",

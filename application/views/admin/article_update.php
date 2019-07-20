@@ -192,7 +192,7 @@ var E = window.wangEditor
 var editor = new E('#editor')
 // 或者 var editor = new E( document.getElementById('editor') )
 // 配置服务器端地址
-editor.customConfig.uploadImgServer = '<?php echo base_url() ?>admin/Index_controller/upload_articleImage'
+editor.customConfig.uploadImgServer = '<?php echo base_url() ?>admin/Article_controller/upload_articleImage'
 editor.customConfig.zIndex = 10
 // 将图片大小限制为 3M
 editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024
@@ -236,7 +236,7 @@ function form_submit(){
     }
     
     $("#sForm").ajaxForm({
-        url:'/admin/Index_controller/article_update_do',
+        url:'/admin/Article_controller/article_update_do',
         type:'post',
         dataType:'json',
         beforeSubmit:function () {
@@ -255,7 +255,7 @@ function form_submit(){
 }
 $(function(){
     $("#advancedDropzone").dropzone({
-        url: '<?php echo base_url() ?>admin/Index_controller/upload_articleThumb',
+        url: '<?php echo base_url() ?>admin/Article_controller/upload_articleThumb',
         maxFiles: 1,
         maxFilesize: 5,
         acceptedFiles: ".jpeg,.jpg,.gif,.png,.JPEG,.JPG,.GIF,.PNG",
