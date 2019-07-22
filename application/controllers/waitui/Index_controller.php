@@ -531,7 +531,20 @@ class Index_controller extends CI_Controller {
     
     public function my_console(){//控制台
         $this->module = constant('MEMU_MY');
-        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        $data['userinfo'] = $userinfo;
+        
+        $user_id = $userinfo->user_id;
+        //加载用户模型类
+        $this->load->model('waitui/User_model','user');
+        //get_loginRecord方法得到登录日志列表信息
+        $login_list = $this->user->get_loginRecord($user_id,0,10);//最近登录10条记录
+        $data['login_list'] = $login_list;
+        //加载品牌管家模型类
+        $this->load->model('waitui/Butler_model','butler');
+        //get_butlerDetail方法得到品牌管家信息
+        $user_butler = $this->butler->get_butlerDetail($userinfo->user_butler);
+        $data['user_butler'] = $user_butler;
         
         //加载快讯模型类
         $this->load->model('waitui/Flash_model','flash');
@@ -1317,10 +1330,16 @@ class Index_controller extends CI_Controller {
             //add_userOne方法添加新账户
             $createStatus = $this->user->add_userOne($phone,md5($pwd),$phone);
             if($createStatus){//如果添加成功
-                
                 //根据手机号拿到用户信息
                 $userinfo = $this->user->get_userByPhone($phone);
                 if(isset($userinfo) && !empty($userinfo)){
+                    //加载品牌管家模型类
+                    $this->load->model('waitui/Butler_model','butler');
+                    $butler_list = $this->butler->get_butlerListAll();
+                    $rad_butler = $butler_list[array_rand($butler_list,1)];
+                    //随机给用户分配品牌管家
+                    $butlerStatus = $this->user->edit_userButler($userinfo->user_id,$rad_butler->butler_id);
+                    
                     //记录用户登录日志
                     $this->record_user_login_info($userinfo,$ip_address);
                     

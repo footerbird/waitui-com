@@ -15,9 +15,9 @@
             <div class="my-console">
                 <div class="console-left">
                     <div class="console-panel pb15 mb30">
-                        <div class="panel-title f16 mt0 mb20">18767120068，您好！
+                        <div class="panel-title f16 mt0 mb20"><?php echo $userinfo->user_name; ?>，您好！
                             <a href="<?php echo base_url() ?>my_account" class="f12 col-blue">修改资料</a>
-                            <span class="f12 col-gray9 fl-r">最近登录&nbsp;&nbsp;2019-02-28 13:35</span>
+                            <span class="f12 col-gray9 fl-r">最近登录&nbsp;<?php echo $login_list[1]->login_time; ?></span>
                         </div>
                         
                         <table class="my-table" width="100%">
@@ -63,9 +63,9 @@
                     </div>
                     
                     <div class="console-panel pb15 mb30" style="display: none;">
-                        <div class="panel-title f16 mt0 mb20">18767120068，您好！
+                        <div class="panel-title f16 mt0 mb20"><?php echo $userinfo->user_name; ?>，您好！
                             <a href="<?php echo base_url() ?>my_account" class="f12 col-blue">修改资料</a>
-                            <span class="f12 col-gray9 fl-r">最近登录&nbsp;&nbsp;2019-02-28 13:35</span>
+                            <span class="f12 col-gray9 fl-r">最近登录&nbsp;<?php echo $login_list[1]->login_time; ?></span>
                         </div>
                         
                         <div>
@@ -238,14 +238,16 @@
                         </table>
                     </div>
                     
+                    <?php if(!empty($user_butler)){ ?>
                     <div class="console-panel pb15 mb30">
-                        <div class="panel-title mt0 mb20">您好，我是品牌管家-小智<i class="butler ml5"></i></div>
-                        <p class="ta-c f14 lh28 pb15">电话：<font class="col-blue">18767120068</font>&nbsp;&nbsp;&nbsp;&nbsp;QQ：<font class="col-blue">1003049243</font></p>
+                        <div class="panel-title mt0 mb20">您好，我是品牌管家-<?php echo $user_butler->butler_name; ?><i class="butler ml5"></i></div>
+                        <p class="ta-c f14 lh28 pb15">电话：<font class="col-blue"><?php echo $user_butler->butler_phone; ?></font>&nbsp;&nbsp;&nbsp;&nbsp;QQ：<font class="col-blue"><?php echo $user_butler->butler_qq; ?></font></p>
                         <p class="ta-c pb15">
-                            <img src="/htdocs/waitui/images/dashang-wechat.jpg" width="144" height="144" />
+                            <img src="<?php echo $user_butler->butler_wechat; ?>" width="144" height="144" />
                         </p>
                         <p class="ta-c f14 col-gray9 lh28">扫描二维码添加品牌管家好友</p>
                     </div>
+                    <?php } ?>
                     
                     <div class="console-flash mb30">
                         <div class="panel-title mt0 mb20">24小时快讯</div>

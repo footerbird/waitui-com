@@ -144,6 +144,14 @@ class User_model extends CI_Model {
         return $query;
     }
     
+    public function edit_userButler($user_id,$user_butler){//改变品牌管家
+        $sql = "update user_info set"
+            ." user_butler=".$user_butler
+            ." where user_id=".$user_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
     public function get_loginRecord($user_id,$start,$length){//登录日志列表页面,输入用户编号$user_id,输出前$length条数
         $sql = "select * from login_record "
             ." where login_userid = ".$user_id." order by login_time desc limit ".$start.",".$length;
