@@ -143,6 +143,11 @@ function form_submit(){
         return;
     }
     
+    if($("#domain_price").val() == ""){
+        toastr.error("域名价格不能为空");
+        return;
+    }
+    
     $("#sForm").ajaxForm({
         url:'/admin/Index_controller/domain_update_do',
         type:'post',

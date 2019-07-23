@@ -184,14 +184,14 @@ class User_model extends CI_Model {
         return $query->row();
     }
     
-    public function add_compCertifyOne($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status){//添加企业认证信息
-        $sql = "insert into company_certify(certify_userid,business_license,company_name,oper_name,contact_phone,contact_email,contact_address,status"
-            .")values(".$user_id.",'".$business_license."','".$company_name."','".$oper_name."','".$contact_phone."','".$contact_email."','".$contact_address."',".$status.")";
+    public function add_compCertifyOne($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status,$create_time){//添加企业认证信息
+        $sql = "insert into company_certify(certify_userid,business_license,company_name,oper_name,contact_phone,contact_email,contact_address,status,create_time"
+            .")values(".$user_id.",'".$business_license."','".$company_name."','".$oper_name."','".$contact_phone."','".$contact_email."','".$contact_address."',".$status.",'".$create_time."')";
         $query = $this->db->query($sql);
         return $query;
     }
     
-    public function edit_certifyByUser($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status){//重新企业认证,传入user_id
+    public function edit_certifyByUser($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status,$create_time){//重新企业认证,传入user_id
         $sql = "update company_certify set"
             ." business_license='".$business_license
             ."', company_name='".$company_name
@@ -200,7 +200,8 @@ class User_model extends CI_Model {
             ."', contact_email='".$contact_email
             ."', contact_address='".$contact_address
             ."', status=".$status
-            ." where certify_userid=".$user_id;
+            .", create_time='".$create_time
+            ."' where certify_userid=".$user_id;
         $query = $this->db->query($sql);
         return $query;
     }

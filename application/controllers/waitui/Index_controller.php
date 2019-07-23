@@ -1118,6 +1118,7 @@ class Index_controller extends CI_Controller {
         $contact_phone = $this->input->get_post('contact_phone');//得到公司电话
         $contact_email = $this->input->get_post('contact_email');//得到公司邮箱
         $contact_address = $this->input->get_post('contact_address');//得到通讯地址
+        $create_time = date("Y-m-d H:i:s", time());//发布时间
         
         if(!empty($userinfo->user_id)){
             $user_id = $userinfo->user_id;
@@ -1126,7 +1127,7 @@ class Index_controller extends CI_Controller {
             if($operate == 'add'){//添加
                 //add_compCertifyOne方法添加一条企业认证记录
                 $status = 1;//添加时默认处于认证中状态
-                $addStatus = $this->user->add_compCertifyOne($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status);
+                $addStatus = $this->user->add_compCertifyOne($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status,$create_time);
                 if($addStatus){
                     $data['state'] = 'success';
                     $data['msg'] = '添加成功';
@@ -1137,7 +1138,7 @@ class Index_controller extends CI_Controller {
             }else{//修改
                 //edit_certifyByUser方法修改管家信息
                 $status = 1;//修改时也需要将状态改为认证中,重新进行认证
-                $updateStatus = $this->user->edit_certifyByUser($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status);
+                $updateStatus = $this->user->edit_certifyByUser($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status,$create_time);
                 if($updateStatus){
                     $data['state'] = 'success';
                     $data['msg'] = '修改成功';

@@ -493,6 +493,137 @@ class Index_controller extends CI_Controller {
         $this->load->view('admin/user_update',$data);
     }
     
+    public function company_certify_list(){//企业认证列表
+        $this->module = 'user';
+        $this->sub_menu = 'company_certify';
+        $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
+        
+        $page = $this->input->get('page');//得到页码
+        if(empty($page)) $page = 1;//默认页码为1
+        
+        //加载企业认证模型类
+        $this->load->model('admin/Certify_model','certify');
+        //get_certifyCount方法得到企业认证总数
+        $count = $this->certify->get_certifyCount();
+        
+        $page_size = 20;//单页记录数
+        $offset = ($page-1)*$page_size;//偏移量
+        switch($page){
+            case 1:
+                $num_links = 4;//num_links选中页右边的个数
+                break;
+            case 2:
+                $num_links = 3;
+                break;
+            case ceil($count/$page_size):
+                $num_links = 4;
+                break;
+            case ceil($count/$page_size)-1:
+                $num_links = 3;
+                break;
+            default:
+                $num_links = 2;
+                break;
+        }
+        
+        $this->load->library('pagination');
+        $config['base_url'] = base_url().'admin/company_certify_list';
+        $config['total_rows'] = $count;
+        $config['per_page'] = $page_size;// $pagesize每页条数
+        $config['num_links'] = $num_links;//设置选中页左右两边的页数
+        
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_tag_open'] = '<li class="paginate_button first">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li class="paginate_button last">';
+        $config['last_tag_close'] = '</li>';
+        $config['next_tag_open'] = '<li class="paginate_button next">';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_tag_open'] = '<li class="paginate_button previous">';
+        $config['prev_tag_close'] = '</li>';
+        $config['num_tag_open'] = '<li class="paginate_button">';
+        $config['num_tag_close'] = '</li>';
+        $config['cur_tag_open'] = ' <li class="paginate_button active"><a>'; // 当前页开始样式   
+        $config['cur_tag_close'] = '</a></li>'; 
+        $config['first_link'] = '首页'; // 第一页显示   
+        $config['last_link'] = '尾页'; // 最后一页显示   
+        $config['next_link'] = '下一页'; // 下一页显示   
+        $config['prev_link'] = '上一页'; // 上一页显示 
+        
+        $this->pagination->initialize($config);
+        $data['page_count'] = $count;
+        $data['page_size'] = $page_size;
+        
+        //get_certifyList方法到企业认证列表信息
+        $certify_list = $this->certify->get_certifyList($offset,$page_size);
+        $data['certify_list'] = $certify_list;
+        
+        $this->load->view('admin/company_certify_list',$data);
+    }
+    
+    public function company_certify_update(){//企业认证编辑初始页
+        $this->module = 'user';
+        $this->sub_menu = 'company_certify';
+        $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
+        
+        $certify_id = $this->input->get('certify_id');//得到企业认证编号
+        if(!empty($certify_id)){
+            $data['operate'] = 'update';
+            //加载企业认证模型类
+            $this->load->model('admin/Certify_model','certify');
+            //get_certifyDetail方法得到企业认证详情
+            $certify = $this->certify->get_certifyDetail($certify_id);
+            if(empty($certify)){
+                $heading = '404 Page Not Found';
+                $message = 'The page you requested was not found.';
+                show_error($message, 404, $heading );
+                exit;
+            }
+            $data['certify'] = $certify;
+        }else{
+            $data['operate'] = 'add';
+        }
+        
+        $this->load->view('admin/company_certify_update',$data);
+    }
+    
+    public function company_certify_update_do(){//企业认证编辑
+        
+        $operate = $this->input->get_post('operate');//得到操作
+        $certify_id = $this->input->get_post('certify_id');//认证编号
+        $company_name = $this->input->get_post('company_name');//公司名称
+        $oper_name = $this->input->get_post('oper_name');//法定代表人
+        $regist_capi = $this->input->get_post('regist_capi');//注册资本
+        $start_date = $this->input->get_post('start_date');//成立日期
+        $credit_code = $this->input->get_post('credit_code');//统一社会信用代码
+        $econ_kind = $this->input->get_post('econ_kind');//企业类型
+        $business_term = $this->input->get_post('business_term');//营业期限
+        $address = $this->input->get_post('address');//企业地址
+        $scope = $this->input->get_post('scope');//经营范围
+        $status = $this->input->get_post('status');//认证状态
+        $description = $this->input->get_post('description');//备注
+        //加载企业认证模型类
+        $this->load->model('admin/Certify_model','certify');
+        if($operate == 'add'){//添加
+            //添加企业认证记录不能后台添加,需要在用户中心添加
+            $data['state'] = 'failed';
+            $data['msg'] = '只能认证操作，不能添加';
+        }else{//修改
+            //edit_certifyOne方法修改企业认证
+            $updateStatus = $this->certify->edit_certifyOne($certify_id,$company_name,$oper_name,$regist_capi,$start_date,$credit_code,$econ_kind,$business_term,$address,$scope,$status,$description);
+            if($updateStatus){
+                $data['state'] = 'success';
+                $data['msg'] = '修改成功';
+            }else{
+                $data['state'] = 'failed';
+                $data['msg'] = '修改失败，请重试';
+            }
+        }
+        
+        echo json_encode($data);
+    }
+    
     public function domain_list(){//出售域名列表
         $this->module = 'domain';
         $this->sub_menu = '';

@@ -140,6 +140,8 @@ $route['admin/butler_update'] = 'admin/Index_controller/butler_update';
 
 $route['admin/user_list'] = 'admin/Index_controller/user_list';
 $route['admin/user_update'] = 'admin/Index_controller/user_update';
+$route['admin/company_certify_list'] = 'admin/Index_controller/company_certify_list';
+$route['admin/company_certify_update'] = 'admin/Index_controller/company_certify_update';
 
 $route['admin/domain_list'] = 'admin/Index_controller/domain_list';
 $route['admin/domain_update'] = 'admin/Index_controller/domain_update';
