@@ -540,11 +540,13 @@ class Index_controller extends CI_Controller {
         //get_loginRecord方法得到登录日志列表信息
         $login_list = $this->user->get_loginRecord($user_id,0,10);//最近登录10条记录
         $data['login_list'] = $login_list;
-        //加载品牌管家模型类
-        $this->load->model('waitui/Butler_model','butler');
         //get_butlerDetail方法得到品牌管家信息
-        $user_butler = $this->butler->get_butlerDetail($userinfo->user_butler);
+        $user_butler = $this->user->get_butlerDetail($userinfo->user_butler);
         $data['user_butler'] = $user_butler;
+        
+        //get_certifyByUser方法得到用户企业认证信息
+        $company_certify = $this->user->get_certifyByUser($user_id);
+        $data['company_certify'] = $company_certify;
         
         //加载快讯模型类
         $this->load->model('waitui/Flash_model','flash');
@@ -1037,7 +1039,20 @@ class Index_controller extends CI_Controller {
     
     public function company_certify(){//公司认证
         $this->module = constant('MEMU_MY');
-        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        $data['userinfo'] = $userinfo;
+        
+        $user_id = $userinfo->user_id;
+        //加载用户模型类
+        $this->load->model('waitui/User_model','user');
+        //get_certifyByUser方法得到用户企业认证信息
+        $company_certify = $this->user->get_certifyByUser($user_id);
+        if(!empty($company_certify)){
+            $data['operate'] = 'update';
+        }else{
+            $data['operate'] = 'add';
+        }
+        $data['company_certify'] = $company_certify;
         
         $this->leftmenu = 'my_account';
         
@@ -1048,7 +1063,94 @@ class Index_controller extends CI_Controller {
         );
         $data['seo'] = json_decode(json_encode($seo));
         
+        $data['styles'] = array(
+            '/htdocs/waitui/js/dropzone/css/dropzone.css?'.CACHE_TIME
+        );
+        $data['scripts'] = array(
+            '/htdocs/waitui/js/dropzone/dropzone.min.js?'.CACHE_TIME
+        );
+        
         $this->load->view('waitui/my/company_certify',$data);
+    }
+    
+    public function upload_businessLicenseTemp(){//本地上传营业执照到临时目录
+        $licenseUpload = $_FILES['file'];
+        $result = upload_images_temp($licenseUpload);
+        echo json_encode($result);
+    }
+    
+    public function upload_businessLicenseAjax(){//ajax上传营业执照临时路径
+    
+        $license_path = $this->input->get_post('license_path');//得到营业执照临时目录
+        
+        $imgInfo = getimagesize($license_path);
+        switch($imgInfo[2]){
+            case 1:
+                $imgType = 'gif';
+                break;
+            case 2:
+                $imgType = 'jpg';
+                break;
+            case 3:
+                $imgType = 'png';
+                break;
+            default:
+                $imgType = 'png';
+                break;
+        }
+        $html = file_get_contents($license_path);
+        $rand = rand(pow(10, 5), (pow(10, 6)-1));
+        file_put_contents('uploads/images/business_license/license_'.md5($rand).'.'.$imgType, $html);
+        $business_license = '/uploads/images/business_license/license_'.md5($rand).'.'.$imgType;
+        
+        $data['state'] = 'success';
+        $data['license'] = $business_license;
+        echo json_encode($data);
+    }
+    
+    public function company_certifyAjax(){
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $operate = $this->input->get_post('operate');//得到操作
+        $business_license = $this->input->get_post('business_license');//得到营业执照
+        $company_name = $this->input->get_post('company_name');//得到公司全称
+        $oper_name = $this->input->get_post('oper_name');//得到法定代表人
+        $contact_phone = $this->input->get_post('contact_phone');//得到公司电话
+        $contact_email = $this->input->get_post('contact_email');//得到公司邮箱
+        $contact_address = $this->input->get_post('contact_address');//得到通讯地址
+        
+        if(!empty($userinfo->user_id)){
+            $user_id = $userinfo->user_id;
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            if($operate == 'add'){//添加
+                //add_compCertifyOne方法添加一条企业认证记录
+                $status = 1;//添加时默认处于认证中状态
+                $addStatus = $this->user->add_compCertifyOne($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status);
+                if($addStatus){
+                    $data['state'] = 'success';
+                    $data['msg'] = '添加成功';
+                }else{
+                    $data['state'] = 'failed';
+                    $data['msg'] = '添加失败，请重试';
+                }
+            }else{//修改
+                //edit_certifyByUser方法修改管家信息
+                $status = 1;//修改时也需要将状态改为认证中,重新进行认证
+                $updateStatus = $this->user->edit_certifyByUser($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status);
+                if($updateStatus){
+                    $data['state'] = 'success';
+                    $data['msg'] = '修改成功';
+                }else{
+                    $data['state'] = 'failed';
+                    $data['msg'] = '修改失败，请重试';
+                }
+            }
+        }else{
+            $data['state'] = 'failed';
+            $data['msg'] = '程序错误，请重试';
+        }
+        echo json_encode($data);
     }
     
     public function my_message($page = 1){//我的消息
@@ -1333,9 +1435,8 @@ class Index_controller extends CI_Controller {
                 //根据手机号拿到用户信息
                 $userinfo = $this->user->get_userByPhone($phone);
                 if(isset($userinfo) && !empty($userinfo)){
-                    //加载品牌管家模型类
-                    $this->load->model('waitui/Butler_model','butler');
-                    $butler_list = $this->butler->get_butlerListAll();
+                    //get_butlerListAll方法获取所有品牌管家信息
+                    $butler_list = $this->user->get_butlerListAll();
                     $rad_butler = $butler_list[array_rand($butler_list,1)];
                     //随机给用户分配品牌管家
                     $butlerStatus = $this->user->edit_userButler($userinfo->user_id,$rad_butler->butler_id);

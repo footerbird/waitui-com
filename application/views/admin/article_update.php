@@ -256,7 +256,7 @@ function form_submit(){
 $(function(){
     $("#advancedDropzone").dropzone({
         url: '<?php echo base_url() ?>admin/Article_controller/upload_articleThumb',
-        maxFiles: 1,
+        //maxFiles: 1,//这里设置 Dropzone 最多可以处理多少文件，该文件数量指的是多次上传文件的总和,超出就会报error
         maxFilesize: 5,
         acceptedFiles: ".jpeg,.jpg,.gif,.png,.JPEG,.JPG,.GIF,.PNG",
         success: function(file,res){
@@ -269,11 +269,11 @@ $(function(){
                     $("#advancedDropzone").after('<img id="thumb_path_preview" src="'+result.url+'" width="220" height="140" class="ml20" />');
                 }
             }else{
-                toastr.error("上传失败");
+                toastr.error("上传失败，请重试");
             }
         },
         error: function(file,res){
-            toastr.error("上传失败");
+            toastr.error("上传失败，请重试");
         },
         addedfile: function(file){}//阻止默认行为
     });

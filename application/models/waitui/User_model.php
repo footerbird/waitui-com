@@ -165,5 +165,44 @@ class User_model extends CI_Model {
         $query = $this->db->query($sql);
         return $query->num_rows();
     }
+    
+    public function get_butlerListAll(){//管家列表,输出全部条数
+        $sql = "select * from butler_info order by create_time desc";
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+    
+    public function get_butlerDetail($butler_id){//控制台管家信息,传入butler_id
+        $sql = "select * from butler_info where butler_id = ".$butler_id;
+        $query = $this->db->query($sql);
+        return $query->row();
+    }
+    
+    public function get_certifyByUser($user_id){//企业认证页面,传入user_id
+        $sql = "select * from company_certify where certify_userid = ".$user_id;
+        $query = $this->db->query($sql);
+        return $query->row();
+    }
+    
+    public function add_compCertifyOne($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status){//添加企业认证信息
+        $sql = "insert into company_certify(certify_userid,business_license,company_name,oper_name,contact_phone,contact_email,contact_address,status"
+            .")values(".$user_id.",'".$business_license."','".$company_name."','".$oper_name."','".$contact_phone."','".$contact_email."','".$contact_address."',".$status.")";
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function edit_certifyByUser($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status){//重新企业认证,传入user_id
+        $sql = "update company_certify set"
+            ." business_license='".$business_license
+            ."', company_name='".$company_name
+            ."', oper_name='".$oper_name
+            ."', contact_phone='".$contact_phone
+            ."', contact_email='".$contact_email
+            ."', contact_address='".$contact_address
+            ."', status=".$status
+            ." where certify_userid=".$user_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
 }
 ?>

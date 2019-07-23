@@ -162,7 +162,7 @@ function form_submit(){
 $(function(){
     $("#advancedDropzone").dropzone({
         url: '<?php echo base_url() ?>admin/Index_controller/upload_butlerWechatTemp',
-        maxFiles: 1,
+        //maxFiles: 1,//这里设置 Dropzone 最多可以处理多少文件，该文件数量指的是多次上传文件的总和,超出就会报error
         maxFilesize: 5,
         acceptedFiles: ".jpeg,.jpg,.gif,.png,.JPEG,.JPG,.GIF,.PNG",
         success: function(file,res){
@@ -185,16 +185,16 @@ $(function(){
                                 $("#advancedDropzone").after('<img id="butler_wechat_preview" src="'+data.wechat+'" width="150" height="150" class="ml20" />');
                             }
                         }else{
-                            toastr.error(data.msg);
+                            toastr.error("上传失败，请重试");
                         }
                     }
                 });
             }else{
-                toastr.error("上传失败");
+                toastr.error("上传失败，请重试");
             }
         },
         error: function(file,res){
-            toastr.error("上传失败");
+            toastr.error("上传失败，请重试");
         },
         addedfile: function(file){}//阻止默认行为
     });

@@ -167,11 +167,11 @@
                                 }
                             });
                         }else{
-                            Pop.alert('程序错误，请重试');
+                            Pop.alert('上传失败，请重试');
                         }
                     },
                     error:function(XmlHttpRequest,textStatus,errorThrown){
-                        Pop.alert('程序错误，请重试');
+                        Pop.alert('上传失败，请重试');
                     }
                 }).submit();
             }

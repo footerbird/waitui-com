@@ -20,54 +20,56 @@
                             <span class="f12 col-gray9 fl-r">最近登录&nbsp;<?php echo $login_list[1]->login_time; ?></span>
                         </div>
                         
+                        <?php if(!empty($company_certify)){ ?>
                         <table class="my-table" width="100%">
                             <thead style="background-color: #f6f6f6;">
                                 <tr>
-                                    <th align="left" colspan="2" class="pl30 f16">杭州外推网络科技有限公司<span class="col-base f12">（已认证）</span></th>
+                                    <th align="left" colspan="2" class="pl30 f16"><?php echo $company_certify->company_name; ?>
+                                        <?php if($company_certify->status == 0){ ?>
+                                        <span class="col-warn f12">（认证失败）</span><a href="<?php echo base_url() ?>company_certify" class="fl-r f12 col-blue mt3">重新认证</a>
+                                        <?php }elseif($company_certify->status == 1){ ?>
+                                        <span class="col-gray9 f12">（认证中）</span>
+                                        <?php }else{ ?>
+                                        <span class="col-green f12">（已认证）</span>
+                                        <?php } ?>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td width="20%" class="pl30">类型</td>
-                                    <td width="80%">有限责任公司（自然人独资）</td>
+                                    <td width="80%"><?php echo empty($company_certify->econ_kind)?'-':$company_certify->econ_kind; ?></td>
                                 </tr>
                                 <tr>
                                     <td width="20%" class="pl30">住所</td>
-                                    <td width="80%">浙江省杭州市拱墅区上塘路333号11层</td>
+                                    <td width="80%"><?php echo empty($company_certify->address)?'-':$company_certify->address; ?></td>
                                 </tr>
                                 <tr>
                                     <td width="20%" class="pl30">法定代表人</td>
-                                    <td width="80%">许XX</td>
+                                    <td width="80%"><?php echo empty($company_certify->oper_name)?'-':$company_certify->oper_name; ?></td>
                                 </tr>
                                 <tr>
                                     <td width="20%" class="pl30">注册资本</td>
-                                    <td width="80%">壹佰万元整</td>
+                                    <td width="80%"><?php echo empty($company_certify->regist_capi)?'-':$company_certify->regist_capi; ?></td>
                                 </tr>
                                 <tr>
                                     <td width="20%" class="pl30">成立日期</td>
-                                    <td width="80%">2019年1年1日</td>
+                                    <td width="80%"><?php echo empty($company_certify->start_date)?'-':$company_certify->start_date; ?></td>
                                 </tr>
                                 <tr>
                                     <td width="20%" class="pl30">营业期限</td>
-                                    <td width="80%">长期</td>
+                                    <td width="80%"><?php echo empty($company_certify->business_term)?'-':$company_certify->business_term; ?></td>
                                 </tr>
                                 <tr>
                                     <td width="20%" class="pl30">经营范围</td>
                                     <td width="80%">
-                                        <div style="height: 44px; overflow: hidden;">一般经营项目是:网络营销策划;计算机软硬件的技术开发、技术服务、技术咨询及销售;动漫设计;多媒体设计;网站建设;网页设计;品牌策划;从事广告业务;经营电子商务;经营进出口业务。(以上法律、行政法规、国务院决定规定在登记前须经批准的项目除外,限制的项目须取得许可后方可经营)</div>
+                                        <div style="height: 44px; overflow: hidden;"><?php echo empty($company_certify->scope)?'-':$company_certify->scope; ?></div>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="h15"></div>
-                    </div>
-                    
-                    <div class="console-panel pb15 mb30" style="display: none;">
-                        <div class="panel-title f16 mt0 mb20"><?php echo $userinfo->user_name; ?>，您好！
-                            <a href="<?php echo base_url() ?>my_account" class="f12 col-blue">修改资料</a>
-                            <span class="f12 col-gray9 fl-r">最近登录&nbsp;<?php echo $login_list[1]->login_time; ?></span>
-                        </div>
-                        
+                        <?php }else{ ?>
                         <div>
                             <p class="ta-c f18 col-my pt50 pb30">您尚未进行公司认证</p>
                             <p class="ta-c"><img src="/htdocs/waitui/images/console-certify.png"></p>
@@ -78,6 +80,7 @@
                                 <a href="<?php echo base_url() ?>company_certify" class="pub-btn w180">立即认证</a>
                             </p>
                         </div>
+                        <?php } ?>
                     </div>
                     
                     <div class="console-panel pb15 mb30">
