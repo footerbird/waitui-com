@@ -561,10 +561,19 @@ class Index_controller extends CI_Controller {
         }
         $data['flash_list'] = $flash_list;
         
+        //加载域名模型类
+        $this->load->model('waitui/Domain_model','domain');
+        //get_myDomainList方法得到我的域名列表信息
+        $domain_list = $this->domain->get_myDomainList($user_id,'',0,3);
+        foreach($domain_list as $domain){
+            $domain->expired_distance = format_domain_exptime($domain->expired_date);
+        }
+        $data['domain_list'] = $domain_list;
+        
         //加载商标模型类
         $this->load->model('waitui/Mark_model','mark');
-        //get_markList方法得到商标列表信息
-        $mark_list = $this->mark->get_markList('',0,3);
+        //get_myMarkSearch方法得到我的商标列表信息
+        $mark_list = $this->mark->get_myMarkSearch($user_id,'',0,3);
         foreach($mark_list as $mark){
             //get_categoryName获取大类名称
             $category = $this->mark->get_categoryName($mark->mark_category);

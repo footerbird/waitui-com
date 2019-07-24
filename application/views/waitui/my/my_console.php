@@ -54,7 +54,7 @@
                                 </tr>
                                 <tr>
                                     <td width="20%" class="pl30">成立日期</td>
-                                    <td width="80%"><?php echo empty($company_certify->start_date)?'-':$company_certify->start_date; ?></td>
+                                    <td width="80%"><?php echo empty($company_certify->start_date)?'-':date('Y-m-d',strtotime($company_certify->start_date)); ?></td>
                                 </tr>
                                 <tr>
                                     <td width="20%" class="pl30">营业期限</td>
@@ -145,37 +145,46 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="f14 pl30">hzwt.com.cn</td>
-                                    <td>2019-04-11</td>
-                                    <td>2022-04-11</td>
-                                    <td>正常</td>
-                                    <td align="right" class="pr30">
-                                        <a href="javascript:;" class="ml10">续费</a>
-                                        <a href="javascript:;" class="ml10" onclick="contactAdmin()">解析</a>
-                                        <a href="javascript:;" class="ml10" onclick="contactAdmin()">转出</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="f14 pl30">hzwt.com.cn</td>
-                                    <td>2019-04-11</td>
-                                    <td>2022-04-11</td>
-                                    <td>正常</td>
-                                    <td align="right" class="pr30">
-                                        <a href="javascript:;" class="ml10">续费</a>
-                                        <a href="javascript:;" class="ml10" onclick="contactAdmin()">解析</a>
-                                        <a href="javascript:;" class="ml10" onclick="contactAdmin()">转出</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="f14 pl30">wtwl.com.cn</td>
-                                    <td>2018-04-31</td>
-                                    <td>2019-06-31</td>
-                                    <td>即将过期</td>
-                                    <td align="right" class="pr30">
-                                        <a href="javascript:;" class="ml10">续费</a>
-                                    </td>
-                                </tr>
+                                <?php if(count($domain_list) != 0){ ?>
+                                    <?php foreach ($domain_list as $domain){ ?>
+                                    <tr>
+                                        <td class="f14 pl30"><?php echo $domain->domain_name; ?></td>
+                                        <td><?php echo date('Y-m-d',strtotime($domain->created_date)); ?></td>
+                                        <td><?php echo date('Y-m-d',strtotime($domain->expired_date)); ?></td>
+                                        <td>
+                                            <?php 
+                                                if((int)$domain->expired_distance > 30){
+                                                    echo '<span class="col-green">正常</span>';
+                                                }elseif((int)$domain->expired_distance >= 0){
+                                                    echo '<span class="col-warn">即将过期</span>';
+                                                }else{
+                                                    echo '<span class="col-gray9">已过期</span>';
+                                                }
+                                             ?>
+                                        </td>
+                                        <td align="right" class="pr30">
+                                            <?php if((int)$domain->expired_distance > 30){ ?>
+                                                <a href="javascript:;" class="ml10">续费</a>
+                                                <a href="javascript:;" class="ml10" onclick="contactAdmin()">解析</a>
+                                                <a href="javascript:;" class="ml10" onclick="contactAdmin()">转出</a>
+                                            <?php }elseif((int)$domain->expired_distance >= 0){ ?>
+                                                <a href="javascript:;" class="ml10">续费</a>
+                                            <?php }else{ ?>
+                                                <a href="javascript:;" class="ml10" onclick="contactAdmin()">购买</a>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                <?php }else{ ?>
+                                    <tr>
+                                        <td colspan="5" class="pl30 pr30">
+                                            <p class="ta-c"><img src="/htdocs/waitui/images/console-certify.png"></p>
+                                            <p class="ta-c f14 col-gray9 lh28 pt30">
+                                              暂无域名，您可以联系您的专属<a href="javascript:;" class="ml10 mr10" onclick="contactAdmin()">品牌管家</a>来注册和求购您心仪的域名
+                                            </p>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                         <div class="h5"></div>
@@ -196,24 +205,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($mark_list as $mark){ ?>
-                                <tr>
-                                    <td class="f14 pl15">
-                                        <a class="after-cls" href="<?php echo base_url() ?>mark_detail/<?php echo $mark->regno_md; ?>.html" target="_blank" title="<?php echo $mark->mark_name; ?>">
-                                            <img class="thumb fl-l" src="<?php echo $mark->image_path; ?>" width="60" height="60" />
-                                            <span class="fl-l ml20 mt20">[<?php echo $mark->mark_category<10?'0'.$mark->mark_category:$mark->mark_category; ?>&nbsp;&nbsp;<?php echo $mark->category_name; ?>]</span>
-                                        </a>
-                                    </td>
-                                    <td><?php echo $mark->mark_regno; ?></td>
-                                    <td><?php echo $mark->private_limit; ?></td>
-                                    <td>商标已注册</td>
-                                    <td align="right" class="pr30">
-                                        <a class="ml10" href="<?php echo base_url() ?>mark_detail/<?php echo $mark->regno_md; ?>.html" target="_blank">查看</a>
-                                    </td>
-                                </tr>
+                                <?php if(count($mark_list) != 0){ ?>
+                                    <?php foreach ($mark_list as $mark){ ?>
+                                    <tr>
+                                        <td class="f14 pl15">
+                                            <a class="after-cls" href="<?php echo base_url() ?>mark_detail/<?php echo $mark->regno_md; ?>.html" target="_blank" title="<?php echo $mark->mark_name; ?>">
+                                                <img class="thumb fl-l" src="<?php echo $mark->image_path; ?>" width="60" height="60" />
+                                                <span class="fl-l ml20 mt20">[<?php echo $mark->mark_category<10?'0'.$mark->mark_category:$mark->mark_category; ?>&nbsp;&nbsp;<?php echo $mark->category_name; ?>]</span>
+                                            </a>
+                                        </td>
+                                        <td><?php echo $mark->mark_regno; ?></td>
+                                        <td><?php echo $mark->private_limit; ?></td>
+                                        <td><?php echo $mark->mark_status; ?></td>
+                                        <td align="right" class="pr30">
+                                            <a class="ml10" href="<?php echo base_url() ?>mark_detail/<?php echo $mark->regno_md; ?>.html" target="_blank">查看</a>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                <?php }else{ ?>
+                                    <tr>
+                                        <td colspan="5" class="pl30 pr30">
+                                            <p class="ta-c"><img src="/htdocs/waitui/images/console-certify.png"></p>
+                                            <p class="ta-c f14 col-gray9 lh28 pt30">
+                                              暂无商标，您可以联系您的专属<a href="javascript:;" class="ml10 mr10" onclick="contactAdmin()">品牌管家</a>来注册和求购您心仪的商标
+                                            </p>
+                                        </td>
+                                    </tr>
                                 <?php } ?>
                             </tbody>
                         </table>
+                        <div class="h5"></div>
                     </div>
                     
                 </div>
