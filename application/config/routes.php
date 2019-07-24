@@ -74,6 +74,7 @@ $route['agreement.html'] = 'waitui/Index_controller/agreement';
 $route['my_console'] = 'waitui/Index_controller/my_console';
 
 $route['my_domain'] = 'waitui/Index_controller/my_domain';
+$route['my_domain/([\d]+)'] = 'waitui/Index_controller/my_domain/$1';
 
 $route['my_mark'] = 'waitui/Index_controller/my_mark';
 $route['my_mark/([\d]+)'] = 'waitui/Index_controller/my_mark/$1';

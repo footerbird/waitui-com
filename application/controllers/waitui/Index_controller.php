@@ -588,9 +588,58 @@ class Index_controller extends CI_Controller {
         $this->load->view('waitui/my/my_console',$data);
     }
     
-    public function my_domain(){//我的域名
+    public function my_domain($page = 1){//我的域名
         $this->module = constant('MEMU_MY');
-        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        $data['userinfo'] = $userinfo;
+        
+        $keyword = $this->input->get_post('keyword');//得到域名关键字
+        $keyword = $keyword?$keyword:'';
+        
+        $user_id = $userinfo->user_id;
+        //加载域名模型类
+        $this->load->model('waitui/Domain_model','domain');
+        //get_myDomainCount方法得到我的域名总数
+        $count = $this->domain->get_myDomainCount($user_id,$keyword);
+        
+        $page_size = 10;//单页记录数
+        $offset = ($page-1)*$page_size;//偏移量
+        switch($page){
+            case 1:
+                $num_links = 4;//num_links选中页右边的个数
+                break;
+            case 2:
+                $num_links = 3;
+                break;
+            case ceil($count/$page_size):
+                $num_links = 4;
+                break;
+            case ceil($count/$page_size)-1:
+                $num_links = 3;
+                break;
+            default:
+                $num_links = 2;
+                break;
+        }
+        
+        $this->load->library('pagination');
+        $config['page_query_string'] = FALSE;//使用 URI 段
+        $config['reuse_query_string'] = TRUE;//将查询字符串参数添加到 URI 分段的后面
+        $config['base_url'] = base_url().'my_domain';
+        $config['total_rows'] = $count;
+        $config['per_page'] = $page_size;// $pagesize每页条数
+        $config['num_links'] = $num_links;//设置选中页左右两边的页数
+        $this->pagination->initialize($config);
+        $data['page_count'] = $count;
+        $data['page_size'] = $page_size;
+        
+        //get_myDomainList方法得到我的域名列表信息
+        $domain_list = $this->domain->get_myDomainList($user_id,$keyword,$offset,$page_size);
+        foreach($domain_list as $domain){
+            $domain->expired_distance = format_domain_exptime($domain->expired_date);
+        }
+        $data['domain_list'] = $domain_list;
+        $data['keyword'] = $keyword;
         
         $this->leftmenu = 'my_domain';
         

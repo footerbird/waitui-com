@@ -8,7 +8,7 @@ class Domain_model extends CI_Model {
     
     public function get_domainList($start,$length){//域名列表页面,输出前$length条数
         $sql = "select * from domain_info "
-            ." limit ".$start.",".$length;
+            ." order by expired_date asc limit ".$start.",".$length;
         $query = $this->db->query($sql);
         return $query->result();
     }
