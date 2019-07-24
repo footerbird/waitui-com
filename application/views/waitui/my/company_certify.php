@@ -15,11 +15,11 @@
             <div class="panel-title mb20">
                 <div class="panel-title-tab">
                     <a href="<?php echo base_url() ?>my_account">个人信息</a>
-                    <a href="<?php echo base_url() ?>company_certify" class="cur">公司认证</a>
+                    <a href="<?php echo base_url() ?>certify_list" class="cur">公司认证</a>
                 </div>
             </div>
             
-            <div class="my-form mt50" id="certify_form" <?php if(!empty($company_certify)){ echo 'style="display:none;"'; } ?> >
+            <div class="my-form mt50" id="certify_form" <?php if(isset($company_certify)){ echo 'style="display:none;"'; } ?> >
             <form id="certifyForm">
                 <dl class="mb30">
                     <dt class="w140 ta-l">工商营业执照</dt>
@@ -29,14 +29,14 @@
                             <p class="col-gray9 f14 lh24">格式要求：原件照片、扫描件或者加盖公章的复印件，支持.jpg .png .gif格式照片，大小不超过5M。</p>
                         </div>
                         <a href="javascript:;" class="upload-btn" id="upload_licence_btn">上传文件</a>
-                        <input type="hidden" name="business_license" id="business_license" value="<?php if(!empty($company_certify)){ echo $company_certify->business_license; } ?>">
+                        <input type="hidden" name="business_license" id="business_license" value="<?php if(isset($company_certify)){ echo $company_certify->business_license; } ?>">
                         <div class="upload-result" id="upload_licence_result" style="display: none;"></div>
                     </dd>
                 </dl>
                 <dl class="mb30">
                     <dt class="w140 ta-l">公司全称</dt>
                     <dd>
-                        <input type="text" placeholder="请填写公司全称" id="company_name" name="company_name" value="<?php if(!empty($company_certify)){ echo $company_certify->company_name; } ?>" />
+                        <input type="text" placeholder="请填写公司全称" id="company_name" name="company_name" value="<?php if(isset($company_certify)){ echo $company_certify->company_name; } ?>" />
                         <div class="mt5 mb5">
                             <p class="col-gray9 f14 lh24">主体名称需严格按照证件填写，避免因主体原因导致认证失败。</p>
                         </div>
@@ -45,7 +45,7 @@
                 <dl class="mb30">
                     <dt class="w140 ta-l">法定代表人姓名</dt>
                     <dd>
-                        <input type="text" placeholder="请填写法定代表人姓名" id="oper_name" name="oper_name" value="<?php if(!empty($company_certify)){ echo $company_certify->oper_name; } ?>" />
+                        <input type="text" placeholder="请填写法定代表人姓名" id="oper_name" name="oper_name" value="<?php if(isset($company_certify)){ echo $company_certify->oper_name; } ?>" />
                         <div class="mt5 mb5">
                             <p class="col-gray9 f14 lh24">法定代表人姓名需与工商营业执照一致。</p>
                         </div>
@@ -54,7 +54,7 @@
                 <dl class="mb30">
                     <dt class="w140 ta-l">公司电话</dt>
                     <dd>
-                        <input type="text" placeholder="请填写公司电话" id="contact_phone" name="contact_phone" value="<?php if(!empty($company_certify)){ echo $company_certify->contact_phone; } ?>" />
+                        <input type="text" placeholder="请填写公司电话" id="contact_phone" name="contact_phone" value="<?php if(isset($company_certify)){ echo $company_certify->contact_phone; } ?>" />
                         <div class="mt5 mb5">
                             <p class="col-gray9 f14 lh24">手机联系不到时备用。</p>
                         </div>
@@ -63,7 +63,7 @@
                 <dl class="mb30">
                     <dt class="w140 ta-l">公司邮箱</dt>
                     <dd>
-                        <input type="text" placeholder="请填写公司邮箱" id="contact_email" name="contact_email" value="<?php if(!empty($company_certify)){ echo $company_certify->contact_email; } ?>" />
+                        <input type="text" placeholder="请填写公司邮箱" id="contact_email" name="contact_email" value="<?php if(isset($company_certify)){ echo $company_certify->contact_email; } ?>" />
                         <div class="mt5 mb5">
                             <p class="col-gray9 f14 lh24">用于后续相关服务通知。</p>
                         </div>
@@ -72,7 +72,7 @@
                 <dl class="mb30">
                     <dt class="w140 ta-l">通讯地址</dt>
                     <dd>
-                        <input type="text" placeholder="请填写通讯地址" id="contact_address" name="contact_address" value="<?php if(!empty($company_certify)){ echo $company_certify->contact_address; } ?>" />
+                        <input type="text" placeholder="请填写通讯地址" id="contact_address" name="contact_address" value="<?php if(isset($company_certify)){ echo $company_certify->contact_address; } ?>" />
                         <div class="mt5 mb5">
                             <p class="col-gray9 f14 lh24">请填写企业实际办公地址。</p>
                         </div>
@@ -81,61 +81,62 @@
                 <dl class="mb30">
                     <dt class="w140 ta-l">&nbsp;</dt>
                     <dd>
-                        <a href="javascript:;" class="pub-btn mr20" id="certify" onclick="form_submit()" <?php if(!empty($company_certify)){ echo 'style="display:none;"'; } ?> >提交认证</a>
+                        <a href="javascript:;" class="pub-btn mr20" id="certify" onclick="form_submit()" <?php if(isset($company_certify)){ echo 'style="display:none;"'; } ?> >提交认证</a>
                         <a href="javascript:;" class="pub-btn-gray mr20" id="cancel_certify" style="display: none;">取消操作</a>
+                        <input type="hidden" name="certify_id" value="<?php if(isset($company_certify)){ echo $company_certify->certify_id; } ?>">
                         <input type="hidden" name="operate" value="<?php echo $operate; ?>">
                     </dd>
                 </dl>
             </form>
             </div>
             
-            <div class="my-form mt50" id="certifing_form" <?php if(empty($company_certify)){ echo 'style="display:none;"'; } ?> >
+            <div class="my-form mt50" id="certifing_form" <?php if(!isset($company_certify)){ echo 'style="display:none;"'; } ?> >
                 <dl class="mb30">
                     <dt class="w140 ta-l">工商营业执照</dt>
                     <dd>
-                        <img src="<?php if(!empty($company_certify)){ echo $company_certify->business_license; } ?>" width="90" height="120" class="fl-l mr20" />
-                        <a href="<?php if(!empty($company_certify)){ echo $company_certify->business_license; } ?>" target="_blank" class="fl-l">查看大图</a>
+                        <img src="<?php if(isset($company_certify)){ echo $company_certify->business_license; } ?>" width="90" height="120" class="fl-l mr20" />
+                        <a href="<?php if(isset($company_certify)){ echo $company_certify->business_license; } ?>" target="_blank" class="fl-l">查看大图</a>
                     </dd>
                 </dl>
                 <dl class="mb30">
                     <dt class="w140 ta-l">公司全称</dt>
                     <dd>
-                        <input type="text" placeholder="请填写公司全称" value="<?php if(!empty($company_certify)){ echo $company_certify->company_name; } ?>" disabled="disabled" />
+                        <input type="text" placeholder="请填写公司全称" value="<?php if(isset($company_certify)){ echo $company_certify->company_name; } ?>" disabled="disabled" />
                     </dd>
                 </dl>
                 <dl class="mb30">
                     <dt class="w140 ta-l">法定代表人姓名</dt>
                     <dd>
-                        <input type="text" placeholder="请填写法定代表人姓名" value="<?php if(!empty($company_certify)){ echo $company_certify->oper_name; } ?>" disabled="disabled" />
+                        <input type="text" placeholder="请填写法定代表人姓名" value="<?php if(isset($company_certify)){ echo $company_certify->oper_name; } ?>" disabled="disabled" />
                     </dd>
                 </dl>
                 <dl class="mb30">
                     <dt class="w140 ta-l">公司电话</dt>
                     <dd>
-                        <input type="text" placeholder="请填写公司电话" value="<?php if(empty(!$company_certify)){ echo $company_certify->contact_phone; } ?>" disabled="disabled" />
+                        <input type="text" placeholder="请填写公司电话" value="<?php if(isset($company_certify)){ echo $company_certify->contact_phone; } ?>" disabled="disabled" />
                     </dd>
                 </dl>
                 <dl class="mb30">
                     <dt class="w140 ta-l">公司邮箱</dt>
                     <dd>
-                        <input type="text" placeholder="请填写公司邮箱" value="<?php if(!empty($company_certify)){ echo $company_certify->contact_email; } ?>" disabled="disabled" />
+                        <input type="text" placeholder="请填写公司邮箱" value="<?php if(isset($company_certify)){ echo $company_certify->contact_email; } ?>" disabled="disabled" />
                     </dd>
                 </dl>
                 <dl class="mb30">
                     <dt class="w140 ta-l">通讯地址</dt>
                     <dd>
-                        <input type="text" placeholder="请填写通讯地址" value="<?php if(!empty($company_certify)){ echo $company_certify->contact_address; } ?>" disabled="disabled" />
+                        <input type="text" placeholder="请填写通讯地址" value="<?php if(isset($company_certify)){ echo $company_certify->contact_address; } ?>" disabled="disabled" />
                     </dd>
                 </dl>
                 <dl class="mb30">
                     <dt class="w140 ta-l">&nbsp;</dt>
                     <dd>
-                        <a href="javascript:;" class="pub-btn-gray forbid mr20" id="certifing" <?php if(!(!empty($company_certify) && $company_certify->status == 1)){ echo 'style="display:none;"'; } ?> >认证中...</a>
-                        <a href="javascript:;" class="pub-btn mr20" id="re_certify" <?php if(!(!empty($company_certify) && $company_certify->status != 1)){ echo 'style="display:none;"'; } ?> >重新认证</a>
-                        <?php if(!empty($company_certify) && $company_certify->status == 0){ ?>
+                        <a href="javascript:;" class="pub-btn-gray forbid mr20" id="certifing" <?php if(!(isset($company_certify) && $company_certify->status == 1)){ echo 'style="display:none;"'; } ?> >认证中...</a>
+                        <a href="javascript:;" class="pub-btn mr20" id="re_certify" <?php if(!(isset($company_certify) && $company_certify->status != 1)){ echo 'style="display:none;"'; } ?> >重新认证</a>
+                        <?php if(isset($company_certify) && $company_certify->status == 0){ ?>
                         <span class="col-warn">认证失败：<?php echo $company_certify->description; ?></span>
                         <?php } ?>
-                        <?php if(!empty($company_certify) && $company_certify->status == 2){ ?>
+                        <?php if(isset($company_certify) && $company_certify->status == 2){ ?>
                         <span class="col-green">已认证</span>
                         <?php } ?>
                     </dd>
@@ -182,7 +183,7 @@
             },
             success:function (data) {
                 if(data.state == "success"){
-                    location.reload();
+                    location.href = '<?php echo base_url() ?>certify_list';
                 }else{
                     Pop.alert(data.msg);
                 }

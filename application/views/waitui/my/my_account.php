@@ -15,7 +15,7 @@
             <div class="panel-title mb20">
                 <div class="panel-title-tab">
                     <a href="<?php echo base_url() ?>my_account" class="cur">个人信息</a>
-                    <a href="<?php echo base_url() ?>company_certify">公司认证</a>
+                    <a href="<?php echo base_url() ?>certify_list">公司认证</a>
                 </div>
             </div>
             <div class="my-infomation mt40">

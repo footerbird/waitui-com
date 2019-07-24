@@ -89,6 +89,7 @@ $route['my_coupon'] = 'waitui/Index_controller/my_coupon';
 $route['my_coupon/([\d]+)'] = 'waitui/Index_controller/my_coupon/$1';
 
 $route['my_account'] = 'waitui/Index_controller/my_account';
+$route['certify_list'] = 'waitui/Index_controller/certify_list';
 $route['company_certify'] = 'waitui/Index_controller/company_certify';
 
 $route['my_message'] = 'waitui/Index_controller/my_message';
