@@ -13,15 +13,17 @@
         <?php include_once(VIEWPATH.'waitui/templete/my_leftmenu.php') ?>
         <div class="my-mainpanel">
             <div class="panel-title mb20">我的商标</div>
-            <div class="my-table-filter after-cls">
-                <input type="text" placeholder="输入商标名称" class="fl-l mr10" />
-                <a href="javascript:;" class="pub-btn fl-l mr10">搜索</a>
-                <a href="<?php echo base_url() ?>mark_list.html" target="_blank" class="pub-btn-yellow fl-l"><i class="ico-shop"></i>淘商标</a>
-                <div class="fl-r">
-                    <a href="javascript:;" class="pub-btn-blue mr10" onclick="contactAdmin()">求购商标</a>
-                    <a href="javascript:;" class="pub-btn-green" onclick="contactAdmin()">注册商标</a>
+            <form id="search_form" action="<?php echo base_url() ?>my_mark" method="post">
+                <div class="my-table-filter after-cls">
+                    <input type="text" placeholder="输入商标名称" class="fl-l mr10" name="keyword" value="<?php echo $keyword; ?>" id="keyword" onkeyup="keywordEnter()" />
+                    <a href="javascript:;" class="pub-btn fl-l mr10" onclick="keywordSearch()">搜索</a>
+                    <a href="<?php echo base_url() ?>mark_list.html" target="_blank" class="pub-btn-yellow fl-l"><i class="ico-shop"></i>淘商标</a>
+                    <div class="fl-r">
+                        <a href="javascript:;" class="pub-btn-blue mr10" onclick="contactAdmin()">求购商标</a>
+                        <a href="javascript:;" class="pub-btn-green" onclick="contactAdmin()">注册商标</a>
+                    </div>
                 </div>
-            </div>
+            </form>
             <table class="my-table" width="100%">
                 <thead>
                     <tr>
@@ -33,6 +35,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php if(count($mark_list) != 0){ ?>
                     <?php foreach ($mark_list as $mark){ ?>
                     <tr>
                         <td class="f14 pl15">
@@ -49,6 +52,17 @@
                         </td>
                     </tr>
                     <?php } ?>
+                <?php }else{ ?>
+                    <tr>
+                        <td colspan="5" class="pl30 pr30">
+                            <p class="ta-c f18 col-my pt50 pb30">暂无商标</p>
+                            <p class="ta-c"><img src="/htdocs/waitui/images/console-certify.png"></p>
+                            <p class="ta-c f14 col-gray9 lh28 pt30">
+                              您好，暂无搜索结果，<br>您可以联系您的专属<a href="javascript:;" class="ml10 mr10" onclick="contactAdmin()">品牌管家</a>来注册和求购您心仪的商标
+                            </p>
+                        </td>
+                    </tr>
+                <?php } ?>
                 </tbody>
             </table>
             <div class="route-pagination">
@@ -61,6 +75,19 @@
     <?php include_once(VIEWPATH.'waitui/templete/my_foot.php') ?>
     
     <script type="text/javascript">
+    
+    function keywordEnter(e){
+        var eve = e || window.event;
+        if(eve.keyCode == 13){
+            keywordSearch();
+        }
+    }
+    
+    function keywordSearch(){
+        $("#keyword").val($.trim($("#keyword").val()));
+        $("#search_form").submit();
+    }
+    
     $(function(){
         
         scrollTop("ico_top");//返回顶部

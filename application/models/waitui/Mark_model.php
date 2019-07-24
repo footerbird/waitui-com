@@ -8,20 +8,20 @@ class Mark_model extends CI_Model {
     
     public function get_markList($category,$start,$length){//商标列表页面,传入mark_category,如'15',输出前$length条数
         if($category == ''){
-            $sql = "select mark_regno,regno_md,mark_name,image_path,mark_category,private_limit,app_range,mark_status,mark_applicant,mark_price from mark_info "
-                ." limit ".$start.",".$length;
+            $sql = "select * from mark_info "
+                ." where is_onsale = 1 limit ".$start.",".$length;
         }else{
-            $sql = "select mark_regno,regno_md,mark_name,image_path,mark_category,private_limit,app_range,mark_status,mark_applicant,mark_price from mark_info "
-                ." where mark_category = ".$category." limit ".$start.",".$length;
+            $sql = "select * from mark_info "
+                ." where is_onsale = 1 and mark_category = ".$category." limit ".$start.",".$length;
         }
         $query = $this->db->query($sql);
         return $query->result();
     }
     
     public function get_markCount($category){//在售商标总数
-        $sql = "select mark_regno from mark_info";
+        $sql = "select mark_regno from mark_info where is_onsale = 1 ";
         if($category != ""){
-            $sql = $sql." where mark_category = '".$category."'";
+            $sql = $sql." and mark_category = '".$category."'";
         }
         $query = $this->db->query($sql);
         return $query->num_rows();
@@ -35,8 +35,8 @@ class Mark_model extends CI_Model {
     }
     
     public function get_markSearch($keyword,$start,$length,$sort,$filter_category,$filter_type,$filter_price,$filter_length){//商标搜索列表页面,输出前$length条数
-        $sql = "select mark_regno,regno_md,mark_name,image_path,mark_category,app_range,mark_price from mark_info "
-            ." where concat(mark_regno,mark_name,app_range) like '%".$keyword."%'";
+        $sql = "select * from mark_info "
+            ." where is_onsale = 1 and concat(mark_regno,mark_name,app_range) like '%".$keyword."%'";
         if($filter_category != ""){
             $sql = $sql." and mark_category = ".$filter_category;
         }
@@ -59,9 +59,9 @@ class Mark_model extends CI_Model {
         return $query->result();
     }
     
-    public function get_markSearchCount($keyword,$filter_category,$filter_type,$filter_price,$filter_length){//商标搜索列表页面,输出前$length条数
-        $sql = "select mark_regno,regno_md,mark_name,image_path,mark_category,app_range,mark_price from mark_info "
-            ." where concat(mark_regno,mark_name,app_range) like '%".$keyword."%'";
+    public function get_markSearchCount($keyword,$filter_category,$filter_type,$filter_price,$filter_length){//商标搜索列表总数
+        $sql = "select mark_regno from mark_info "
+            ." where is_onsale = 1 and concat(mark_regno,mark_name,app_range) like '%".$keyword."%'";
         if($filter_category != ""){
             $sql = $sql." and mark_category = ".$filter_category;
         }
@@ -76,6 +76,21 @@ class Mark_model extends CI_Model {
             $filter_length_arr = explode("-", $filter_length);
             $sql = $sql." and mark_length >= ".$filter_length_arr[0]." and mark_length < ".$filter_length_arr[1];
         }
+        $query = $this->db->query($sql);
+        return $query->num_rows();
+    }
+    
+    public function get_myMarkSearch($user_id,$keyword,$start,$length){//我的商标列表页面,输出前$length条数
+        $sql = "select * from mark_info "
+            ." where mark_userid = ".$user_id." and concat(mark_regno,mark_name,app_range) like '%".$keyword."%'";
+        $sql = $sql." limit ".$start.",".$length;
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+    
+    public function get_myMarkSearchCount($user_id,$keyword){//我的商标总数
+        $sql = "select mark_regno from mark_info "
+            ." where mark_userid = ".$user_id." and concat(mark_regno,mark_name,app_range) like '%".$keyword."%'";
         $query = $this->db->query($sql);
         return $query->num_rows();
     }

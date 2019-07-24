@@ -606,12 +606,17 @@ class Index_controller extends CI_Controller {
     
     public function my_mark($page = 1){//我的商标
         $this->module = constant('MEMU_MY');
-        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        $data['userinfo'] = $userinfo;
         
+        $keyword = $this->input->get_post('keyword');//得到域名关键字
+        $keyword = $keyword?$keyword:'';
+        
+        $user_id = $userinfo->user_id;
         //加载商标模型类
         $this->load->model('waitui/Mark_model','mark');
-        //get_markCount方法得到商标总数
-        $count = $this->mark->get_markCount('');
+        //get_myMarkSearchCount方法得到我的商标总数
+        $count = $this->mark->get_myMarkSearchCount($user_id,$keyword);
         
         $page_size = 10;//单页记录数
         $offset = ($page-1)*$page_size;//偏移量
@@ -644,14 +649,15 @@ class Index_controller extends CI_Controller {
         $data['page_count'] = $count;
         $data['page_size'] = $page_size;
         
-        //get_markList方法得到商标列表信息
-        $mark_list = $this->mark->get_markList('',$offset,$page_size);
+        //get_myMarkSearch方法得到我的商标列表信息
+        $mark_list = $this->mark->get_myMarkSearch($user_id,$keyword,$offset,$page_size);
         foreach($mark_list as $mark){
             //get_categoryName获取大类名称
             $category = $this->mark->get_categoryName($mark->mark_category);
             $mark->category_name = $category->category_name;
         }
         $data['mark_list'] = $mark_list;
+        $data['keyword'] = $keyword;
         
         $this->leftmenu = 'my_mark';
         
