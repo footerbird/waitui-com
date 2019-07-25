@@ -82,11 +82,11 @@
                         <label class="col-sm-2 control-label">激活状态</label>
                         <div class="col-sm-8">
                             <label class="radio-inline">
-                                <input name="status" type="radio" value="1" <?php if(!isset($butler) || $butler->status != 0){ echo 'checked="checked"'; } ?>>
+                                <input name="status" type="radio" value="active" <?php if(!isset($butler) || $butler->status == 'active'){ echo 'checked="checked"'; } ?>>
                                 是
                             </label>
                             <label class="radio-inline">
-                                <input name="status" type="radio" value="0" <?php if(isset($butler) && $butler->status == 0){ echo 'checked="checked"'; } ?>>
+                                <input name="status" type="radio" value="inactive" <?php if(isset($butler) && $butler->status == 'inactive'){ echo 'checked="checked"'; } ?>>
                                 否
                             </label>
                         </div>

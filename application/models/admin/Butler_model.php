@@ -33,7 +33,7 @@ class Butler_model extends CI_Model {
     
     public function add_butlerOne($butler_name,$real_name,$butler_phone,$butler_qq,$butler_wechat,$status){//新增一条管家记录
         $sql = "insert into butler_info(butler_name,real_name,butler_phone,butler_qq,butler_wechat,status"
-            .")values('".$butler_name."','".$real_name."','".$butler_phone."','".$butler_qq."','".$butler_wechat."',".$status.")";
+            .")values('".$butler_name."','".$real_name."','".$butler_phone."','".$butler_qq."','".$butler_wechat."','".$status."')";
         $query = $this->db->query($sql);
         return $query;
     }
@@ -45,8 +45,8 @@ class Butler_model extends CI_Model {
             ."', butler_phone='".$butler_phone
             ."', butler_qq='".$butler_qq
             ."', butler_wechat='".$butler_wechat
-            ."', status=".$status
-            ." where butler_id=".$butler_id;
+            ."', status='".$status
+            ."' where butler_id=".$butler_id;
         $query = $this->db->query($sql);
         return $query;
     }

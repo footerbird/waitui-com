@@ -65,7 +65,7 @@
                         <td><?php echo $butler->butler_name; ?></td>
                         <td><?php echo $butler->real_name; ?></td>
                         <td><?php echo $butler->butler_phone; ?></td>
-                        <td><?php echo ($butler->status == 1)?'正常':'<span style="color:#f00;">冻结</span>'; ?></td>
+                        <td><?php echo ($butler->status == 'active')?'正常':'<span style="color:#f00;">冻结</span>'; ?></td>
                         <td><a href="<?php echo base_url() ?>admin/butler_update?butler_id=<?php echo $butler->butler_id; ?>" class="btn btn-orange btn-sm btn-icon icon-left">查看</a></td>
                     </tr>
                     <?php } ?>
