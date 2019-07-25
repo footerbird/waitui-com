@@ -67,7 +67,7 @@
                         <td width="200" title="<?php echo $article->article_title; ?>"><div class="w200 ellip"><?php echo $article->article_title; ?></div></td>
                         <td><?php echo $article->category_name; ?></td>
                         <td><?php echo $article->author_name; ?></td>
-                        <td><?php echo ($article->status == 1)?'已发布':'<span style="color:#f00;">未发布</span>'; ?></td>
+                        <td><?php echo ($article->status == 'active')?'已发布':'<span style="color:#f00;">未发布</span>'; ?></td>
                         <td><?php echo $article->create_time; ?></td>
                         <td><?php echo $article->article_read; ?></td>
                         <td><a href="<?php echo base_url() ?>admin/article_update?article_id=<?php echo $article->article_id; ?>" class="btn btn-orange btn-sm btn-icon icon-left">查看</a></td>

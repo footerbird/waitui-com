@@ -149,11 +149,11 @@
                         <label class="col-sm-2 control-label">是否发布</label>
                         <div class="col-sm-8">
                             <label class="radio-inline">
-                                <input name="status" type="radio" value="1" <?php if(!isset($article) || $article->status != 0){ echo 'checked="checked"'; } ?>>
+                                <input name="status" type="radio" value="active" <?php if(!isset($article) || $article->status == 'active'){ echo 'checked="checked"'; } ?>>
                                 是
                             </label>
                             <label class="radio-inline">
-                                <input name="status" type="radio" value="0" <?php if(isset($article) && $article->status == 0){ echo 'checked="checked"'; } ?>>
+                                <input name="status" type="radio" value="inactive" <?php if(isset($article) && $article->status == 'inactive'){ echo 'checked="checked"'; } ?>>
                                 否
                             </label>
                         </div>

@@ -35,7 +35,7 @@ class Article_model extends CI_Model {
     
     public function add_articleOne($article_title,$thumb_path,$article_lead,$article_tag,$article_content,$status,$author_id,$article_category,$create_time){//新增一条文章记录
         $sql = "insert into article_info(article_title,thumb_path,article_lead,article_tag,article_content,status,author_id,article_category,create_time"
-            .")values('".addslashes($article_title)."','".$thumb_path."','".addslashes($article_lead)."','".$article_tag."','".addslashes($article_content)."',".$status.",".$author_id.",'".$article_category."','".$create_time."')";
+            .")values('".addslashes($article_title)."','".$thumb_path."','".addslashes($article_lead)."','".$article_tag."','".addslashes($article_content)."','".$status."',".$author_id.",'".$article_category."','".$create_time."')";
         $query = $this->db->query($sql);
         return $query;
     }
@@ -47,8 +47,8 @@ class Article_model extends CI_Model {
             ."', article_lead='".addslashes($article_lead)
             ."', article_tag='".$article_tag
             ."', article_content='".addslashes($article_content)
-            ."', status=".$status
-            .", author_id=".$author_id
+            ."', status='".$status
+            ."', author_id=".$author_id
             .", article_category='".$article_category
             ."', create_time='".$create_time
             ."' where article_id=".$article_id;

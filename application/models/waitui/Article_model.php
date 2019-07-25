@@ -9,10 +9,10 @@ class Article_model extends CI_Model {
     public function get_articleList($category,$start,$length){//文章列表页面,传入article_category,如'qccx(汽车出行)',输出前$length条数
         if($category == ''){
             $sql = "select article_id,article_title,thumb_path,article_lead,article_tag,author_id,create_time from article_info "
-                ." where status = 1 order by create_time desc limit ".$start.",".$length;
+                ." where status = 'active' order by create_time desc limit ".$start.",".$length;
         }else{
             $sql = "select article_id,article_title,thumb_path,article_lead,article_tag,author_id,create_time from article_info "
-                ." where status = 1 and article_category = '".$category."' order by create_time desc limit ".$start.",".$length;
+                ." where status = 'active' and article_category = '".$category."' order by create_time desc limit ".$start.",".$length;
         }
         $query = $this->db->query($sql);
         return $query->result();
@@ -27,7 +27,7 @@ class Article_model extends CI_Model {
     
     public function get_articleSearch($keyword,$start,$length){//文章搜索列表页面,输出前$length条数
         $sql = "select article_id,article_title,thumb_path,article_lead,article_tag,author_id,create_time from article_info "
-            ." where status = 1 and article_content like '%".$keyword."%' order by create_time desc limit ".$start.",".$length;
+            ." where status = 'active' and article_content like '%".$keyword."%' order by create_time desc limit ".$start.",".$length;
         $query = $this->db->query($sql);
         return $query->result();
     }
@@ -40,7 +40,7 @@ class Article_model extends CI_Model {
     
     public function get_articleRecommend($start,$length){//推荐文章列表,输出前$length条数
         $sql = "select article_id,article_title,thumb_path,article_lead,article_tag,author_id,create_time from article_info "
-            ." where status = 1 order by article_read desc limit ".$start.",".$length;
+            ." where status = 'active' order by article_read desc limit ".$start.",".$length;
         $query = $this->db->query($sql);
         return $query->result();
     }
