@@ -8,7 +8,7 @@ class Domain_model extends CI_Model {
     
     public function get_domainList($keyword,$start,$length,$domain_type){//域名列表页面,输出前$length条数
         $sql = "select * from domain_info "
-            ." where is_onsale = 1 and concat(domain_name,register_registrar,domain_summary) like '%".$keyword."%'";
+            ." where is_onsale = 'sale' and concat(domain_name,register_registrar,domain_summary) like '%".$keyword."%'";
         if($domain_type != ""){
         	$sql = $sql." and domain_type = '".$domain_type."'";
         }
@@ -19,7 +19,7 @@ class Domain_model extends CI_Model {
     
     public function get_domainCount($keyword,$domain_type){//在售域名总数
         $sql = "select domain_name from domain_info"
-            ." where is_onsale = 1 and concat(domain_name,register_registrar,domain_summary) like '%".$keyword."%'";
+            ." where is_onsale = 'sale' and concat(domain_name,register_registrar,domain_summary) like '%".$keyword."%'";
         if($domain_type != ""){
             $sql = $sql." and domain_type = '".$domain_type."'";
         }
