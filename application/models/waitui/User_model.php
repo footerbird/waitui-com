@@ -187,7 +187,7 @@ class User_model extends CI_Model {
     
     public function add_certifyOne($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status,$create_time){//添加企业认证信息
         $sql = "insert into company_certify(certify_userid,business_license,company_name,oper_name,contact_phone,contact_email,contact_address,status,create_time"
-            .")values(".$user_id.",'".$business_license."','".$company_name."','".$oper_name."','".$contact_phone."','".$contact_email."','".$contact_address."',".$status.",'".$create_time."')";
+            .")values(".$user_id.",'".$business_license."','".$company_name."','".$oper_name."','".$contact_phone."','".$contact_email."','".$contact_address."','".$status."','".$create_time."')";
         $query = $this->db->query($sql);
         return $query;
     }
@@ -200,8 +200,8 @@ class User_model extends CI_Model {
             ."', contact_phone='".$contact_phone
             ."', contact_email='".$contact_email
             ."', contact_address='".$contact_address
-            ."', status=".$status
-            .", create_time='".$create_time
+            ."', status='".$status
+            ."', create_time='".$create_time
             ."' where certify_id=".$certify_id;
         $query = $this->db->query($sql);
         return $query;

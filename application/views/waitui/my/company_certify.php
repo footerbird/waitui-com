@@ -131,12 +131,12 @@
                 <dl class="mb30">
                     <dt class="w140 ta-l">&nbsp;</dt>
                     <dd>
-                        <a href="javascript:;" class="pub-btn-gray forbid mr20" id="certifing" <?php if(!(isset($company_certify) && $company_certify->status == 1)){ echo 'style="display:none;"'; } ?> >认证中...</a>
-                        <a href="javascript:;" class="pub-btn mr20" id="re_certify" <?php if(!(isset($company_certify) && $company_certify->status != 1)){ echo 'style="display:none;"'; } ?> >重新认证</a>
-                        <?php if(isset($company_certify) && $company_certify->status == 0){ ?>
+                        <a href="javascript:;" class="pub-btn-gray forbid mr20" id="certifing" <?php if(!(isset($company_certify) && $company_certify->status == 'wait')){ echo 'style="display:none;"'; } ?> >认证中...</a>
+                        <a href="javascript:;" class="pub-btn mr20" id="re_certify" <?php if(!(isset($company_certify) && $company_certify->status != 'wait')){ echo 'style="display:none;"'; } ?> >重新认证</a>
+                        <?php if(isset($company_certify) && $company_certify->status == 'failed'){ ?>
                         <span class="col-warn">认证失败：<?php echo $company_certify->description; ?></span>
                         <?php } ?>
-                        <?php if(isset($company_certify) && $company_certify->status == 2){ ?>
+                        <?php if(isset($company_certify) && $company_certify->status == 'success'){ ?>
                         <span class="col-green">已认证</span>
                         <?php } ?>
                     </dd>

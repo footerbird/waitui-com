@@ -151,7 +151,7 @@
                     </div>
                     <input type="hidden" name="certify_id" value="<?php if(isset($certify)){ echo $certify->certify_id; } ?>">
                     <input type="hidden" name="operate" value="<?php echo $operate; ?>">
-                    <input type="hidden" name="status" id="status" value="1">
+                    <input type="hidden" name="status" id="status" value="<?php if(isset($certify)){ echo $certify->status; } ?>">
                 </form>
             </div>
             
@@ -208,7 +208,7 @@ function certify_success(){
         return;
     }
     
-    $("#status").val(2);//认证通过
+    $("#status").val('success');//认证通过
     
     $("#sForm").ajaxForm({
         url:'/admin/Index_controller/company_certify_update_do',
@@ -244,7 +244,7 @@ function certify_failed(){
         return;
     }
     
-    $("#status").val(0);//认证失败
+    $("#status").val('failed');//认证失败
     
     $("#sForm").ajaxForm({
         url:'/admin/Index_controller/company_certify_update_do',

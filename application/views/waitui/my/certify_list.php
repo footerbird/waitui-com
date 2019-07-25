@@ -45,9 +45,9 @@
                         <td><?php echo $certify->contact_email; ?></td>
                         <td>
                             <?php 
-                                if($certify->status == 0){
+                                if($certify->status == 'failed'){
                                     echo '<span class="col-warn">认证失败</span>';
-                                }elseif($certify->status == 1){
+                                }elseif($certify->status == 'wait'){
                                     echo '<span class="col-gray9">认证中</span>';
                                 }else{
                                     echo '<span class="col-green">已认证</span>';

@@ -36,8 +36,8 @@ class Certify_model extends CI_Model {
             ."', business_term='".$business_term
             ."', address='".$address
             ."', scope='".$scope
-            ."', status=".$status
-            .", description='".$description
+            ."', status='".$status
+            ."', description='".$description
             ."' where certify_id=".$certify_id;
         $query = $this->db->query($sql);
         return $query;

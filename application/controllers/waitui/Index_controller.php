@@ -1235,7 +1235,7 @@ class Index_controller extends CI_Controller {
             $this->load->model('waitui/User_model','user');
             if($operate == 'add'){//添加
                 //add_compCertifyOne方法添加一条企业认证记录
-                $status = 1;//添加时默认处于认证中状态
+                $status = 'wait';//添加时默认处于认证中状态
                 $addStatus = $this->user->add_certifyOne($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status,$create_time);
                 if($addStatus){
                     $data['state'] = 'success';
@@ -1246,7 +1246,7 @@ class Index_controller extends CI_Controller {
                 }
             }else{//修改
                 //edit_certifyOne方法修改公司认证信息
-                $status = 1;//修改时也需要将状态改为认证中,重新进行认证
+                $status = 'wait';//修改时也需要将状态改为认证中,重新进行认证
                 $updateStatus = $this->user->edit_certifyOne($certify_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status,$create_time);
                 if($updateStatus){
                     $data['state'] = 'success';

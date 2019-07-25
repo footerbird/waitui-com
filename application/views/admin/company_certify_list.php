@@ -61,13 +61,13 @@
                         <td>
                             <?php 
                                 switch($certify->status){
-                                    case 0:
+                                    case 'failed':
                                         echo '<span style="color:#999;">认证失败</span>';
                                         break;
-                                    case 1:
+                                    case 'wait':
                                         echo '<span style="color:#f00;">待认证</span>';
                                         break;
-                                    case 2:
+                                    case 'success':
                                         echo '<span style="color:#080;">已认证</span>';
                                         break;
                                     default:

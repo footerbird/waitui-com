@@ -25,9 +25,9 @@
                             <thead style="background-color: #f6f6f6;">
                                 <tr>
                                     <th align="left" colspan="2" class="pl30 f16"><?php echo $company_certify->company_name; ?>
-                                        <?php if($company_certify->status == 0){ ?>
-                                        <span class="col-warn f12">（认证失败）</span><a href="<?php echo base_url() ?>company_certify" class="fl-r f12 col-blue mt3">重新认证</a>
-                                        <?php }elseif($company_certify->status == 1){ ?>
+                                        <?php if($company_certify->status == 'failed'){ ?>
+                                        <span class="col-warn f12">（认证失败）</span><a href="<?php echo base_url() ?>certify_list" class="fl-r f12 col-blue mt3">重新认证</a>
+                                        <?php }elseif($company_certify->status == 'wait'){ ?>
                                         <span class="col-gray9 f12">（认证中）</span>
                                         <?php }else{ ?>
                                         <span class="col-green f12">（已认证）</span>
