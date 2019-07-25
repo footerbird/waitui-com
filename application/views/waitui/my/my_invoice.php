@@ -20,7 +20,7 @@
             </div>
             <div class="my-table-filter after-cls">
                 <div class="fl-r">
-                    <a href="javascript:;" class="pub-btn">添加新模板</a>
+                    <a href="javascript:;" class="pub-btn-green">添加新模板</a>
                 </div>
             </div>
             <table class="my-table" width="100%">

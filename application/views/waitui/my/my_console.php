@@ -246,7 +246,7 @@
                             <tbody>
                                 <tr class="lh28">
                                     <td align="center" width="33%">
-                                        <p><a href="<?php echo base_url() ?>my_message" class="f20 col-base">5</a></p>
+                                        <p><a href="<?php echo base_url() ?>my_message?status=unread" class="f20 col-base"><?php echo $unreadCount; ?></a></p>
                                         <p class="f14">未读消息</p>
                                     </td>
                                     <td align="center" width="33%">

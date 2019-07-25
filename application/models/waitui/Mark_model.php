@@ -80,7 +80,7 @@ class Mark_model extends CI_Model {
         return $query->num_rows();
     }
     
-    public function get_myMarkSearch($user_id,$keyword,$start,$length){//我的商标列表页面,输出前$length条数
+    public function get_myMarkList($user_id,$keyword,$start,$length){//我的商标列表页面,输出前$length条数
         $sql = "select * from mark_info "
             ." where mark_userid = ".$user_id." and concat(mark_regno,mark_name,app_range) like '%".$keyword."%'";
         $sql = $sql." limit ".$start.",".$length;
@@ -88,7 +88,7 @@ class Mark_model extends CI_Model {
         return $query->result();
     }
     
-    public function get_myMarkSearchCount($user_id,$keyword){//我的商标总数
+    public function get_myMarkCount($user_id,$keyword){//我的商标总数
         $sql = "select mark_regno from mark_info "
             ." where mark_userid = ".$user_id." and concat(mark_regno,mark_name,app_range) like '%".$keyword."%'";
         $query = $this->db->query($sql);

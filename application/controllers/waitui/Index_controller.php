@@ -540,6 +540,7 @@ class Index_controller extends CI_Controller {
         //get_loginRecord方法得到登录日志列表信息
         $login_list = $this->user->get_loginRecord($user_id,0,10);//最近登录10条记录
         $data['login_list'] = $login_list;
+        
         //get_butlerDetail方法得到品牌管家信息
         $user_butler = $this->user->get_butlerDetail($userinfo->user_butler);
         $data['user_butler'] = $user_butler;
@@ -552,14 +553,9 @@ class Index_controller extends CI_Controller {
             $data['company_certify'] = $certify_list[0];
         }
         
-        //加载快讯模型类
-        $this->load->model('waitui/Flash_model','flash');
-        //get_flashList方法得到头条列表
-        $flash_list = $this->flash->get_flashList(0,5);
-        foreach($flash_list as $flash){
-            $flash->create_time = format_article_time($flash->create_time);
-        }
-        $data['flash_list'] = $flash_list;
+        //get_myMessageCount方法得到我的消息
+        $unreadCount = $this->user->get_myMessageCount($user_id,'unread');
+        $data['unreadCount'] = $unreadCount;
         
         //加载域名模型类
         $this->load->model('waitui/Domain_model','domain');
@@ -572,14 +568,23 @@ class Index_controller extends CI_Controller {
         
         //加载商标模型类
         $this->load->model('waitui/Mark_model','mark');
-        //get_myMarkSearch方法得到我的商标列表信息
-        $mark_list = $this->mark->get_myMarkSearch($user_id,'',0,3);
+        //get_myMarkList方法得到我的商标列表信息
+        $mark_list = $this->mark->get_myMarkList($user_id,'',0,3);
         foreach($mark_list as $mark){
             //get_categoryName获取大类名称
             $category = $this->mark->get_categoryName($mark->mark_category);
             $mark->category_name = $category->category_name;
         }
         $data['mark_list'] = $mark_list;
+        
+        //加载快讯模型类
+        $this->load->model('waitui/Flash_model','flash');
+        //get_flashList方法得到头条列表
+        $flash_list = $this->flash->get_flashList(0,5);
+        foreach($flash_list as $flash){
+            $flash->create_time = format_article_time($flash->create_time);
+        }
+        $data['flash_list'] = $flash_list;
         
         $this->leftmenu = 'my_console';
         
@@ -677,8 +682,8 @@ class Index_controller extends CI_Controller {
         $user_id = $userinfo->user_id;
         //加载商标模型类
         $this->load->model('waitui/Mark_model','mark');
-        //get_myMarkSearchCount方法得到我的商标总数
-        $count = $this->mark->get_myMarkSearchCount($user_id,$keyword);
+        //get_myMarkCount方法得到我的商标总数
+        $count = $this->mark->get_myMarkCount($user_id,$keyword);
         
         $page_size = 10;//单页记录数
         $offset = ($page-1)*$page_size;//偏移量
@@ -711,8 +716,8 @@ class Index_controller extends CI_Controller {
         $data['page_count'] = $count;
         $data['page_size'] = $page_size;
         
-        //get_myMarkSearch方法得到我的商标列表信息
-        $mark_list = $this->mark->get_myMarkSearch($user_id,$keyword,$offset,$page_size);
+        //get_myMarkList方法得到我的商标列表信息
+        $mark_list = $this->mark->get_myMarkList($user_id,$keyword,$offset,$page_size);
         foreach($mark_list as $mark){
             //get_categoryName获取大类名称
             $category = $this->mark->get_categoryName($mark->mark_category);
@@ -1260,9 +1265,22 @@ class Index_controller extends CI_Controller {
     
     public function my_message($page = 1){//我的消息
         $this->module = constant('MEMU_MY');
-        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        $data['userinfo'] = $userinfo;
         
-        $count = 360;
+        $status = $this->input->get('status');//得到消息状态
+        if(!in_array($status,array('unread','read','del'))) $status = '';//默认全部消息
+        
+        $user_id = $userinfo->user_id;
+        //加载用户模型类
+        $this->load->model('waitui/User_model','user');
+        //get_myMessageCount方法得到我的消息总数
+        $count = $this->user->get_myMessageCount($user_id,$status);
+        $allCount = $this->user->get_myMessageCount($user_id,'');
+        $unreadCount = $this->user->get_myMessageCount($user_id,'unread');
+        $readCount = $this->user->get_myMessageCount($user_id,'read');
+        $delCount = $this->user->get_myMessageCount($user_id,'del');
+        
         $page_size = 10;//单页记录数
         $offset = ($page-1)*$page_size;//偏移量
         switch($page){
@@ -1294,6 +1312,16 @@ class Index_controller extends CI_Controller {
         $data['page_count'] = $count;
         $data['page_size'] = $page_size;
         
+        //get_myMessageList方法得到我的消息列表信息
+        $message_list = $this->user->get_myMessageList($user_id,$status,$offset,$page_size);
+        $data['message_list'] = $message_list;
+        $data['status'] = $status;
+        
+        $data['allCount'] = $allCount;
+        $data['unreadCount'] = $unreadCount;
+        $data['readCount'] = $readCount;
+        $data['delCount'] = $delCount;
+        
         $this->leftmenu = 'my_message';
         
         $seo = array(
@@ -1304,6 +1332,30 @@ class Index_controller extends CI_Controller {
         $data['seo'] = json_decode(json_encode($seo));
         
         $this->load->view('waitui/my/my_message',$data);
+    }
+    
+    public function edit_myMessageStatusBatchAjax(){
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $msgid_arr = $this->input->get_post('msgid_arr');//得到消息编号
+        $status = $this->input->get_post('status');//得到修改状态
+        if(!empty($userinfo->user_id)){
+            //加载用户模型类
+            $this->load->model('waitui/User_model','user');
+            //edit_myMessageStatusBatch方法修改用户消息状态
+            $updateStatus = $this->user->edit_myMessageStatusBatch($msgid_arr,$status);
+            if($updateStatus){
+                $data['state'] = 'success';
+                $data['msg'] = '修改成功';
+            }else{
+                $data['state'] = 'failed';
+                $data['msg'] = '修改失败，请重试';
+            }
+        }else{
+            $data['state'] = 'failed';
+            $data['msg'] = '程序错误，请重试';
+        }
+        echo json_encode($data);
     }
     
     public function login_log($page = 1){//登录日志

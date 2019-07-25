@@ -46,7 +46,7 @@ class User_model extends CI_Model {
     }
     
     public function get_unreadMsg($user_id){//获取未读消息数
-        $sql = "select * from usermsg_info where read_status = 0 and user_id = ".$user_id;
+        $sql = "select * from user_msg_info where status = 'unread' and msg_userid = ".$user_id;
         $query = $this->db->query($sql);
         return $query->num_rows();
     }
@@ -75,14 +75,14 @@ class User_model extends CI_Model {
     }
     
     public function add_userScoreRecord($user_id,$score_amount,$score_type,$score_source_id){//记录积分领取
-        $sql = "insert into user_score_record(user_id,score_amount,score_type,score_source_id)values(".
+        $sql = "insert into user_score_record(score_userid,score_amount,score_type,score_source_id)values(".
             $user_id.",".$score_amount.",'".$score_type."',".$score_source_id.")";
         $query = $this->db->query($sql);
         return $query;
     }
     
     public function ispick_userAdScore($user_id,$score_source_id){//判断该用户的该广告红包当天是否已经领取过,大于0表示领取过，0表示未领取
-        $sql = "select * from user_score_record where score_type = 'ad' and user_id = ".$user_id.
+        $sql = "select * from user_score_record where score_type = 'ad' and score_userid = ".$user_id.
             " and score_source_id = ".$score_source_id." and datediff(now(),score_time)=0";
         $query = $this->db->query($sql);
         return $query->num_rows();
