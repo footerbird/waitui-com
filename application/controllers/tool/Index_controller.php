@@ -43,7 +43,7 @@ class Index_controller extends CI_Controller {
                         $mark_name = $info->tmName;//商标名称
                         $image_path = 'http://tmpic.tmkoo.com/'.$info->tmImg;//图片地址
                         $mark_category = $info->intCls;//商标大类
-                        $mark_type = 0;//商标分类（0-其他，1-全中文...）
+                        $mark_type = 'other';//商标分类（other-其他，cn-全中文...）
                         
                         $goods = $info->goods;//使用商品（包含群组和适用范围）
                         $mark_group_arr = array();

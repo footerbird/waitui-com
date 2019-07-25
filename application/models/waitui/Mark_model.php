@@ -9,17 +9,17 @@ class Mark_model extends CI_Model {
     public function get_markList($category,$start,$length){//商标列表页面,传入mark_category,如'15',输出前$length条数
         if($category == ''){
             $sql = "select * from mark_info "
-                ." where is_onsale = 1 limit ".$start.",".$length;
+                ." where is_onsale = 'sale' limit ".$start.",".$length;
         }else{
             $sql = "select * from mark_info "
-                ." where is_onsale = 1 and mark_category = ".$category." limit ".$start.",".$length;
+                ." where is_onsale = 'sale' and mark_category = ".$category." limit ".$start.",".$length;
         }
         $query = $this->db->query($sql);
         return $query->result();
     }
     
     public function get_markCount($category){//在售商标总数
-        $sql = "select mark_regno from mark_info where is_onsale = 1 ";
+        $sql = "select mark_regno from mark_info where is_onsale = 'sale' ";
         if($category != ""){
             $sql = $sql." and mark_category = '".$category."'";
         }
@@ -36,12 +36,12 @@ class Mark_model extends CI_Model {
     
     public function get_markSearch($keyword,$start,$length,$sort,$filter_category,$filter_type,$filter_price,$filter_length){//商标搜索列表页面,输出前$length条数
         $sql = "select * from mark_info "
-            ." where is_onsale = 1 and concat(mark_regno,mark_name,app_range) like '%".$keyword."%'";
+            ." where is_onsale = 'sale' and concat(mark_regno,mark_name,app_range) like '%".$keyword."%'";
         if($filter_category != ""){
             $sql = $sql." and mark_category = ".$filter_category;
         }
         if($filter_type != ""){
-            $sql = $sql." and mark_type = ".$filter_type;
+            $sql = $sql." and mark_type = '".$filter_type."'";
         }
         if($filter_price != "" && count(explode("-", $filter_price)) == 2){
             $filter_price_arr = explode("-", $filter_price);
@@ -61,12 +61,12 @@ class Mark_model extends CI_Model {
     
     public function get_markSearchCount($keyword,$filter_category,$filter_type,$filter_price,$filter_length){//商标搜索列表总数
         $sql = "select mark_regno from mark_info "
-            ." where is_onsale = 1 and concat(mark_regno,mark_name,app_range) like '%".$keyword."%'";
+            ." where is_onsale = 'sale' and concat(mark_regno,mark_name,app_range) like '%".$keyword."%'";
         if($filter_category != ""){
             $sql = $sql." and mark_category = ".$filter_category;
         }
         if($filter_type != ""){
-            $sql = $sql." and mark_type = ".$filter_type;
+            $sql = $sql." and mark_type = '".$filter_type."'";
         }
         if($filter_price != "" && count(explode("-", $filter_price)) == 2){
             $filter_price_arr = explode("-", $filter_price);

@@ -48,11 +48,11 @@
                         <div class="dropdown-menu">
                             <ul>
                                 <li data-code=""><a href="javascript:;" data-val="商标类型">不限</a></li>
-                                <li data-code="1"><a href="javascript:;" data-val="纯中文">纯中文</a></li>
-                                <li data-code="2"><a href="javascript:;" data-val="纯英文(拼音)">纯英文(拼音)</a></li>
-                                <li data-code="3"><a href="javascript:;" data-val="纯图形">纯图形</a></li>
-                                <li data-code="4"><a href="javascript:;" data-val="纯数字">纯数字</a></li>
-                                <li data-code="0"><a href="javascript:;" data-val="其他类型">其他</a></li>
+                                <li data-code="cn"><a href="javascript:;" data-val="纯中文">纯中文</a></li>
+                                <li data-code="en"><a href="javascript:;" data-val="纯英文(拼音)">纯英文(拼音)</a></li>
+                                <li data-code="graph"><a href="javascript:;" data-val="纯图形">纯图形</a></li>
+                                <li data-code="num"><a href="javascript:;" data-val="纯数字">纯数字</a></li>
+                                <li data-code="other"><a href="javascript:;" data-val="其他类型">其他</a></li>
                             </ul>
                         </div>
                     </div>
