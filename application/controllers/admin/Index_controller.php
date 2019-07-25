@@ -43,7 +43,7 @@ class Index_controller extends CI_Controller {
         if($login_status == 1){//如果正确，则登录
             //根据登录账号拿到管理员信息
             $admininfo = $this->admin->get_adminByName($admin_name);
-            if($admininfo->status != 1){
+            if($admininfo->status != 'active'){
                 $data['state'] = 'failed';
                 $data['msg'] = '该用户已被冻结，请联系管理员';
             }elseif(isset($admininfo) && !empty($admininfo)){

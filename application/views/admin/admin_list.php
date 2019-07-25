@@ -63,7 +63,7 @@
                         <td><?php echo $admin->admin_id; ?></td>
                         <td><?php echo $admin->admin_name; ?></td>
                         <td><?php echo $admin->real_name; ?></td>
-                        <td><?php echo ($admin->status == 1)?'正常':'<span style="color:#f00;">冻结</span>'; ?></td>
+                        <td><?php echo ($admin->status == 'active')?'正常':'<span style="color:#f00;">冻结</span>'; ?></td>
                         <td><a href="<?php echo base_url() ?>admin/admin_update?admin_id=<?php echo $admin->admin_id; ?>" class="btn btn-orange btn-sm btn-icon icon-left">查看</a></td>
                     </tr>
                     <?php } ?>

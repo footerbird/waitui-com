@@ -33,7 +33,7 @@ class Admin_model extends CI_Model {
     
     public function add_adminOne($admin_name,$admin_pwd,$real_name,$status){//新增一条管理员记录
         $sql = "insert into admin_info(admin_name,admin_pwd,real_name,status"
-            .")values('".$admin_name."','".$admin_pwd."','".$real_name."',".$status.")";
+            .")values('".$admin_name."','".$admin_pwd."','".$real_name."','".$status."')";
         $query = $this->db->query($sql);
         return $query;
     }
@@ -43,8 +43,8 @@ class Admin_model extends CI_Model {
             ." admin_name='".$admin_name
             ."', admin_pwd='".$admin_pwd
             ."', real_name='".$real_name
-            ."', status=".$status
-            ." where admin_id=".$admin_id;
+            ."', status='".$status
+            ."' where admin_id=".$admin_id;
         $query = $this->db->query($sql);
         return $query;
     }
