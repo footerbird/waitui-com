@@ -16,15 +16,15 @@
       <div class="page-title">
         
         <div class="title-env">
-          <h1 class="title">域名编辑</h1>
+          <h1 class="title">商标编辑</h1>
         </div>
         
           <div class="breadcrumb-env">
           
             <ol class="breadcrumb bc-1">
               <li><a href="<?php echo base_url() ?>admin"><i class="fa-home"></i>首页</a></li>
-              <li><a href="<?php echo base_url() ?>admin/domain_list">出售域名管理</a></li>
-              <li class="active"><strong>域名编辑</strong></li>
+              <li><a href="<?php echo base_url() ?>admin/mark_list">商标管理</a></li>
+              <li class="active"><strong>商标编辑</strong></li>
             </ol>
                 
         </div>
@@ -62,7 +62,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">商标价格</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="mark_price" id="mark_price" placeholder="请输入商标价格" value="<?php if(isset($mark)){ echo $mark->mark_price; } ?>">
+                            <input type="text" class="form-control" name="mark_price" id="mark_price" placeholder="请输入商标价格,不出售的商标价格设为0" value="<?php if(isset($mark)){ echo $mark->mark_price; } ?>">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>

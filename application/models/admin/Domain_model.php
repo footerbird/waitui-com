@@ -25,14 +25,14 @@ class Domain_model extends CI_Model {
         return $query->row();
     }
     
-    public function add_domainOne($domain_name,$register_registrar,$register_name,$register_email,$created_date,$expired_date,$domain_type,$domain_price,$domain_summary){//新增一条域名记录
-        $sql = "insert into domain_info(domain_name,register_registrar,register_name,register_email,created_date,expired_date,domain_type,domain_price,domain_summary"
-            .")values('".$domain_name."','".$register_registrar."','".$register_name."','".$register_email."','".$created_date."','".$expired_date."','".$domain_type."','".$domain_price."','".$domain_summary."')";
+    public function add_domainOne($domain_name,$register_registrar,$register_name,$register_email,$created_date,$expired_date,$domain_type,$is_onsale,$domain_price,$domain_summary){//新增一条域名记录
+        $sql = "insert into domain_info(domain_name,register_registrar,register_name,register_email,created_date,expired_date,domain_type,is_onsale,domain_price,domain_summary"
+            .")values('".$domain_name."','".$register_registrar."','".$register_name."','".$register_email."','".$created_date."','".$expired_date."','".$domain_type."','".$is_onsale."','".$domain_price."','".$domain_summary."')";
         $query = $this->db->query($sql);
         return $query;
     }
     
-    public function edit_domainOne($domain_name,$register_registrar,$register_name,$register_email,$created_date,$expired_date,$domain_type,$domain_price,$domain_summary){//修改域名信息
+    public function edit_domainOne($domain_name,$register_registrar,$register_name,$register_email,$created_date,$expired_date,$domain_type,$is_onsale,$domain_price,$domain_summary){//修改域名信息
         $sql = "update domain_info set"
             ." register_registrar='".$register_registrar
             ."', register_name='".$register_name
@@ -40,6 +40,7 @@ class Domain_model extends CI_Model {
             ."', created_date='".$created_date
             ."', expired_date='".$expired_date
             ."', domain_type='".$domain_type
+            ."', is_onsale='".$is_onsale
             ."', domain_price='".$domain_price
             ."', domain_summary='".$domain_summary
             ."' where domain_name='".$domain_name."'";

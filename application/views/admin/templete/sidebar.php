@@ -47,23 +47,23 @@
       <li class="<?php if($this->module == 'butler'){ echo 'active'; } ?>">
         <a href="<?php echo base_url() ?>admin/butler_list">
           <i class="linecons-star"></i>
-          <span class="title">品牌管家管理</span>
+          <span class="title">管家管理</span>
         </a>
       </li>
       <li class="<?php if($this->module == 'user'){ echo 'active opened'; } ?>">
         <a href="<?php echo base_url() ?>admin/user_list">
           <i class="linecons-star"></i>
-          <span class="title">会员管理</span>
+          <span class="title">用户管理</span>
         </a>
         <ul>
           <li class="<?php if($this->sub_menu == 'user'){ echo 'active'; } ?>">
             <a href="<?php echo base_url() ?>admin/user_list">
-              <span class="title">会员列表</span>
+              <span class="title">用户列表</span>
             </a>
           </li>
           <li class="<?php if($this->sub_menu == 'company_certify'){ echo 'active'; } ?>">
             <a href="<?php echo base_url() ?>admin/company_certify_list">
-              <span class="title">公司认证列表</span>
+              <span class="title">公司认证</span>
             </a>
           </li>
         </ul>
@@ -71,13 +71,13 @@
       <li class="<?php if($this->module == 'domain'){ echo 'active'; } ?>">
         <a href="<?php echo base_url() ?>admin/domain_list">
           <i class="linecons-star"></i>
-          <span class="title">出售域名管理</span>
+          <span class="title">域名管理</span>
         </a>
       </li>
       <li class="<?php if($this->module == 'mark'){ echo 'active'; } ?>">
         <a href="<?php echo base_url() ?>admin/mark_list">
           <i class="linecons-star"></i>
-          <span class="title">出售商标管理</span>
+          <span class="title">商标管理</span>
         </a>
       </li>
       <li class="<?php if($this->module == 'article'){ echo 'active opened'; } ?>">

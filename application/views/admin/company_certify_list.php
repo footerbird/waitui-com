@@ -17,7 +17,7 @@
       <div class="page-title">
         
         <div class="title-env">
-          <h1 class="title">企业认证列表</h1>
+          <h1 class="title">公司认证列表</h1>
         </div>
         
           <div class="breadcrumb-env">
@@ -25,7 +25,7 @@
             <ol class="breadcrumb bc-1">
               <li><a href="<?php echo base_url() ?>admin"><i class="fa-home"></i>首页</a></li>
               <li><a href="<?php echo base_url() ?>admin/user_list">用户管理</a></li>
-              <li class="active"><strong>企业认证列表</strong></li>
+              <li class="active"><strong>公司认证列表</strong></li>
             </ol>
                 
         </div>

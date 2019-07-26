@@ -24,7 +24,7 @@
           
             <ol class="breadcrumb bc-1">
               <li><a href="<?php echo base_url() ?>admin"><i class="fa-home"></i>首页</a></li>
-              <li><a href="<?php echo base_url() ?>admin/domain_list">出售域名管理</a></li>
+              <li><a href="<?php echo base_url() ?>admin/domain_list">域名管理</a></li>
               <li class="active"><strong>域名列表</strong></li>
             </ol>
                 
@@ -55,6 +55,7 @@
                       <th data-priority="1">当前价格</th>
                       <th data-priority="1">距到期</th>
                       <th data-priority="1">注册商</th>
+                      <th data-priority="1">是否出售</th>
                       <th data-priority="1">操作</th>
                     </tr>
                   </thead>
@@ -66,6 +67,7 @@
                         <td><?php echo $domain->domain_price; ?></td>
                         <td><?php echo $domain->expired_date.'天'; ?></td>
                         <td><?php echo $domain->register_registrar; ?></td>
+                        <td><?php echo $domain->is_onsale=='sale'?'是':'否'; ?></td>
                         <td><a href="<?php echo base_url() ?>admin/domain_update?domain_name=<?php echo $domain->domain_name; ?>" class="btn btn-orange btn-sm btn-icon icon-left">查看</a></td>
                     </tr>
                     <?php } ?>

@@ -23,7 +23,7 @@
           
             <ol class="breadcrumb bc-1">
               <li><a href="<?php echo base_url() ?>admin"><i class="fa-home"></i>首页</a></li>
-              <li><a href="<?php echo base_url() ?>admin/domain_list">出售域名管理</a></li>
+              <li><a href="<?php echo base_url() ?>admin/domain_list">域名管理</a></li>
               <li class="active"><strong>域名编辑</strong></li>
             </ol>
                 
@@ -98,9 +98,23 @@
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">是否出售</label>
+                        <div class="col-sm-8">
+                            <label class="radio-inline">
+                                <input name="is_onsale" type="radio" value="sale" <?php if(isset($domain) && $domain->is_onsale == 'sale'){ echo 'checked="checked"'; } ?>>
+                                是
+                            </label>
+                            <label class="radio-inline">
+                                <input name="is_onsale" type="radio" value="unsale" <?php if(!isset($domain) || $domain->is_onsale == 'unsale'){ echo 'checked="checked"'; } ?>>
+                                否
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group-separator"></div>
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">域名价格</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="domain_price" id="domain_price" placeholder="请输入域名价格" value="<?php if(isset($domain)){ echo $domain->domain_price; } ?>">
+                            <input type="text" class="form-control" name="domain_price" id="domain_price" placeholder="请输入域名价格,不出售的域名价格设为0" value="<?php if(isset($domain)){ echo $domain->domain_price; } ?>">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
@@ -114,8 +128,13 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-10">
+                            <?php if(isset($domain) && !empty($domain->domain_userid)){ ?>
+                            <span>用户域名，暂时无法编辑</span>
+                            <a href="<?php echo base_url() ?>admin/domain_list" class="btn btn-white btn-sm fl-r">返回</a>
+                            <?php }else{ ?>
                             <input type="button" class="btn btn-orange" id="submitBtn" onclick="form_submit()" value="提交">
-                            <a href="<?php echo base_url() ?>admin/domain_list" class="btn btn-white btn-sm ">返回</a>
+                            <a href="<?php echo base_url() ?>admin/domain_list" class="btn btn-white btn-sm">返回</a>
+                            <?php } ?>
                         </div>
                     </div>
                     <input type="hidden" name="operate" value="<?php echo $operate; ?>">

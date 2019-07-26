@@ -732,8 +732,9 @@ class Index_controller extends CI_Controller {
         $created_date = $this->input->get_post('created_date');//注册日期
         $expired_date = $this->input->get_post('expired_date');//过期日期
         $domain_type = $this->input->get_post('domain_type');//域名类型
+        $is_onsale = $this->input->get_post('is_onsale');//是否出售
         $domain_price = $this->input->get_post('domain_price');//域名价格
-        $domain_summary = $this->input->get_post('domain_summary');//域名价格
+        $domain_summary = $this->input->get_post('domain_summary');//域名简介
         //加载域名模型类
         $this->load->model('admin/Domain_model','domain');
         if($operate == 'add'){//添加
@@ -744,7 +745,7 @@ class Index_controller extends CI_Controller {
                 $data['msg'] = '该域名已被添加，请更换';
             }else{
                 //add_domainOne方法添加一条域名记录
-                $addStatus = $this->domain->add_domainOne($domain_name,$register_registrar,$register_name,$register_email,$created_date,$expired_date,$domain_type,$domain_price,$domain_summary);
+                $addStatus = $this->domain->add_domainOne($domain_name,$register_registrar,$register_name,$register_email,$created_date,$expired_date,$domain_type,$is_onsale,$domain_price,$domain_summary);
                 if($addStatus){
                     $data['state'] = 'success';
                     $data['msg'] = '添加成功';
@@ -755,7 +756,7 @@ class Index_controller extends CI_Controller {
             }
         }else{//修改
             //edit_domainOne方法修改域名信息
-            $updateStatus = $this->domain->edit_domainOne($domain_name,$register_registrar,$register_name,$register_email,$created_date,$expired_date,$domain_type,$domain_price,$domain_summary);
+            $updateStatus = $this->domain->edit_domainOne($domain_name,$register_registrar,$register_name,$register_email,$created_date,$expired_date,$domain_type,$is_onsale,$domain_price,$domain_summary);
             if($updateStatus){
                 $data['state'] = 'success';
                 $data['msg'] = '修改成功';

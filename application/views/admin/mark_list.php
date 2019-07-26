@@ -24,7 +24,7 @@
           
             <ol class="breadcrumb bc-1">
               <li><a href="<?php echo base_url() ?>admin"><i class="fa-home"></i>首页</a></li>
-              <li><a href="<?php echo base_url() ?>admin/mark_list">出售商标管理</a></li>
+              <li><a href="<?php echo base_url() ?>admin/mark_list">商标管理</a></li>
               <li class="active"><strong>商标列表</strong></li>
             </ol>
                 
