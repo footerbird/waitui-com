@@ -876,6 +876,7 @@ class Index_controller extends CI_Controller {
         
         $operate = $this->input->get_post('operate');//得到操作
         $mark_regno = $this->input->get_post('mark_regno');//商标注册号
+        $is_onsale = $this->input->get_post('is_onsale');//是否出售
         $mark_price = $this->input->get_post('mark_price');//商标价格
         //加载商标模型类
         $this->load->model('admin/Mark_model','mark');
@@ -885,7 +886,7 @@ class Index_controller extends CI_Controller {
             $data['msg'] = '只能修改价格，不能添加';
         }else{//修改
             //edit_markPrice方法修改商标价格
-            $updateStatus = $this->mark->edit_markPrice($mark_regno,$mark_price);
+            $updateStatus = $this->mark->edit_markPrice($mark_regno,$is_onsale,$mark_price);
             if($updateStatus){
                 $data['state'] = 'success';
                 $data['msg'] = '修改成功';

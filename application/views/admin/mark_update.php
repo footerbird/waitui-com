@@ -60,6 +60,20 @@
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">是否出售</label>
+                        <div class="col-sm-8">
+                            <label class="radio-inline">
+                                <input name="is_onsale" type="radio" value="sale" <?php if(isset($mark) && $mark->is_onsale == 'sale'){ echo 'checked="checked"'; } ?>>
+                                是
+                            </label>
+                            <label class="radio-inline">
+                                <input name="is_onsale" type="radio" value="unsale" <?php if(!isset($mark) || $mark->is_onsale == 'unsale'){ echo 'checked="checked"'; } ?>>
+                                否
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group-separator"></div>
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">商标价格</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="mark_price" id="mark_price" placeholder="请输入商标价格,不出售的商标价格设为0" value="<?php if(isset($mark)){ echo $mark->mark_price; } ?>">
@@ -69,8 +83,13 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-10">
+                            <?php if(isset($mark) && !empty($mark->mark_userid)){ ?>
+                            <span>用户商标，暂时无法编辑</span>
+                            <a href="<?php echo base_url() ?>admin/mark_list" class="btn btn-white btn-sm fl-r">返回</a>
+                            <?php }else{ ?>
                             <input type="button" class="btn btn-orange" id="submitBtn" onclick="form_submit()" value="提交">
-                            <a href="<?php echo base_url() ?>admin/mark_list" class="btn btn-white btn-sm ">返回</a>
+                            <a href="<?php echo base_url() ?>admin/mark_list" class="btn btn-white btn-sm">返回</a>
+                            <?php } ?>
                         </div>
                     </div>
                     <input type="hidden" name="mark_regno" value="<?php if(isset($mark)){ echo $mark->mark_regno; } ?>">

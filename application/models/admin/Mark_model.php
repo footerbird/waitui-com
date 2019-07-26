@@ -39,10 +39,11 @@ class Mark_model extends CI_Model {
         return $query->row();
     }
     
-    public function edit_markPrice($mark_regno,$mark_price){//改变商标价格
+    public function edit_markPrice($mark_regno,$is_onsale,$mark_price){//改变商标价格
         $sql = "update mark_info set"
-            ." mark_price=".$mark_price
-            ." where mark_regno=".$mark_regno;
+            ." is_onsale='".$is_onsale
+            ."', mark_price='".$mark_price
+            ."' where mark_regno=".$mark_regno;
         $query = $this->db->query($sql);
         return $query;
     }

@@ -50,6 +50,7 @@
                       <th data-priority="1">商标申请人</th>
                       <th data-priority="1">状态</th>
                       <th data-priority="1">价格</th>
+                      <th data-priority="1">是否出售</th>
                       <th data-priority="1">操作</th>
                     </tr>
                   </thead>
@@ -62,6 +63,7 @@
                         <td><?php echo $mark->mark_applicant; ?></td>
                         <td><?php echo $mark->mark_status; ?></td>
                         <td><?php echo number_format($mark->mark_price); ?>元</td>
+                        <td><?php echo $mark->is_onsale=='sale'?'是':'否'; ?></td>
                         <td>
                           <a href="<?php echo base_url() ?>mark_detail/<?php echo $mark->regno_md; ?>.html" target="_blank" class="btn btn-orange btn-sm btn-icon icon-left">查看</a>
                           <a href="<?php echo base_url() ?>admin/mark_update?mark_regno=<?php echo $mark->mark_regno; ?>" class="btn btn-turquoise btn-sm btn-icon icon-left">修改价格</a>
