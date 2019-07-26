@@ -1598,8 +1598,13 @@ class Index_controller extends CI_Controller {
                     //随机给用户分配品牌管家
                     $butlerStatus = $this->user->edit_userButler($userinfo->user_id,$rad_butler->butler_id);
                     
+                    //给用户发送用户注册成功的消息
+                    $msgStatus = $this->user->add_myMessageOne($userinfo->user_id,'用户注册成功','用户注册','尊敬的用户您好，恭喜您成功注册外推网！您的登录账号为'.$phone.'，请妥善保管。');
+                    
+                    //修改完用户信息一定要重新载入用户session
+                    $userinfo_new = $this->user->get_userDetail($userinfo->user_id);
                     //记录用户登录日志
-                    $this->record_user_login_info($userinfo,$ip_address);
+                    $this->record_user_login_info($userinfo_new,$ip_address);
                     
                     $data['state'] = 'success';
                     $data['msg'] = '注册成功';

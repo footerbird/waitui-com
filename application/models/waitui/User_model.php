@@ -207,6 +207,13 @@ class User_model extends CI_Model {
         return $query;
     }
     
+    public function add_myMessageOne($user_id,$msg_title,$msg_source,$msg_content){//添加消息
+        $sql = "insert into user_msg_info(msg_userid,msg_title,msg_source,msg_content"
+            .")values(".$user_id.",'".$msg_title."','".$msg_source."','".$msg_content."')";
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
     public function get_myMessageList($user_id,$status,$start,$length){//获取我的消息列表
         if($status != ''){
             $sql = "select * from user_msg_info "

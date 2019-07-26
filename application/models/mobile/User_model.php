@@ -45,12 +45,6 @@ class User_model extends CI_Model {
         return $query;
     }
     
-    public function get_unreadMsg($user_id){//获取未读消息数
-        $sql = "select * from user_msg_info where status = 'unread' and msg_userid = ".$user_id;
-        $query = $this->db->query($sql);
-        return $query->num_rows();
-    }
-    
     public function edit_userScore($user_id,$user_score){//改变用户积分
         $sql = "update user_info set"
             ." user_score=".$user_score
@@ -100,6 +94,155 @@ class User_model extends CI_Model {
         $sql = "update user_info set"
             ." user_name='".$user_name
             ."' where user_id=".$user_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function edit_realName($user_id,$real_name){//改变真实姓名
+        $sql = "update user_info set"
+            ." real_name='".$real_name
+            ."' where user_id=".$user_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function edit_userPhone($user_id,$user_phone){//改变手机号码
+        $sql = "update user_info set"
+            ." user_phone='".$user_phone
+            ."' where user_id=".$user_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function edit_userQQ($user_id,$user_qq){//改变QQ号码
+        $sql = "update user_info set"
+            ." user_qq='".$user_qq
+            ."' where user_id=".$user_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function edit_userEmail($user_id,$user_email){//改变用户邮箱
+        $sql = "update user_info set"
+            ." user_email='".$user_email
+            ."' where user_id=".$user_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function edit_userWechat($user_id,$user_wechat){//改变微信号码
+        $sql = "update user_info set"
+            ." user_wechat='".$user_wechat
+            ."' where user_id=".$user_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function edit_userButler($user_id,$user_butler){//改变品牌管家
+        $sql = "update user_info set"
+            ." user_butler=".$user_butler
+            ." where user_id=".$user_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function get_loginRecord($user_id,$start,$length){//登录日志列表页面,输入用户编号$user_id,输出前$length条数
+        $sql = "select * from login_record "
+            ." where login_userid = ".$user_id." order by login_time desc limit ".$start.",".$length;
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+    
+    public function get_loginCount($user_id){//登录日志总数
+        $sql = "select * from login_record"
+            ." where login_userid = ".$user_id;
+        $query = $this->db->query($sql);
+        return $query->num_rows();
+    }
+    
+    public function get_butlerListAll(){//管家列表,输出全部条数
+        $sql = "select * from butler_info order by create_time desc";
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+    
+    public function get_butlerDetail($butler_id){//控制台管家信息,传入butler_id
+        $sql = "select * from butler_info where butler_id = ".$butler_id;
+        $query = $this->db->query($sql);
+        return $query->row();
+    }
+    
+    public function get_certifyByUser($user_id){//企业认证列表页面,传入user_id
+        $sql = "select * from company_certify "
+            ." where certify_userid = ".$user_id." order by create_time desc";
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+    
+    public function get_certifyDetail($user_id,$certify_id){//企业认证详情页面,传入user_id,certify_id
+        $sql = "select * from company_certify where certify_id = ".$certify_id." and certify_userid = ".$user_id;
+        $query = $this->db->query($sql);
+        return $query->row();
+    }
+    
+    public function add_certifyOne($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status,$create_time){//添加企业认证信息
+        $sql = "insert into company_certify(certify_userid,business_license,company_name,oper_name,contact_phone,contact_email,contact_address,status,create_time"
+            .")values(".$user_id.",'".$business_license."','".$company_name."','".$oper_name."','".$contact_phone."','".$contact_email."','".$contact_address."','".$status."','".$create_time."')";
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function edit_certifyOne($certify_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status,$create_time){//重新企业认证,传入user_id
+        $sql = "update company_certify set"
+            ." business_license='".$business_license
+            ."', company_name='".$company_name
+            ."', oper_name='".$oper_name
+            ."', contact_phone='".$contact_phone
+            ."', contact_email='".$contact_email
+            ."', contact_address='".$contact_address
+            ."', status='".$status
+            ."', create_time='".$create_time
+            ."' where certify_id=".$certify_id;
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function add_myMessageOne($user_id,$msg_title,$msg_source,$msg_content){//添加消息
+        $sql = "insert into user_msg_info(msg_userid,msg_title,msg_source,msg_content"
+            .")values(".$user_id.",'".$msg_title."','".$msg_source."','".$msg_content."')";
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function get_myMessageList($user_id,$status,$start,$length){//获取我的消息列表
+        if($status != ''){
+            $sql = "select * from user_msg_info "
+                ." where status = '".$status."' and msg_userid = ".$user_id." order by create_time desc limit ".$start.",".$length;
+        }else{//全部消息(状态为0或1)
+            $sql = "select * from user_msg_info "
+                ." where status != 'del' and msg_userid = ".$user_id." order by create_time desc limit ".$start.",".$length;
+        }
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+    
+    public function get_myMessageCount($user_id,$status){//获取我的消息总数
+        if($status != ''){
+            $sql = "select * from user_msg_info "
+                ." where status = '".$status."' and msg_userid = ".$user_id;
+        }else{//全部消息(状态为0或1)
+            $sql = "select * from user_msg_info "
+                ." where status != 'del' and msg_userid = ".$user_id;
+        }
+        $query = $this->db->query($sql);
+        return $query->num_rows();
+    }
+    
+    public function edit_myMessageStatusBatch($msgid_arr,$status){//批量修改消息状态
+        $msgid_arrs = implode(",",$msgid_arr);
+        $sql = "update user_msg_info set"
+            ." status='".$status
+            ."' where msg_id in (".$msgid_arrs.")";
         $query = $this->db->query($sql);
         return $query;
     }

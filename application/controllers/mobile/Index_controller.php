@@ -471,8 +471,8 @@ class Index_controller extends CI_Controller {
             //get_userDetail方法获取用户信息
             $userinfo = $this->user->get_userDetail($user_id);
             $data['userinfo'] = $userinfo;
-            //get_unreadMsg方法获取未读消息数量
-            $msg_count = $this->user->get_unreadMsg($user_id);
+            //get_myMessageCount方法得到我的消息
+            $msg_count = $this->user->get_myMessageCount($user_id,'');
             $data['msg_count'] = $msg_count;
             //判断当天是否签到
             if(empty($userinfo->sign_time)){//如果没签到过，则可以签到
@@ -904,12 +904,22 @@ class Index_controller extends CI_Controller {
             //add_userOne方法添加新账户
             $createStatus = $this->user->add_userOne($phone,md5($pwd),$phone);
             if($createStatus){//如果添加成功
-                
                 //根据手机号拿到用户信息
                 $userinfo = $this->user->get_userByPhone($phone);
                 if(isset($userinfo) && !empty($userinfo)){
+                    //get_butlerListAll方法获取所有品牌管家信息
+                    $butler_list = $this->user->get_butlerListAll();
+                    $rad_butler = $butler_list[array_rand($butler_list,1)];
+                    //随机给用户分配品牌管家
+                    $butlerStatus = $this->user->edit_userButler($userinfo->user_id,$rad_butler->butler_id);
+                    
+                    //给用户发送用户注册成功的消息
+                    $msgStatus = $this->user->add_myMessageOne($userinfo->user_id,'用户注册成功','用户注册','尊敬的用户您好，恭喜您成功注册外推网！您的登录账号为'.$phone.'，请妥善保管。');
+                    
+                    //修改完用户信息一定要重新载入用户session
+                    $userinfo_new = $this->user->get_userDetail($userinfo->user_id);
                     //记录用户登录日志
-                    $this->record_user_login_info($userinfo,$ip_address);
+                    $this->record_user_login_info($userinfo_new,$ip_address);
                     
                     $data['state'] = 'success';
                     $data['msg'] = '注册成功';
