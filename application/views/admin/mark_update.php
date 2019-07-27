@@ -92,7 +92,7 @@
                             <?php } ?>
                         </div>
                     </div>
-                    <input type="hidden" name="mark_regno" value="<?php if(isset($mark)){ echo $mark->mark_regno; } ?>">
+                    <input type="hidden" name="regno_md" value="<?php if(isset($mark)){ echo $mark->regno_md; } ?>">
                     <input type="hidden" name="operate" value="<?php echo $operate; ?>">
                 </form>
             </div>

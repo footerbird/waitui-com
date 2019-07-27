@@ -908,13 +908,13 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $mark_regno = $this->input->get('mark_regno');//得到商标注册号
-        if(!empty($mark_regno)){
+        $regno_md = $this->input->get('regno_md');//得到注册号加大类的md5值
+        if(!empty($regno_md)){
             $data['operate'] = 'update';
             //加载商标模型类
             $this->load->model('admin/Mark_model','mark');
             //get_markDetail方法得到商标详情
-            $mark = $this->mark->get_markDetail($mark_regno);
+            $mark = $this->mark->get_markDetail($regno_md);
             //get_categoryName获取大类名称
             $category = $this->mark->get_categoryName($mark->mark_category);
             $mark->category_name = $category->category_name;
@@ -935,7 +935,7 @@ class Index_controller extends CI_Controller {
     public function mark_update_do(){//商标编辑
         
         $operate = $this->input->get_post('operate');//得到操作
-        $mark_regno = $this->input->get_post('mark_regno');//商标注册号
+        $regno_md = $this->input->get_post('regno_md');//注册号加大类的md5值
         $is_onsale = $this->input->get_post('is_onsale');//是否出售
         $mark_price = $this->input->get_post('mark_price');//商标价格
         //加载商标模型类
@@ -946,7 +946,7 @@ class Index_controller extends CI_Controller {
             $data['msg'] = '只能修改价格，不能添加';
         }else{//修改
             //edit_markPrice方法修改商标价格
-            $updateStatus = $this->mark->edit_markPrice($mark_regno,$is_onsale,$mark_price);
+            $updateStatus = $this->mark->edit_markPrice($regno_md,$is_onsale,$mark_price);
             if($updateStatus){
                 $data['state'] = 'success';
                 $data['msg'] = '修改成功';
@@ -978,7 +978,7 @@ class Index_controller extends CI_Controller {
         $mark_price = $this->input->get_post('mark_price');//商标价格
         //加载商标模型类
         $this->load->model('admin/Mark_model','mark');
-        //edit_userMarkOne方法给商标分配用户
+        //edit_userMarkOne方法给商标分配用户,一标多类的多个商标分配给同一个用户,所以用mark_regno
         $updateStatus = $this->mark->edit_userMarkOne($user_id,$mark_regno,$is_onsale,$mark_price);
         if($updateStatus){
                 $data['state'] = 'success';

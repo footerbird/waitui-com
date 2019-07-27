@@ -95,7 +95,7 @@
                         <td><?php echo $mark->is_onsale=='sale'?'是':'否'; ?></td>
                         <td>
                           <a href="<?php echo base_url() ?>mark_detail/<?php echo $mark->regno_md; ?>.html" target="_blank" class="btn btn-orange btn-sm btn-icon icon-left">查看</a>
-                          <a href="<?php echo base_url() ?>admin/mark_update?mark_regno=<?php echo $mark->mark_regno; ?>" class="btn btn-turquoise btn-sm btn-icon icon-left">修改价格</a>
+                          <a href="<?php echo base_url() ?>admin/mark_update?regno_md=<?php echo $mark->regno_md; ?>" class="btn btn-turquoise btn-sm btn-icon icon-left">修改价格</a>
                         </td>
                     </tr>
                     <?php } ?>

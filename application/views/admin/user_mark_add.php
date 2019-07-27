@@ -16,7 +16,7 @@
       <div class="page-title">
         
         <div class="title-env">
-          <h1 class="title">添加用户域名</h1>
+          <h1 class="title">添加用户商标</h1>
         </div>
         
           <div class="breadcrumb-env">

@@ -52,8 +52,8 @@ class Mark_model extends CI_Model {
         return $query->result();
     }
     
-    public function get_markDetail($mark_regno){//商标详情页面,传入mark_regno
-        $sql = "select * from mark_info where mark_regno = '".$mark_regno."'";
+    public function get_markDetail($regno_md){//商标详情页面,传入regno_md
+        $sql = "select * from mark_info where regno_md = '".$regno_md."'";
         $query = $this->db->query($sql);
         return $query->row();
     }
@@ -64,16 +64,16 @@ class Mark_model extends CI_Model {
         return $query->row();
     }
     
-    public function edit_markPrice($mark_regno,$is_onsale,$mark_price){//改变商标价格
+    public function edit_markPrice($regno_md,$is_onsale,$mark_price){//改变商标价格
         $sql = "update mark_info set"
             ." is_onsale='".$is_onsale
             ."', mark_price='".$mark_price
-            ."' where mark_regno='".$mark_regno."'";
+            ."' where regno_md='".$regno_md."'";
         $query = $this->db->query($sql);
         return $query;
     }
     
-    public function edit_userMarkOne($user_id,$mark_regno,$is_onsale,$mark_price){//给商标分配用户
+    public function edit_userMarkOne($user_id,$mark_regno,$is_onsale,$mark_price){//给商标分配用户,一标多类的多个商标分配给同一个用户,所以用mark_regno
         $sql = "update mark_info set"
             ." mark_userid=".$user_id
             .", is_onsale='".$is_onsale
