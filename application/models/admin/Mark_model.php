@@ -6,25 +6,50 @@ class Mark_model extends CI_Model {
         parent::__construct();
     }
     
-    public function get_markList($category,$start,$length){//商标列表页面,传入mark_category,如'15',输出前$length条数
-        if($category == ''){
-            $sql = "select * from mark_info "
-                ." limit ".$start.",".$length;
-        }else{
-            $sql = "select * from mark_info "
-                ." where mark_category = ".$category." limit ".$start.",".$length;
+    public function get_markList($keyword,$filter_category,$is_onsale,$user_id,$start,$length){//商标列表页面,输出前$length条数,筛选条件(关键词,商标类别,出售状态,用户编号)
+        $sql = "select * from mark_info"
+            ." where 1 = 1 ";
+        if($keyword != ""){
+            $sql = $sql." and concat(mark_regno,mark_name,app_range) like '%".$keyword."%'";
         }
+        if($filter_category != ""){
+            $sql = $sql." and mark_category = ".$filter_category;
+        }
+        if($is_onsale != ""){
+            $sql = $sql." and is_onsale = '".$is_onsale."'";
+        }
+        if($user_id != ""){
+            $sql = $sql." and mark_userid = ".$user_id;
+        }
+        $sql = $sql." limit ".$start.",".$length;
         $query = $this->db->query($sql);
         return $query->result();
     }
     
-    public function get_markCount($category){//在售商标总数
-        $sql = "select * from mark_info";
-        if($category != ""){
-            $sql = $sql." where mark_category = '".$category."'";
+    public function get_markCount($keyword,$filter_category,$is_onsale,$user_id){//在售商标总数,筛选条件(关键词,商标类别,出售状态,用户编号)
+        $sql = "select * from mark_info"
+            ." where 1 = 1 ";
+        if($keyword != ""){
+            $sql = $sql." and concat(mark_regno,mark_name,app_range) like '%".$keyword."%'";
+        }
+        if($filter_category != ""){
+            $sql = $sql." and mark_category = ".$filter_category;
+        }
+        if($is_onsale != ""){
+            $sql = $sql." and is_onsale = '".$is_onsale."'";
+        }
+        if($user_id != ""){
+            $sql = $sql." and mark_userid = ".$user_id;
         }
         $query = $this->db->query($sql);
         return $query->num_rows();
+    }
+    
+    public function get_markCategory(){//商标页面,输出商标大类信息
+        $sql = "select * from mark_category "
+            ." order by category_id asc";
+        $query = $this->db->query($sql);
+        return $query->result();
     }
     
     public function get_markDetail($mark_regno){//商标详情页面,传入mark_regno

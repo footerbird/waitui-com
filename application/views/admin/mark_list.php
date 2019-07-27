@@ -41,6 +41,35 @@
               
               <div class="dataTables_wrapper form-inline dt-bootstrap">
                 
+                <div class="row">
+                  <div class="col-xs-12">
+                    <form id="search_form" action="<?php echo base_url() ?>admin/mark_list" method="get">
+                      <label class="fl-l">关键字:
+                        <input type="text" name="keyword" class="form-control input-sm" placeholder="请输入商标名、注册号或产品名" value="<?php echo $keyword; ?>">
+                      </label>
+                      <label class="fl-l ml20">出售状态:
+                        <select name="is_onsale" class="form-control input-sm">
+                          <option value="">所有</option>
+                          <option value="sale" <?php if($is_onsale == 'sale'){ echo 'selected'; } ?>>是</option>
+                          <option value="unsale" <?php if($is_onsale == 'unsale'){ echo 'selected'; } ?>>否</option>
+                        </select>
+                      </label>
+                      <label class="fl-l ml20">商标类别:
+                        <select name="filter_category" class="form-control input-sm">
+                          <option value="">所有</option>
+                          <?php foreach ($mark_category as $category){ ?>
+                          <option value="<?php echo $category->category_id; ?>" <?php if($filter_category == $category->category_id){ echo 'selected'; } ?>><?php echo $category->category_no.'类-'.$category->category_name; ?></option>
+                          <?php } ?>
+                        </select>
+                      </label>
+                      <label class="fl-l ml20">用户编号:
+                        <input type="text" name="user_id" class="form-control input-sm" placeholder="请输入用户编号" value="<?php echo $user_id; ?>">
+                      </label>
+                      <a href="javascript:;" class="btn btn-orange btn-sm fl-l ml20" onclick="form_submit()" >搜索</a>
+                    </form>
+                  </div>
+                </div>
+                
                 <table cellspacing="0" class="table table-small-font table-bordered table-striped">
                   <thead>
                     <tr>
@@ -109,6 +138,10 @@
   
 <?php include_once('templete/pub_foot.php') ?>
 <script type="text/javascript">
+function form_submit(){
+    $("#search_form").submit();
+}
+
 $(function(){
     
 })

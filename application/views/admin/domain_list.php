@@ -43,7 +43,31 @@
                 
                 <div class="row">
                   <div class="col-xs-12">
+                    <form id="search_form" action="<?php echo base_url() ?>admin/domain_list" method="get">
+                      <label class="fl-l">关键字:
+                        <input type="text" name="keyword" class="form-control input-sm" placeholder="请输入域名关键字" value="<?php echo $keyword; ?>">
+                      </label>
+                      <label class="fl-l ml20">出售状态:
+                        <select name="is_onsale" class="form-control input-sm">
+                          <option value="">所有</option>
+                          <option value="sale" <?php if($is_onsale == 'sale'){ echo 'selected'; } ?>>是</option>
+                          <option value="unsale" <?php if($is_onsale == 'unsale'){ echo 'selected'; } ?>>否</option>
+                        </select>
+                      </label>
+                      <label class="fl-l ml20">注册商:
+                        <select name="register_registrar" class="form-control input-sm">
+                          <option value="">所有</option>
+                          <option value="阿里云" <?php if($register_registrar == '阿里云'){ echo 'selected'; } ?>>阿里云</option>
+                          <option value="爱名网" <?php if($register_registrar == '爱名网'){ echo 'selected'; } ?>>爱名网</option>
+                          <option value="易名中国" <?php if($register_registrar == '易名中国'){ echo 'selected'; } ?>>易名中国</option>
+                        </select>
+                      </label>
+                      <label class="fl-l ml20">用户编号:
+                        <input type="text" name="user_id" class="form-control input-sm" placeholder="请输入用户编号" value="<?php echo $user_id; ?>">
+                      </label>
+                      <a href="javascript:;" class="btn btn-orange btn-sm fl-l ml20" onclick="form_submit()" >搜索</a>
                       <a href="<?php echo base_url() ?>admin/domain_update" class="btn btn-secondary btn-sm fl-r ml20">添加域名</a>
+                    </form>
                   </div>
                 </div>
                 
@@ -110,6 +134,10 @@
   
 <?php include_once('templete/pub_foot.php') ?>
 <script type="text/javascript">
+function form_submit(){
+    $("#search_form").submit();
+}
+
 $(function(){
     
 })

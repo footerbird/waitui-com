@@ -58,6 +58,24 @@
                             <?php if(isset($user)){ echo '<img id="user_figure_preview" src="'.$user->user_figure.'" width="150" height="150" class="ml20" />'; } ?>
                         </div>
                     </div>
+                    <?php if(isset($user)){ ?>
+                    <div class="form-group-separator"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">用户域名</label>
+                        <div class="col-sm-10">
+                            <a href="<?php echo base_url() ?>admin/domain_list?user_id=<?php echo $user->user_id; ?>" target="_blank" class="btn btn-orange btn-sm ">域名列表</a>
+                            <a href="<?php echo base_url() ?>admin/user_domain_add" target="_blank" class="btn btn-secondary ">添加域名</a>
+                        </div>
+                    </div>
+                    <div class="form-group-separator"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">用户商标</label>
+                        <div class="col-sm-10">
+                            <a href="<?php echo base_url() ?>admin/mark_list?user_id=<?php echo $user->user_id; ?>" target="_blank" class="btn btn-orange btn-sm ">商标列表</a>
+                            <a href="<?php echo base_url() ?>admin/user_mark_add" target="_blank" class="btn btn-secondary ">添加商标</a>
+                        </div>
+                    </div>
+                    <?php } ?>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>

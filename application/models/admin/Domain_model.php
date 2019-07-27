@@ -6,15 +6,41 @@ class Domain_model extends CI_Model {
         parent::__construct();
     }
     
-    public function get_domainList($start,$length){//域名列表页面,输出前$length条数
-        $sql = "select * from domain_info "
-            ." order by expired_date asc limit ".$start.",".$length;
+    public function get_domainList($keyword,$register_registrar,$is_onsale,$user_id,$start,$length){//域名列表页面,输出前$length条数,筛选条件(关键词,注册商,出售状态,用户编号)
+        $sql = "select * from domain_info"
+            ." where 1 = 1 ";
+        if($keyword != ""){
+            $sql = $sql." and domain_name like '%".$keyword."%'";
+        }
+        if($register_registrar != ""){
+            $sql = $sql." and register_registrar = '".$register_registrar."'";
+        }
+        if($is_onsale != ""){
+            $sql = $sql." and is_onsale = '".$is_onsale."'";
+        }
+        if($user_id != ""){
+            $sql = $sql." and domain_userid = ".$user_id;
+        }
+        $sql = $sql." order by expired_date asc limit ".$start.",".$length;
         $query = $this->db->query($sql);
         return $query->result();
     }
     
-    public function get_domainCount(){//域名总数
-        $sql = "select * from domain_info";
+    public function get_domainCount($keyword,$register_registrar,$is_onsale,$user_id){//域名总数,筛选条件(关键词,注册商,出售状态,用户编号)
+        $sql = "select * from domain_info"
+            ." where 1 = 1 ";
+        if($keyword != ""){
+            $sql = $sql." and domain_name like '%".$keyword."%'";
+        }
+        if($register_registrar != ""){
+            $sql = $sql." and register_registrar = '".$register_registrar."'";
+        }
+        if($is_onsale != ""){
+            $sql = $sql." and is_onsale = '".$is_onsale."'";
+        }
+        if($user_id != ""){
+            $sql = $sql." and domain_userid = ".$user_id;
+        }
         $query = $this->db->query($sql);
         return $query->num_rows();
     }

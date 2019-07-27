@@ -631,11 +631,15 @@ class Index_controller extends CI_Controller {
         
         $page = $this->input->get('page');//得到页码
         if(empty($page)) $page = 1;//默认页码为1
+        $keyword = $this->input->get('keyword');//得到域名关键词
+        $is_onsale = $this->input->get('is_onsale');//得到出售状态
+        $register_registrar = $this->input->get('register_registrar');//得到注册商
+        $user_id = $this->input->get('user_id');//得到用户编号
         
         //加载域名模型类
         $this->load->model('admin/Domain_model','domain');
         //get_domainCount方法得到域名总数
-        $count = $this->domain->get_domainCount();
+        $count = $this->domain->get_domainCount($keyword,$register_registrar,$is_onsale,$user_id);
         
         $page_size = 20;//单页记录数
         $offset = ($page-1)*$page_size;//偏移量
@@ -687,11 +691,15 @@ class Index_controller extends CI_Controller {
         $data['page_size'] = $page_size;
         
         //get_domainList方法到域名列表信息
-        $domain_list = $this->domain->get_domainList($offset,$page_size);
+        $domain_list = $this->domain->get_domainList($keyword,$register_registrar,$is_onsale,$user_id,$offset,$page_size);
         foreach($domain_list as $domain){
             $domain->expired_date = format_domain_exptime($domain->expired_date);
         }
         $data['domain_list'] = $domain_list;
+        $data['keyword'] = $keyword;
+        $data['register_registrar'] = $register_registrar;
+        $data['is_onsale'] = $is_onsale;
+        $data['user_id'] = $user_id;
         
         $this->load->view('admin/domain_list',$data);
     }
@@ -776,11 +784,19 @@ class Index_controller extends CI_Controller {
         
         $page = $this->input->get('page');//得到页码
         if(empty($page)) $page = 1;//默认页码为1
+        $keyword = $this->input->get('keyword');//得到域名关键词
+        $is_onsale = $this->input->get('is_onsale');//得到出售状态
+        $filter_category = $this->input->get('filter_category');//得到商标类别
+        $user_id = $this->input->get('user_id');//得到用户编号
         
         //加载商标模型类
         $this->load->model('admin/Mark_model','mark');
+        //get_markCategory方法得到商标大类信息
+        $mark_category = $this->mark->get_markCategory();
+        $data['mark_category'] = $mark_category;
+        
         //get_markCount方法得到商标总数
-        $count = $this->mark->get_markCount('');
+        $count = $this->mark->get_markCount($keyword,$filter_category,$is_onsale,$user_id);
         
         $page_size = 20;//单页记录数
         $offset = ($page-1)*$page_size;//偏移量
@@ -832,13 +848,17 @@ class Index_controller extends CI_Controller {
         $data['page_size'] = $page_size;
         
         //get_markList方法到商标列表信息
-        $mark_list = $this->mark->get_markList('',$offset,$page_size);
+        $mark_list = $this->mark->get_markList($keyword,$filter_category,$is_onsale,$user_id,$offset,$page_size);
         foreach($mark_list as $mark){
             //get_categoryName获取大类名称
             $category = $this->mark->get_categoryName($mark->mark_category);
             $mark->category_name = $category->category_name;
         }
         $data['mark_list'] = $mark_list;
+        $data['keyword'] = $keyword;
+        $data['filter_category'] = $filter_category;
+        $data['is_onsale'] = $is_onsale;
+        $data['user_id'] = $user_id;
         
         $this->load->view('admin/mark_list',$data);
     }
