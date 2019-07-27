@@ -114,7 +114,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">域名价格</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="domain_price" id="domain_price" placeholder="请输入域名价格,不出售的域名价格设为0" value="<?php if(isset($domain)){ echo $domain->domain_price; } ?>">
+                            <input type="text" class="form-control" name="domain_price" id="domain_price" placeholder="请输入域名价格" value="<?php if(isset($domain)){ echo $domain->domain_price; } ?>">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>

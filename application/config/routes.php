@@ -147,9 +147,11 @@ $route['admin/company_certify_update'] = 'admin/Index_controller/company_certify
 
 $route['admin/domain_list'] = 'admin/Index_controller/domain_list';
 $route['admin/domain_update'] = 'admin/Index_controller/domain_update';
+$route['admin/user_domain_add'] = 'admin/Index_controller/user_domain_add';
 
 $route['admin/mark_list'] = 'admin/Index_controller/mark_list';
 $route['admin/mark_update'] = 'admin/Index_controller/mark_update';
+$route['admin/user_mark_add'] = 'admin/Index_controller/user_mark_add';
 
 $route['admin/article_list'] = 'admin/Article_controller/article_list';
 $route['admin/article_update'] = 'admin/Article_controller/article_update';

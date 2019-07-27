@@ -152,7 +152,7 @@ class Index_controller extends CI_Controller {
     }
     
     public function admin_update(){//管理员编辑初始页
-        $this->module = 'console';
+        $this->module = 'admin';
         $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
@@ -785,6 +785,38 @@ class Index_controller extends CI_Controller {
         echo json_encode($data);
     }
     
+    public function user_domain_add(){//添加用户域名初始页
+        $this->module = 'user';
+        $this->sub_menu = 'user';
+        $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
+        
+        $user_id = $this->input->get('user_id');//得到用户编号
+        $data['user_id'] = $user_id;
+        
+        $this->load->view('admin/user_domain_add',$data);
+    }
+    
+    public function user_domain_add_do(){//添加用户域名
+        
+        $user_id = $this->input->get_post('user_id');//用户编号
+        $domain_name = $this->input->get_post('domain_name');//域名
+        $is_onsale = $this->input->get_post('is_onsale');//是否出售
+        $domain_price = $this->input->get_post('domain_price');//域名价格
+        //加载域名模型类
+        $this->load->model('admin/Domain_model','domain');
+        //edit_userDomainOne方法给域名分配用户
+        $updateStatus = $this->domain->edit_userDomainOne($user_id,$domain_name,$is_onsale,$domain_price);
+        if($updateStatus){
+                $data['state'] = 'success';
+                $data['msg'] = '分配成功';
+            }else{
+                $data['state'] = 'failed';
+                $data['msg'] = '分配失败，请重试';
+            }
+        
+        echo json_encode($data);
+    }
+    
     public function mark_list(){//出售商标列表
         $this->module = 'mark';
         $this->sub_menu = '';
@@ -923,6 +955,38 @@ class Index_controller extends CI_Controller {
                 $data['msg'] = '修改失败，请重试';
             }
         }
+        
+        echo json_encode($data);
+    }
+    
+    public function user_mark_add(){//添加用户商标初始页
+        $this->module = 'user';
+        $this->sub_menu = 'user';
+        $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
+        
+        $user_id = $this->input->get('user_id');//得到用户编号
+        $data['user_id'] = $user_id;
+        
+        $this->load->view('admin/user_mark_add',$data);
+    }
+    
+    public function user_mark_add_do(){//添加用户商标
+        
+        $user_id = $this->input->get_post('user_id');//用户编号
+        $mark_regno = $this->input->get_post('mark_regno');//商标注册号
+        $is_onsale = $this->input->get_post('is_onsale');//是否出售
+        $mark_price = $this->input->get_post('mark_price');//商标价格
+        //加载商标模型类
+        $this->load->model('admin/Mark_model','mark');
+        //edit_userMarkOne方法给商标分配用户
+        $updateStatus = $this->mark->edit_userMarkOne($user_id,$mark_regno,$is_onsale,$mark_price);
+        if($updateStatus){
+                $data['state'] = 'success';
+                $data['msg'] = '分配成功';
+            }else{
+                $data['state'] = 'failed';
+                $data['msg'] = '分配失败，请重试';
+            }
         
         echo json_encode($data);
     }

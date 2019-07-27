@@ -41,21 +41,21 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">商标名称</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="<?php echo $mark->mark_name; ?>" disabled="disabled" />
+                            <input type="text" class="form-control" value="<?php echo $mark->mark_name; ?>" readonly="readonly" />
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">注册号</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="<?php echo $mark->mark_regno; ?>" disabled="disabled" />
+                            <input type="text" class="form-control" value="<?php echo $mark->mark_regno; ?>" readonly="readonly" />
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">商标大类</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="[<?php echo $mark->mark_category<10?'0'.$mark->mark_category:$mark->mark_category; ?>&nbsp;&nbsp;<?php echo $mark->category_name; ?>]" disabled="disabled" />
+                            <input type="text" class="form-control" value="[<?php echo $mark->mark_category<10?'0'.$mark->mark_category:$mark->mark_category; ?>&nbsp;&nbsp;<?php echo $mark->category_name; ?>]" readonly="readonly" />
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
@@ -76,7 +76,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">商标价格</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="mark_price" id="mark_price" placeholder="请输入商标价格,不出售的商标价格设为0" value="<?php if(isset($mark)){ echo $mark->mark_price; } ?>">
+                            <input type="text" class="form-control" name="mark_price" id="mark_price" placeholder="请输入商标价格" value="<?php if(isset($mark)){ echo $mark->mark_price; } ?>">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>

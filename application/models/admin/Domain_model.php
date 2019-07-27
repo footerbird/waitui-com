@@ -74,5 +74,15 @@ class Domain_model extends CI_Model {
         return $query;
     }
     
+    public function edit_userDomainOne($user_id,$domain_name,$is_onsale,$domain_price){//给域名分配用户
+        $sql = "update domain_info set"
+            ." domain_userid=".$user_id
+            .", is_onsale='".$is_onsale
+            ."', domain_price='".$domain_price
+            ."' where domain_name='".$domain_name."'";
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
 }
 ?>

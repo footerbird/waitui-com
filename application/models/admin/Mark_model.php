@@ -68,7 +68,17 @@ class Mark_model extends CI_Model {
         $sql = "update mark_info set"
             ." is_onsale='".$is_onsale
             ."', mark_price='".$mark_price
-            ."' where mark_regno=".$mark_regno;
+            ."' where mark_regno='".$mark_regno."'";
+        $query = $this->db->query($sql);
+        return $query;
+    }
+    
+    public function edit_userMarkOne($user_id,$mark_regno,$is_onsale,$mark_price){//给商标分配用户
+        $sql = "update mark_info set"
+            ." mark_userid=".$user_id
+            .", is_onsale='".$is_onsale
+            ."', mark_price='".$mark_price
+            ."' where mark_regno='".$mark_regno."'";
         $query = $this->db->query($sql);
         return $query;
     }

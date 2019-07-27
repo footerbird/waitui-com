@@ -16,7 +16,7 @@
       <div class="page-title">
         
         <div class="title-env">
-          <h1 class="title">用户编辑</h1>
+          <h1 class="title">添加用户域名</h1>
         </div>
         
           <div class="breadcrumb-env">
@@ -24,7 +24,7 @@
             <ol class="breadcrumb bc-1">
               <li><a href="<?php echo base_url() ?>admin"><i class="fa-home"></i>首页</a></li>
               <li><a href="<?php echo base_url() ?>admin/user_list">用户管理</a></li>
-              <li class="active"><strong>用户编辑</strong></li>
+              <li class="active"><strong>添加用户商标</strong></li>
             </ol>
                 
         </div>
@@ -39,52 +39,54 @@
             <div class="panel-body">
                 <form role="form" action="" method="post" class="form-horizontal" id="sForm">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">用户昵称</label>
+                        <label class="col-sm-2 control-label">&nbsp;</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="user_name" required="required" placeholder="请输入用户昵称" value="<?php if(isset($user)){ echo $user->user_name; } ?>">
+                            <span style="color: #f00;">注意：添加用户商标必须先在商标列表中添加</span>
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">手机号码</label>
+                        <label class="col-sm-2 control-label">用户编号</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="user_phone" required="required" placeholder="请输入手机号码" value="<?php if(isset($user)){ echo $user->user_phone; } ?>">
+                            <input type="text" class="form-control" value="<?php echo $user_id; ?>" readonly="readonly">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">用户头像</label>
+                        <label class="col-sm-2 control-label">商标注册号</label>
                         <div class="col-sm-10">
-                            <?php if(isset($user)){ echo '<img id="user_figure_preview" src="'.$user->user_figure.'" width="150" height="150" class="ml20" />'; } ?>
-                        </div>
-                    </div>
-                    <?php if(isset($user)){ ?>
-                    <div class="form-group-separator"></div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">用户域名</label>
-                        <div class="col-sm-10">
-                            <a href="<?php echo base_url() ?>admin/domain_list?user_id=<?php echo $user->user_id; ?>" target="_blank" class="btn btn-orange btn-sm ">域名列表</a>
-                            <a href="<?php echo base_url() ?>admin/user_domain_add?user_id=<?php echo $user->user_id; ?>" target="_blank" class="btn btn-secondary ">添加域名</a>
+                            <input type="text" class="form-control" name="mark_regno" required="required" placeholder="请输入注册号" value="">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">用户商标</label>
-                        <div class="col-sm-10">
-                            <a href="<?php echo base_url() ?>admin/mark_list?user_id=<?php echo $user->user_id; ?>" target="_blank" class="btn btn-orange btn-sm ">商标列表</a>
-                            <a href="<?php echo base_url() ?>admin/user_mark_add?user_id=<?php echo $user->user_id; ?>" target="_blank" class="btn btn-secondary ">添加商标</a>
+                        <label class="col-sm-2 control-label">是否出售</label>
+                        <div class="col-sm-8">
+                            <label class="radio-inline">
+                                <input name="is_onsale" type="radio" value="sale">
+                                是
+                            </label>
+                            <label class="radio-inline">
+                                <input name="is_onsale" type="radio" value="unsale" checked="checked">
+                                否
+                            </label>
                         </div>
                     </div>
-                    <?php } ?>
+                    <div class="form-group-separator"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">商标价格</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="mark_price" required="required" placeholder="请输入域名价格" value="0">
+                        </div>
+                    </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-10">
-                            <a href="<?php echo base_url() ?>admin/user_list" class="btn btn-white btn-sm ">返回</a>
+                            <input type="button" class="btn btn-orange" id="submitBtn" onclick="form_submit()" value="提交">
                         </div>
                     </div>
-                    <input type="hidden" name="user_id" value="<?php if(isset($user)){ echo $user->user_id; } ?>">
-                    <input type="hidden" name="operate" value="<?php echo $operate; ?>">
+                    <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                 </form>
             </div>
             
@@ -102,6 +104,30 @@
   
 <?php include_once('templete/pub_foot.php') ?>
 <script type="text/javascript">
+function form_submit(){
+    if($("#mark_regno").val() == ""){
+        toastr.error("注册号不能为空");
+        return;
+    }
+    
+    $("#sForm").ajaxForm({
+        url:'/admin/Index_controller/user_mark_add_do',
+        type:'post',
+        dataType:'json',
+        beforeSubmit:function () {
+        },
+        success:function (data) {
+            if(data.state == "success"){
+                location.href = '<?php echo base_url() ?>admin/mark_list?user_id=<?php echo $user_id; ?>';
+            }else{
+                toastr.error(data.msg);
+            }
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            toastr.error("程序异常："+errorThrown+"<br>请联系管理员");
+        }
+    }).submit();
+}
 $(function(){
     
 })
