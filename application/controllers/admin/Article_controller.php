@@ -28,11 +28,17 @@ class Article_controller extends CI_Controller {
         
         $page = $this->input->get('page');//得到页码
         if(empty($page)) $page = 1;//默认页码为1
+        $keyword = $this->input->get('keyword');//得到域名关键词
+        $filter_category = $this->input->get('filter_category');//得到文章类别
         
         //加载文章模型类
         $this->load->model('admin/Article_model','article');
+        //get_articleCategory方法得到文章分类信息
+        $article_category = $this->article->get_articleCategory();
+        $data['article_category'] = $article_category;
+        
         //get_articleCount方法得到文章总数
-        $count = $this->article->get_articleCount('');
+        $count = $this->article->get_articleCount($keyword,$filter_category);
         
         $page_size = 20;//单页记录数
         $offset = ($page-1)*$page_size;//偏移量
@@ -84,7 +90,7 @@ class Article_controller extends CI_Controller {
         $data['page_size'] = $page_size;
         
         //get_articleList方法到文章列表信息
-        $article_list = $this->article->get_articleList('',$offset,$page_size);
+        $article_list = $this->article->get_articleList($keyword,$filter_category,$offset,$page_size);
         foreach($article_list as $article){
             //get_categoryName获取类型名称
             $category = $this->article->get_categoryName($article->article_category);
@@ -94,6 +100,8 @@ class Article_controller extends CI_Controller {
             $article->author_name = $author->author_name;
         }
         $data['article_list'] = $article_list;
+        $data['keyword'] = $keyword;
+        $data['filter_category'] = $filter_category;
         
         $this->load->view('admin/article_list',$data);
     }

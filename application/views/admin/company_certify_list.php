@@ -41,6 +41,20 @@
               
               <div class="dataTables_wrapper form-inline dt-bootstrap">
                 
+                <div class="row">
+                  <div class="col-xs-12">
+                    <form id="search_form" action="<?php echo base_url() ?>admin/company_certify_list" method="get">
+                      <label class="fl-l">关键字:
+                        <input type="text" name="keyword" class="form-control input-sm" placeholder="请输入企业名称或法人姓名" value="<?php echo $keyword; ?>">
+                      </label>
+                      <label class="fl-l ml20">用户编号:
+                        <input type="text" name="user_id" class="form-control input-sm" placeholder="请输入用户编号" value="<?php echo $user_id; ?>">
+                      </label>
+                      <a href="javascript:;" class="btn btn-orange btn-sm fl-l ml20" onclick="form_submit()" >搜索</a>
+                    </form>
+                  </div>
+                </div>
+                
                 <table cellspacing="0" class="table table-small-font table-bordered table-striped">
                   <thead>
                     <tr>
@@ -119,6 +133,10 @@
   
 <?php include_once('templete/pub_foot.php') ?>
 <script type="text/javascript">
+function form_submit(){
+    $("#search_form").submit();
+}
+
 $(function(){
     
 })

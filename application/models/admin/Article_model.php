@@ -6,22 +6,28 @@ class Article_model extends CI_Model {
         parent::__construct();
     }
     
-    public function get_articleList($category,$start,$length){//文章列表页面,传入article_category,如'qccx(汽车出行)',输出前$length条数
-        if($category == ''){
-            $sql = "select * from article_info "
-                ." order by create_time desc limit ".$start.",".$length;
-        }else{
-            $sql = "select * from article_info "
-                ." where article_category = '".$category."' order by create_time desc limit ".$start.",".$length;
+    public function get_articleList($keyword,$filter_category,$start,$length){//文章列表页面,输出前$length条数,筛选条件(关键词,文章类别)
+        $sql = "select * from article_info"
+            ." where 1 = 1 ";
+        if($keyword != ""){
+            $sql = $sql." and article_title like '%".$keyword."%'";
         }
+        if($filter_category != ""){
+            $sql = $sql." and article_category = '".$filter_category."'";
+        }
+        $sql = $sql." order by create_time desc limit ".$start.",".$length;
         $query = $this->db->query($sql);
         return $query->result();
     }
     
-    public function get_articleCount($category){//文章总数
-        $sql = "select * from article_info";
-        if($category != ""){
-            $sql = $sql." where article_category = '".$category."'";
+    public function get_articleCount($keyword,$filter_category){//文章总数,筛选条件(关键词,文章类别)
+        $sql = "select * from article_info"
+            ." where 1 = 1 ";
+        if($keyword != ""){
+            $sql = $sql." and article_title like '%".$keyword."%'";
+        }
+        if($filter_category != ""){
+            $sql = $sql." and article_category = '".$filter_category."'";
         }
         $query = $this->db->query($sql);
         return $query->num_rows();

@@ -43,7 +43,21 @@
                 
                 <div class="row">
                   <div class="col-xs-12">
+                    <form id="search_form" action="<?php echo base_url() ?>admin/article_list" method="get">
+                      <label class="fl-l">关键字:
+                        <input type="text" name="keyword" class="form-control input-sm" placeholder="请输入资讯关键字" value="<?php echo $keyword; ?>">
+                      </label>
+                      <label class="fl-l ml20">资讯类型:
+                        <select name="filter_category" class="form-control input-sm">
+                          <option value="">所有</option>
+                          <?php foreach ($article_category as $category){ ?>
+                          <option value="<?php echo $category->category_type; ?>" <?php if($filter_category == $category->category_type){ echo 'selected'; } ?>><?php echo $category->category_name; ?></option>
+                          <?php } ?>
+                        </select>
+                      </label>
+                      <a href="javascript:;" class="btn btn-orange btn-sm fl-l ml20" onclick="form_submit()" >搜索</a>
                       <a href="<?php echo base_url() ?>admin/article_update" class="btn btn-secondary btn-sm fl-r ml20">添加文章</a>
+                    </form>
                   </div>
                 </div>
                 
@@ -112,6 +126,10 @@
   
 <?php include_once('templete/pub_foot.php') ?>
 <script type="text/javascript">
+function form_submit(){
+    $("#search_form").submit();
+}
+
 $(function(){
     
 })

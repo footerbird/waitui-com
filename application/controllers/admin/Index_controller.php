@@ -405,11 +405,13 @@ class Index_controller extends CI_Controller {
         
         $page = $this->input->get('page');//得到页码
         if(empty($page)) $page = 1;//默认页码为1
+        $keyword = $this->input->get('keyword');//得到域名关键词
+        $user_id = $this->input->get('user_id');//得到用户编号
         
         //加载用户模型类
         $this->load->model('admin/User_model','user');
         //get_userCount方法得到用户总数
-        $count = $this->user->get_userCount();
+        $count = $this->user->get_userCount($keyword,$user_id);
         
         $page_size = 20;//单页记录数
         $offset = ($page-1)*$page_size;//偏移量
@@ -461,8 +463,10 @@ class Index_controller extends CI_Controller {
         $data['page_size'] = $page_size;
         
         //get_userList方法到用户列表信息
-        $user_list = $this->user->get_userList($offset,$page_size);
+        $user_list = $this->user->get_userList($keyword,$user_id,$offset,$page_size);
         $data['user_list'] = $user_list;
+        $data['keyword'] = $keyword;
+        $data['user_id'] = $user_id;
         
         $this->load->view('admin/user_list',$data);
     }
@@ -500,11 +504,13 @@ class Index_controller extends CI_Controller {
         
         $page = $this->input->get('page');//得到页码
         if(empty($page)) $page = 1;//默认页码为1
+        $keyword = $this->input->get('keyword');//得到域名关键词
+        $user_id = $this->input->get('user_id');//得到用户编号
         
         //加载企业认证模型类
         $this->load->model('admin/Certify_model','certify');
         //get_certifyCount方法得到企业认证总数
-        $count = $this->certify->get_certifyCount();
+        $count = $this->certify->get_certifyCount($keyword,$user_id);
         
         $page_size = 20;//单页记录数
         $offset = ($page-1)*$page_size;//偏移量
@@ -556,8 +562,10 @@ class Index_controller extends CI_Controller {
         $data['page_size'] = $page_size;
         
         //get_certifyList方法到企业认证列表信息
-        $certify_list = $this->certify->get_certifyList($offset,$page_size);
+        $certify_list = $this->certify->get_certifyList($keyword,$user_id,$offset,$page_size);
         $data['certify_list'] = $certify_list;
+        $data['keyword'] = $keyword;
+        $data['user_id'] = $user_id;
         
         $this->load->view('admin/company_certify_list',$data);
     }
