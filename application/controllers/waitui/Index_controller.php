@@ -820,9 +820,10 @@ class Index_controller extends CI_Controller {
     
     public function my_coupon($page = 1){//优惠券
         $this->module = constant('MEMU_MY');
-        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
+        $data['userinfo'] = $userinfo;
         
-        $count = 24;
+        $count = 0;
         $page_size = 9;//单页记录数
         $offset = ($page-1)*$page_size;//偏移量
         switch($page){
@@ -853,6 +854,9 @@ class Index_controller extends CI_Controller {
         $this->pagination->initialize($config);
         $data['page_count'] = $count;
         $data['page_size'] = $page_size;
+        
+        $coupon_list =array();
+        $data['coupon_list'] = $coupon_list;
         
         $this->leftmenu = 'my_coupon';
         

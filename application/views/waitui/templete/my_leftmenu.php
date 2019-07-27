@@ -16,7 +16,7 @@
         <li class="module-li"><a class="module module-order" href="<?php echo base_url() ?>my_order"><i></i><span>财务管理</span></a>
             <ul>
                 <li><a class="<?php if($this->leftmenu == 'my_order'){ echo 'cur'; } ?>" href="<?php echo base_url() ?>my_order"><span>我的订单</span></a></li>
-                <li><a class="<?php if($this->leftmenu == 'my_invoice'){ echo 'cur'; } ?>" href="<?php echo base_url() ?>my_invoice"><span>发票管理</span></a></li>
+                <!-- <li><a class="<?php if($this->leftmenu == 'my_invoice'){ echo 'cur'; } ?>" href="<?php echo base_url() ?>my_invoice"><span>发票管理</span></a></li> -->
                 <li><a class="<?php if($this->leftmenu == 'my_coupon'){ echo 'cur'; } ?>" href="<?php echo base_url() ?>my_coupon"><span>优惠券</span></a></li>
             </ul>
         </li>

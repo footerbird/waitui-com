@@ -14,89 +14,97 @@
         <div class="my-mainpanel">
             <div class="panel-title mb20">优惠券</div>
             
-            <div class="my-coupon">
-                <div class="coupon-item">
-                    <div class="box">
-                        <div class="code">券码：67404420113</div>
-                        <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
-                        <div class="limit">满99元可用</div>
-                        <div class="range">全场通用</div>
-                        <div class="time">2019.06.18-2019.07.20</div>
+            <?php if(count($coupon_list) != 0){ ?>
+                <div class="my-coupon">
+                    <div class="coupon-item">
+                        <div class="box">
+                            <div class="code">券码：67404420113</div>
+                            <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
+                            <div class="limit">满99元可用</div>
+                            <div class="range">全场通用</div>
+                            <div class="time">2019.06.18-2019.07.20</div>
+                        </div>
+                    </div>
+                    <div class="coupon-item">
+                        <div class="box">
+                            <div class="code">券码：67404420113</div>
+                            <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
+                            <div class="limit">满99元可用</div>
+                            <div class="range">仅限域名续费</div>
+                            <div class="time">2019.06.18-2019.07.20</div>
+                        </div>
+                    </div>
+                    <div class="coupon-item">
+                        <div class="box">
+                            <div class="code">券码：67404420113</div>
+                            <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
+                            <div class="limit">满99元可用</div>
+                            <div class="range">仅限域名注册</div>
+                            <div class="time">2019.06.18-2019.07.20</div>
+                        </div>
+                    </div>
+                    <div class="coupon-item">
+                        <div class="box">
+                            <div class="code">券码：67404420113</div>
+                            <div class="price"><em>&yen;</em><font>500</font>优惠券</div>
+                            <div class="limit">满5000元可用</div>
+                            <div class="range">仅限域名求购</div>
+                            <div class="time">2019.06.18-2019.07.20</div>
+                        </div>
+                    </div>
+                    <div class="coupon-item">
+                        <div class="box">
+                            <div class="code">券码：67404420113</div>
+                            <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
+                            <div class="limit">满99元可用</div>
+                            <div class="range">仅限商标注册</div>
+                            <div class="time">2019.06.18-2019.07.20</div>
+                        </div>
+                    </div>
+                    <div class="coupon-item used">
+                        <div class="box">
+                            <div class="code">券码：67404420113</div>
+                            <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
+                            <div class="limit">满99元可用</div>
+                            <div class="range">仅限商标服务（非注册、求购）</div>
+                            <div class="time">2019.06.18-2019.07.20</div>
+                        </div>
+                    </div>
+                    <div class="coupon-item used">
+                        <div class="box">
+                            <div class="code">券码：67404420113</div>
+                            <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
+                            <div class="limit">满99元可用</div>
+                            <div class="range">仅限商标求购</div>
+                            <div class="time">2019.06.18-2019.07.20</div>
+                        </div>
+                    </div>
+                    <div class="coupon-item overdue">
+                        <div class="box">
+                            <div class="code">券码：67404420113</div>
+                            <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
+                            <div class="limit">满99元可用</div>
+                            <div class="range">全场通用</div>
+                            <div class="time">2019.06.18-2019.07.20</div>
+                        </div>
+                    </div>
+                    <div class="coupon-item overdue">
+                        <div class="box">
+                            <div class="code">券码：67404420113</div>
+                            <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
+                            <div class="limit">满99元可用</div>
+                            <div class="range">全场通用</div>
+                            <div class="time">2019.06.18-2019.07.20</div>
+                        </div>
                     </div>
                 </div>
-                <div class="coupon-item">
-                    <div class="box">
-                        <div class="code">券码：67404420113</div>
-                        <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
-                        <div class="limit">满99元可用</div>
-                        <div class="range">仅限域名续费</div>
-                        <div class="time">2019.06.18-2019.07.20</div>
-                    </div>
-                </div>
-                <div class="coupon-item">
-                    <div class="box">
-                        <div class="code">券码：67404420113</div>
-                        <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
-                        <div class="limit">满99元可用</div>
-                        <div class="range">仅限域名注册</div>
-                        <div class="time">2019.06.18-2019.07.20</div>
-                    </div>
-                </div>
-                <div class="coupon-item">
-                    <div class="box">
-                        <div class="code">券码：67404420113</div>
-                        <div class="price"><em>&yen;</em><font>500</font>优惠券</div>
-                        <div class="limit">满5000元可用</div>
-                        <div class="range">仅限域名求购</div>
-                        <div class="time">2019.06.18-2019.07.20</div>
-                    </div>
-                </div>
-                <div class="coupon-item">
-                    <div class="box">
-                        <div class="code">券码：67404420113</div>
-                        <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
-                        <div class="limit">满99元可用</div>
-                        <div class="range">仅限商标注册</div>
-                        <div class="time">2019.06.18-2019.07.20</div>
-                    </div>
-                </div>
-                <div class="coupon-item used">
-                    <div class="box">
-                        <div class="code">券码：67404420113</div>
-                        <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
-                        <div class="limit">满99元可用</div>
-                        <div class="range">仅限商标服务（非注册、求购）</div>
-                        <div class="time">2019.06.18-2019.07.20</div>
-                    </div>
-                </div>
-                <div class="coupon-item used">
-                    <div class="box">
-                        <div class="code">券码：67404420113</div>
-                        <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
-                        <div class="limit">满99元可用</div>
-                        <div class="range">仅限商标求购</div>
-                        <div class="time">2019.06.18-2019.07.20</div>
-                    </div>
-                </div>
-                <div class="coupon-item overdue">
-                    <div class="box">
-                        <div class="code">券码：67404420113</div>
-                        <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
-                        <div class="limit">满99元可用</div>
-                        <div class="range">全场通用</div>
-                        <div class="time">2019.06.18-2019.07.20</div>
-                    </div>
-                </div>
-                <div class="coupon-item overdue">
-                    <div class="box">
-                        <div class="code">券码：67404420113</div>
-                        <div class="price"><em>&yen;</em><font>50</font>优惠券</div>
-                        <div class="limit">满99元可用</div>
-                        <div class="range">全场通用</div>
-                        <div class="time">2019.06.18-2019.07.20</div>
-                    </div>
-                </div>
-            </div>
+            <?php }else{ ?>
+                <p class="ta-c f18 col-my pt50 pb30">暂无优惠券</p>
+                <p class="ta-c"><img src="/htdocs/waitui/images/console-certify.png"></p>
+                <p class="ta-c f14 col-gray9 lh28 pt30">
+                  您好，暂无搜索结果，<br>您可以多关注外推网的各种活动来获取优惠券
+                </p>
+            <?php } ?>
             
             <div class="route-pagination">
             <?php echo $this->pagination->create_links(); ?>
