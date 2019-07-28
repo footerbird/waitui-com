@@ -26,10 +26,10 @@ class Article_controller extends CI_Controller {
         $this->sub_menu = 'article';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $page = $this->input->get('page');//得到页码
+        $page = trim($this->input->get('page'));//得到页码
         if(empty($page)) $page = 1;//默认页码为1
-        $keyword = $this->input->get('keyword');//得到域名关键词
-        $filter_category = $this->input->get('filter_category');//得到文章类别
+        $keyword = trim($this->input->get('keyword'));//得到域名关键词
+        $filter_category = trim($this->input->get('filter_category'));//得到文章类别
         
         //加载文章模型类
         $this->load->model('admin/Article_model','article');
@@ -120,7 +120,7 @@ class Article_controller extends CI_Controller {
         $data['author_list'] = $atuhor_list;
         $data['category_list'] = $category_list;
         
-        $article_id = $this->input->get('article_id');//得到商标注册号
+        $article_id = trim($this->input->get('article_id'));//得到商标注册号
         if(!empty($article_id)){
             $data['operate'] = 'update';
             //get_articleDetail方法得到文章详情
@@ -141,16 +141,16 @@ class Article_controller extends CI_Controller {
     
     public function article_update_do(){//文章编辑
         
-        $operate = $this->input->get_post('operate');//得到操作
-        $article_id = $this->input->get_post('article_id');//文章编号
-        $article_title = $this->input->get_post('article_title');//文章标题
-        $thumb_path = $this->input->get_post('thumb_path');//缩略图
-        $author_id = $this->input->get_post('author_id');//文章作者
-        $article_category = $this->input->get_post('article_category');//文章类型
-        $article_tag = $this->input->get_post('article_tag');//文章标签
-        $article_lead = $this->input->get_post('article_lead');//文章导语
-        $article_content = $this->input->get_post('article_content');//文章内容
-        $status = $this->input->get_post('status');//状态
+        $operate = trim($this->input->get_post('operate'));//得到操作
+        $article_id = trim($this->input->get_post('article_id'));//文章编号
+        $article_title = trim($this->input->get_post('article_title'));//文章标题
+        $thumb_path = trim($this->input->get_post('thumb_path'));//缩略图
+        $author_id = trim($this->input->get_post('author_id'));//文章作者
+        $article_category = trim($this->input->get_post('article_category'));//文章类型
+        $article_tag = trim($this->input->get_post('article_tag'));//文章标签
+        $article_lead = trim($this->input->get_post('article_lead'));//文章导语
+        $article_content = trim($this->input->get_post('article_content'));//文章内容
+        $status = trim($this->input->get_post('status'));//状态
         $create_time = date("Y-m-d H:i:s", time());//发布时间
         //加载文章模型类
         $this->load->model('admin/Article_model','article');
@@ -232,7 +232,7 @@ class Article_controller extends CI_Controller {
         $this->sub_menu = 'article_author';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $author_id = $this->input->get('author_id');//得到作者编号
+        $author_id = trim($this->input->get('author_id'));//得到作者编号
         if(!empty($author_id)){
             $data['operate'] = 'update';
             //加载文章模型类
@@ -255,11 +255,11 @@ class Article_controller extends CI_Controller {
     
     public function article_author_update_do(){//作者编辑
         
-        $operate = $this->input->get_post('operate');//得到操作
-        $author_id = $this->input->get_post('author_id');//作者编号
-        $author_name = $this->input->get_post('author_name');//作者名称
-        $author_motto = $this->input->get_post('author_motto');//座右铭
-        $figure_path = $this->input->get_post('figure_path');//作者头像
+        $operate = trim($this->input->get_post('operate'));//得到操作
+        $author_id = trim($this->input->get_post('author_id'));//作者编号
+        $author_name = trim($this->input->get_post('author_name'));//作者名称
+        $author_motto = trim($this->input->get_post('author_motto'));//座右铭
+        $figure_path = trim($this->input->get_post('figure_path'));//作者头像
         //加载文章模型类
         $this->load->model('admin/Article_model','article');
         if($operate == 'add'){//添加

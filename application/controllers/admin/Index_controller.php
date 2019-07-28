@@ -36,8 +36,8 @@ class Index_controller extends CI_Controller {
     
     public function login_do(){//管理员登录
         
-        $admin_name = $this->input->get_post('admin_name');//得到用户名
-        $admin_pwd = $this->input->get_post('admin_pwd');//得到登录密码
+        $admin_name = trim($this->input->get_post('admin_name'));//得到用户名
+        $admin_pwd = trim($this->input->get_post('admin_pwd'));//得到登录密码
         
         //加载用户模型类
         $this->load->model('admin/Admin_model','admin');
@@ -91,7 +91,7 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $page = $this->input->get('page');//得到页码
+        $page = trim($this->input->get('page'));//得到页码
         if(empty($page)) $page = 1;//默认页码为1
         
         //加载管理员模型类
@@ -160,7 +160,7 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $admin_id = $this->input->get('admin_id');//得到管理员编号
+        $admin_id = trim($this->input->get('admin_id'));//得到管理员编号
         if(!empty($admin_id)){
             $data['operate'] = 'update';
             //加载管理员模型类
@@ -183,13 +183,13 @@ class Index_controller extends CI_Controller {
     
     public function admin_update_do(){//管理员编辑
         
-        $operate = $this->input->get_post('operate');//得到操作
-        $admin_id = $this->input->get_post('admin_id');//管理员编号
-        $admin_name = $this->input->get_post('admin_name');//用户名
-        $real_name = $this->input->get_post('real_name');//真实姓名
-        $admin_pwd = $this->input->get_post('admin_pwd');//密码
-        $admin_pwd_confirm = $this->input->get_post('admin_pwd_confirm');//确认密码
-        $status = $this->input->get_post('status');//状态
+        $operate = trim($this->input->get_post('operate'));//得到操作
+        $admin_id = trim($this->input->get_post('admin_id'));//管理员编号
+        $admin_name = trim($this->input->get_post('admin_name'));//用户名
+        $real_name = trim($this->input->get_post('real_name'));//真实姓名
+        $admin_pwd = trim($this->input->get_post('admin_pwd'));//密码
+        $admin_pwd_confirm = trim($this->input->get_post('admin_pwd_confirm'));//确认密码
+        $status = trim($this->input->get_post('status'));//状态
         if($admin_pwd != $admin_pwd_confirm){
             $data['state'] = 'failed';
             $data['msg'] = '密码与确认密码不一致！请重新填写';
@@ -233,7 +233,7 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $page = $this->input->get('page');//得到页码
+        $page = trim($this->input->get('page'));//得到页码
         if(empty($page)) $page = 1;//默认页码为1
         
         //加载品牌管家模型类
@@ -302,7 +302,7 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $butler_id = $this->input->get('butler_id');//得到管家编号
+        $butler_id = trim($this->input->get('butler_id'));//得到管家编号
         if(!empty($butler_id)){
             $data['operate'] = 'update';
             //加载品牌管家模型类
@@ -325,14 +325,14 @@ class Index_controller extends CI_Controller {
     
     public function butler_update_do(){//品牌管家编辑
         
-        $operate = $this->input->get_post('operate');//得到操作
-        $butler_id = $this->input->get_post('butler_id');//管家编号
-        $butler_name = $this->input->get_post('butler_name');//管家昵称
-        $real_name = $this->input->get_post('real_name');//真实姓名
-        $butler_phone = $this->input->get_post('butler_phone');//电话号码
-        $butler_qq = $this->input->get_post('butler_qq');//QQ号码
-        $butler_wechat = $this->input->get_post('butler_wechat');//微信二维码
-        $status = $this->input->get_post('status');//状态
+        $operate = trim($this->input->get_post('operate'));//得到操作
+        $butler_id = trim($this->input->get_post('butler_id'));//管家编号
+        $butler_name = trim($this->input->get_post('butler_name'));//管家昵称
+        $real_name = trim($this->input->get_post('real_name'));//真实姓名
+        $butler_phone = trim($this->input->get_post('butler_phone'));//电话号码
+        $butler_qq = trim($this->input->get_post('butler_qq'));//QQ号码
+        $butler_wechat = trim($this->input->get_post('butler_wechat'));//微信二维码
+        $status = trim($this->input->get_post('status'));//状态
         //加载品牌管家模型类
         $this->load->model('admin/Butler_model','butler');
         if($operate == 'add'){//添加
@@ -375,7 +375,7 @@ class Index_controller extends CI_Controller {
     
     public function upload_butlerWechatAjax(){//ajax上传管家微信二维码临时路径
     
-        $wechat_path = $this->input->get_post('wechat_path');//得到管家微信二维码临时目录
+        $wechat_path = trim($this->input->get_post('wechat_path'));//得到管家微信二维码临时目录
         
         $imgInfo = getimagesize($wechat_path);
         switch($imgInfo[2]){
@@ -407,10 +407,10 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = 'user';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $page = $this->input->get('page');//得到页码
+        $page = trim($this->input->get('page'));//得到页码
         if(empty($page)) $page = 1;//默认页码为1
-        $keyword = $this->input->get('keyword');//得到域名关键词
-        $user_id = $this->input->get('user_id');//得到用户编号
+        $keyword = trim($this->input->get('keyword'));//得到域名关键词
+        $user_id = trim($this->input->get('user_id'));//得到用户编号
         
         //加载用户模型类
         $this->load->model('admin/User_model','user');
@@ -480,7 +480,7 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = 'user';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $user_id = $this->input->get('user_id');//得到用户编号
+        $user_id = trim($this->input->get('user_id'));//得到用户编号
         if(!empty($user_id)){
             $data['operate'] = 'update';
             //加载用户模型类
@@ -506,10 +506,10 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = 'company_certify';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $page = $this->input->get('page');//得到页码
+        $page = trim($this->input->get('page'));//得到页码
         if(empty($page)) $page = 1;//默认页码为1
-        $keyword = $this->input->get('keyword');//得到域名关键词
-        $user_id = $this->input->get('user_id');//得到用户编号
+        $keyword = trim($this->input->get('keyword'));//得到域名关键词
+        $user_id = trim($this->input->get('user_id'));//得到用户编号
         
         //加载企业认证模型类
         $this->load->model('admin/Certify_model','certify');
@@ -579,7 +579,7 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = 'company_certify';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $certify_id = $this->input->get('certify_id');//得到企业认证编号
+        $certify_id = trim($this->input->get('certify_id'));//得到企业认证编号
         if(!empty($certify_id)){
             $data['operate'] = 'update';
             //加载企业认证模型类
@@ -602,19 +602,19 @@ class Index_controller extends CI_Controller {
     
     public function company_certify_update_do(){//企业认证编辑
         
-        $operate = $this->input->get_post('operate');//得到操作
-        $certify_id = $this->input->get_post('certify_id');//认证编号
-        $company_name = $this->input->get_post('company_name');//公司名称
-        $oper_name = $this->input->get_post('oper_name');//法定代表人
-        $regist_capi = $this->input->get_post('regist_capi');//注册资本
-        $start_date = $this->input->get_post('start_date');//成立日期
-        $credit_code = $this->input->get_post('credit_code');//统一社会信用代码
-        $econ_kind = $this->input->get_post('econ_kind');//企业类型
-        $business_term = $this->input->get_post('business_term');//营业期限
-        $address = $this->input->get_post('address');//企业地址
-        $scope = $this->input->get_post('scope');//经营范围
-        $status = $this->input->get_post('status');//认证状态
-        $description = $this->input->get_post('description');//备注
+        $operate = trim($this->input->get_post('operate'));//得到操作
+        $certify_id = trim($this->input->get_post('certify_id'));//认证编号
+        $company_name = trim($this->input->get_post('company_name'));//公司名称
+        $oper_name = trim($this->input->get_post('oper_name'));//法定代表人
+        $regist_capi = trim($this->input->get_post('regist_capi'));//注册资本
+        $start_date = trim($this->input->get_post('start_date'));//成立日期
+        $credit_code = trim($this->input->get_post('credit_code'));//统一社会信用代码
+        $econ_kind = trim($this->input->get_post('econ_kind'));//企业类型
+        $business_term = trim($this->input->get_post('business_term'));//营业期限
+        $address = trim($this->input->get_post('address'));//企业地址
+        $scope = trim($this->input->get_post('scope'));//经营范围
+        $status = trim($this->input->get_post('status'));//认证状态
+        $description = trim($this->input->get_post('description'));//备注
         //加载企业认证模型类
         $this->load->model('admin/Certify_model','certify');
         if($operate == 'add'){//添加
@@ -641,12 +641,12 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $page = $this->input->get('page');//得到页码
+        $page = trim($this->input->get('page'));//得到页码
         if(empty($page)) $page = 1;//默认页码为1
-        $keyword = $this->input->get('keyword');//得到域名关键词
-        $is_onsale = $this->input->get('is_onsale');//得到出售状态
-        $register_registrar = $this->input->get('register_registrar');//得到注册商
-        $user_id = $this->input->get('user_id');//得到用户编号
+        $keyword = trim($this->input->get('keyword'));//得到域名关键词
+        $is_onsale = trim($this->input->get('is_onsale'));//得到出售状态
+        $register_registrar = trim($this->input->get('register_registrar'));//得到注册商
+        $user_id = trim($this->input->get('user_id'));//得到用户编号
         
         //加载域名模型类
         $this->load->model('admin/Domain_model','domain');
@@ -721,7 +721,7 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $domain_name = $this->input->get('domain_name');//得到域名
+        $domain_name = trim($this->input->get('domain_name'));//得到域名
         if(!empty($domain_name)){
             $data['operate'] = 'update';
             //加载域名模型类
@@ -744,17 +744,17 @@ class Index_controller extends CI_Controller {
     
     public function domain_update_do(){//域名编辑
         
-        $operate = $this->input->get_post('operate');//得到操作
-        $domain_name = $this->input->get_post('domain_name');//域名
-        $register_registrar = $this->input->get_post('register_registrar');//注册商
-        $register_name = $this->input->get_post('register_name');//注册人
-        $register_email = $this->input->get_post('register_email');//注册邮箱
-        $created_date = $this->input->get_post('created_date');//注册日期
-        $expired_date = $this->input->get_post('expired_date');//过期日期
-        $domain_type = $this->input->get_post('domain_type');//域名类型
-        $is_onsale = $this->input->get_post('is_onsale');//是否出售
-        $domain_price = $this->input->get_post('domain_price');//域名价格
-        $domain_summary = $this->input->get_post('domain_summary');//域名简介
+        $operate = trim($this->input->get_post('operate'));//得到操作
+        $domain_name = trim($this->input->get_post('domain_name'));//域名
+        $register_registrar = trim($this->input->get_post('register_registrar'));//注册商
+        $register_name = trim($this->input->get_post('register_name'));//注册人
+        $register_email = trim($this->input->get_post('register_email'));//注册邮箱
+        $created_date = trim($this->input->get_post('created_date'));//注册日期
+        $expired_date = trim($this->input->get_post('expired_date'));//过期日期
+        $domain_type = trim($this->input->get_post('domain_type'));//域名类型
+        $is_onsale = trim($this->input->get_post('is_onsale'));//是否出售
+        $domain_price = trim($this->input->get_post('domain_price'));//域名价格
+        $domain_summary = trim($this->input->get_post('domain_summary'));//域名简介
         //加载域名模型类
         $this->load->model('admin/Domain_model','domain');
         if($operate == 'add'){//添加
@@ -794,7 +794,7 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = 'user';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $user_id = $this->input->get('user_id');//得到用户编号
+        $user_id = trim($this->input->get('user_id'));//得到用户编号
         $data['user_id'] = $user_id;
         
         $this->load->view('admin/user_domain_add',$data);
@@ -802,10 +802,10 @@ class Index_controller extends CI_Controller {
     
     public function user_domain_add_do(){//添加用户域名
         
-        $user_id = $this->input->get_post('user_id');//用户编号
-        $domain_name = $this->input->get_post('domain_name');//域名
-        $is_onsale = $this->input->get_post('is_onsale');//是否出售
-        $domain_price = $this->input->get_post('domain_price');//域名价格
+        $user_id = trim($this->input->get_post('user_id'));//用户编号
+        $domain_name = trim($this->input->get_post('domain_name'));//域名
+        $is_onsale = trim($this->input->get_post('is_onsale'));//是否出售
+        $domain_price = trim($this->input->get_post('domain_price'));//域名价格
         //加载域名模型类
         $this->load->model('admin/Domain_model','domain');
         //edit_userDomainOne方法给域名分配用户
@@ -826,12 +826,12 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $page = $this->input->get('page');//得到页码
+        $page = trim($this->input->get('page'));//得到页码
         if(empty($page)) $page = 1;//默认页码为1
-        $keyword = $this->input->get('keyword');//得到商标关键词
-        $is_onsale = $this->input->get('is_onsale');//得到出售状态
-        $filter_category = $this->input->get('filter_category');//得到商标类别
-        $user_id = $this->input->get('user_id');//得到用户编号
+        $keyword = trim($this->input->get('keyword'));//得到商标关键词
+        $is_onsale = trim($this->input->get('is_onsale'));//得到出售状态
+        $filter_category = trim($this->input->get('filter_category'));//得到商标类别
+        $user_id = trim($this->input->get('user_id'));//得到用户编号
         
         //加载商标模型类
         $this->load->model('admin/Mark_model','mark');
@@ -912,7 +912,7 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $regno_md = $this->input->get('regno_md');//得到注册号加大类的md5值
+        $regno_md = trim($this->input->get('regno_md'));//得到注册号加大类的md5值
         if(!empty($regno_md)){
             $data['operate'] = 'update';
             //加载商标模型类
@@ -938,10 +938,10 @@ class Index_controller extends CI_Controller {
     
     public function mark_update_do(){//商标编辑
         
-        $operate = $this->input->get_post('operate');//得到操作
-        $regno_md = $this->input->get_post('regno_md');//注册号加大类的md5值
-        $is_onsale = $this->input->get_post('is_onsale');//是否出售
-        $mark_price = $this->input->get_post('mark_price');//商标价格
+        $operate = trim($this->input->get_post('operate'));//得到操作
+        $regno_md = trim($this->input->get_post('regno_md'));//注册号加大类的md5值
+        $is_onsale = trim($this->input->get_post('is_onsale'));//是否出售
+        $mark_price = trim($this->input->get_post('mark_price'));//商标价格
         //加载商标模型类
         $this->load->model('admin/Mark_model','mark');
         if($operate == 'add'){//添加
@@ -968,7 +968,7 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = 'user';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $user_id = $this->input->get('user_id');//得到用户编号
+        $user_id = trim($this->input->get('user_id'));//得到用户编号
         $data['user_id'] = $user_id;
         
         $this->load->view('admin/user_mark_add',$data);
@@ -976,10 +976,10 @@ class Index_controller extends CI_Controller {
     
     public function user_mark_add_do(){//添加用户商标
         
-        $user_id = $this->input->get_post('user_id');//用户编号
-        $mark_regno = $this->input->get_post('mark_regno');//商标注册号
-        $is_onsale = $this->input->get_post('is_onsale');//是否出售
-        $mark_price = $this->input->get_post('mark_price');//商标价格
+        $user_id = trim($this->input->get_post('user_id'));//用户编号
+        $mark_regno = trim($this->input->get_post('mark_regno'));//商标注册号
+        $is_onsale = trim($this->input->get_post('is_onsale'));//是否出售
+        $mark_price = trim($this->input->get_post('mark_price'));//商标价格
         //加载商标模型类
         $this->load->model('admin/Mark_model','mark');
         //edit_userMarkOne方法给商标分配用户,一标多类的多个商标分配给同一个用户,所以用mark_regno
@@ -1000,9 +1000,9 @@ class Index_controller extends CI_Controller {
         $this->sub_menu = '';
         $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
         
-        $page = $this->input->get('page');//得到页码
+        $page = trim($this->input->get('page'));//得到页码
         if(empty($page)) $page = 1;//默认页码为1
-        $keyword = $this->input->get('keyword');//得到企业关键词
+        $keyword = trim($this->input->get('keyword'));//得到企业关键词
         
         //加载企业模型类
         $this->load->model('admin/Company_model','company');
