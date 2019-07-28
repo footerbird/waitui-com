@@ -1467,7 +1467,7 @@ class Index_controller extends CI_Controller {
         echo json_encode($data);
     }
     
-    function record_user_login_info($userinfo,$ip_address){//记录用户登录日志
+    function record_user_login_info($userinfo,$ip_address,$city_address){//记录用户登录日志
     
         if(isset($userinfo) && !empty($userinfo)){
             
@@ -1488,8 +1488,7 @@ class Index_controller extends CI_Controller {
                 $login_client = $login_client.' '.$this->agent->browser().' '.$this->agent->version();
             }
             $login_ip = $ip_address;
-            $city_array = get_city_byip($login_ip);
-            $login_city = is_array($city_array)?$city_array['country'].' '.$city_array['region'].' '.$city_array['city']:'';
+            $login_city = $city_address;
             $login_time = date("Y-m-d H:i:s", time());
             //add_userLoginOne方法记录用户登录信息
             $recordLogin = $this->user->add_userLoginOne($login_userid,$login_phone,$login_name,$login_client,$login_ip,$login_city,$login_time);
@@ -1510,6 +1509,7 @@ class Index_controller extends CI_Controller {
         $pwd = $this->input->get_post('pwd_num');//得到登录密码
         $code = $this->input->get_post('code_num');//得到短信验证码
         $ip_address = $this->input->get_post('ip_address');//得到IP地址
+        $city_address = $this->input->get_post('city_address');//得到登录地区
         
         //判断手机号是否已注册,1为已注册，0为未注册
         $regStatus = $this->check_phoneRegister($phone);
@@ -1539,7 +1539,7 @@ class Index_controller extends CI_Controller {
             
             if(isset($userinfo) && !empty($userinfo)){
                 //记录用户登录日志
-                $this->record_user_login_info($userinfo,$ip_address);
+                $this->record_user_login_info($userinfo,$ip_address,$city_address);
                 
                 $data['state'] = 'success';
                 $data['msg'] = '登录成功';
@@ -1573,6 +1573,7 @@ class Index_controller extends CI_Controller {
         $pwd = $this->input->get_post('pwd_reg');//得到登录密码
         $code = $this->input->get_post('code_reg');//得到短信验证码
         $ip_address = $this->input->get_post('ip_address');//得到IP地址
+        $city_address = $this->input->get_post('city_address');//得到登录地区
         
         //判断手机号是否已注册,1为已注册，0为未注册
         $regStatus = $this->check_phoneRegister($phone);
@@ -1608,7 +1609,7 @@ class Index_controller extends CI_Controller {
                     //修改完用户信息一定要重新载入用户session
                     $userinfo_new = $this->user->get_userDetail($userinfo->user_id);
                     //记录用户登录日志
-                    $this->record_user_login_info($userinfo_new,$ip_address);
+                    $this->record_user_login_info($userinfo_new,$ip_address,$city_address);
                     
                     $data['state'] = 'success';
                     $data['msg'] = '注册成功';

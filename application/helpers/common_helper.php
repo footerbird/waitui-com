@@ -1,25 +1,5 @@
 <?php
 
-//根据ip获取城市
-if( !function_exists('get_city_byip') )
-{
-    function get_city_byip($ip = ''){
-        if($ip == ''){
-            $url = "http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json";//新浪接口获取访问者地区
-            $ip=json_decode(@file_get_contents($url),true);
-            $data = $ip;
-        }else{
-            $url="http://ip.taobao.com/service/getIpInfo.php?ip=".$ip;//淘宝接口需要填写ip
-            $ip=json_decode(@file_get_contents($url));
-            if((string)$ip->code=='1'){
-               return false;
-            }
-            $data = (array)$ip->data;
-        }
-        return $data;
-    }
-}
-
 //发送验证码
 if( !function_exists('send_sms_api') )
 {
