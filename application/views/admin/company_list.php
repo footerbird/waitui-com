@@ -17,15 +17,15 @@
       <div class="page-title">
         
         <div class="title-env">
-          <h1 class="title">公司认证列表</h1>
+          <h1 class="title">企业列表</h1>
         </div>
         
           <div class="breadcrumb-env">
           
             <ol class="breadcrumb bc-1">
               <li><a href="<?php echo base_url() ?>admin"><i class="fa-home"></i>首页</a></li>
-              <li><a href="<?php echo base_url() ?>admin/user_list">用户管理</a></li>
-              <li class="active"><strong>公司认证列表</strong></li>
+              <li><a href="<?php echo base_url() ?>admin/company_list">企业管理</a></li>
+              <li class="active"><strong>企业列表</strong></li>
             </ol>
                 
         </div>
@@ -43,14 +43,12 @@
                 
                 <div class="row">
                   <div class="col-xs-12">
-                    <form id="search_form" action="<?php echo base_url() ?>admin/company_certify_list" method="get">
+                    <form id="search_form" action="<?php echo base_url() ?>admin/company_list" method="get">
                       <label class="fl-l">关键字:
                         <input type="text" name="keyword" class="form-control input-sm" placeholder="请输入企业名称或法人姓名" value="<?php echo $keyword; ?>">
                       </label>
-                      <label class="fl-l ml20">用户编号:
-                        <input type="text" name="user_id" class="form-control input-sm" placeholder="请输入用户编号" value="<?php echo $user_id; ?>">
-                      </label>
                       <a href="javascript:;" class="btn btn-orange btn-sm fl-l ml20" onclick="form_submit()" >搜索</a>
+                      <a href="<?php echo base_url() ?>admin/company_update" class="btn btn-secondary btn-sm fl-r ml20">添加企业</a>
                     </form>
                   </div>
                 </div>
@@ -58,43 +56,26 @@
                 <table cellspacing="0" class="table table-small-font table-bordered table-striped">
                   <thead>
                     <tr>
-                      <th data-priority="1">编号</th>
-                      <th data-priority="1">认证用户</th>
-                      <th data-priority="1">认证企业</th>
-                      <th data-priority="1">认证状态</th>
-                      <th data-priority="1">认证时间</th>
+                      <th data-priority="1">公司名称</th>
+                      <th data-priority="1">法定代表人</th>
+                      <th data-priority="1">注册资本</th>
+                      <th data-priority="1">成立日期</th>
+                      <th data-priority="1">所属地区</th>
                       <th data-priority="1">操作</th>
                     </tr>
                   </thead>
                   <tbody class="middle-align">
-                    <?php foreach ($certify_list as $certify){ ?>
+                    <?php foreach ($company_list as $company){ ?>
                     <tr>
-                        <td><?php echo $certify->certify_id; ?></td>
-                        <td><?php echo $certify->certify_userid; ?></td>
-                        <td><?php echo $certify->company_name; ?></td>
-                        <td>
-                            <?php 
-                                switch($certify->status){
-                                    case 'failed':
-                                        echo '<span style="color:#999;">认证失败</span>';
-                                        break;
-                                    case 'wait':
-                                        echo '<span style="color:#f00;">待认证</span>';
-                                        break;
-                                    case 'success':
-                                        echo '<span style="color:#080;">已认证</span>';
-                                        break;
-                                    default:
-                                        echo '<span style="color:#999;">认证异常</span>';
-                                        break;
-                                }
-                             ?>
-                        </td>
-                        <td><?php echo date('Y-m-d',strtotime($certify->create_time)); ?></td>
-                        <td><a href="<?php echo base_url() ?>admin/company_certify_update?certify_id=<?php echo $certify->certify_id; ?>" class="btn btn-orange btn-sm btn-icon icon-left">查看</a></td>
+                        <td><?php echo $company->name; ?></td>
+                        <td><?php echo $company->oper_name; ?></td>
+                        <td><?php echo $company->regist_capi; ?></td>
+                        <td><?php echo date('Y-m-d',strtotime($company->start_date)); ?></td>
+                        <td><?php echo $company->province; ?></td>
+                        <td><a href="<?php echo base_url() ?>company_detail/<?php echo $company->company_id; ?>.html" class="btn btn-orange btn-sm btn-icon icon-left">查看</a></td>
                     </tr>
                     <?php } ?>
-                    <?php if(count($certify_list) == 0){ ?>
+                    <?php if(count($company_list) == 0){ ?>
                     <tr>
                     	<td colspan="6">未搜索到相应结果</td>
                     </tr>

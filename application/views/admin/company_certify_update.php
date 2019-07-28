@@ -70,7 +70,7 @@
                         <label class="col-sm-2 control-label">成立日期</label>
                         <div class="col-sm-10">
                             <div class="input-group">
-                                <input type="text" class="form-control datepicker" name="start_date" id="start_date" placeholder="请输入成立日期" value="<?php if(isset($certify)){ echo $certify->start_date; } ?>" data-format="yyyy-mm-dd">
+                                <input type="text" class="form-control datepicker" name="start_date" id="start_date" placeholder="请输入成立日期" value="<?php if(isset($certify)){ echo date('Y-m-d',strtotime($certify->start_date)); } ?>" data-format="yyyy-mm-dd">
                                 <div class="input-group-addon">
                                     <a href="#"><i class="linecons-calendar"></i></a>
                                 </div>

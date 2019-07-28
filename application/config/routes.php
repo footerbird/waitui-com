@@ -145,6 +145,12 @@ $route['admin/user_update'] = 'admin/Index_controller/user_update';
 $route['admin/company_certify_list'] = 'admin/Index_controller/company_certify_list';
 $route['admin/company_certify_update'] = 'admin/Index_controller/company_certify_update';
 
+$route['admin/article_list'] = 'admin/Article_controller/article_list';
+$route['admin/article_update'] = 'admin/Article_controller/article_update';
+$route['admin/article_category_list'] = 'admin/Article_controller/article_category_list';
+$route['admin/article_author_list'] = 'admin/Article_controller/article_author_list';
+$route['admin/article_author_update'] = 'admin/Article_controller/article_author_update';
+
 $route['admin/domain_list'] = 'admin/Index_controller/domain_list';
 $route['admin/domain_update'] = 'admin/Index_controller/domain_update';
 $route['admin/user_domain_add'] = 'admin/Index_controller/user_domain_add';
@@ -153,11 +159,8 @@ $route['admin/mark_list'] = 'admin/Index_controller/mark_list';
 $route['admin/mark_update'] = 'admin/Index_controller/mark_update';
 $route['admin/user_mark_add'] = 'admin/Index_controller/user_mark_add';
 
-$route['admin/article_list'] = 'admin/Article_controller/article_list';
-$route['admin/article_update'] = 'admin/Article_controller/article_update';
-$route['admin/article_category_list'] = 'admin/Article_controller/article_category_list';
-$route['admin/article_author_list'] = 'admin/Article_controller/article_author_list';
-$route['admin/article_author_update'] = 'admin/Article_controller/article_author_update';
+$route['admin/company_list'] = 'admin/Index_controller/company_list';
+$route['admin/company_update'] = 'admin/Index_controller/company_update';
 
 $route['admin/login_out'] = 'admin/Index_controller/login_out';
 

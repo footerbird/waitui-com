@@ -68,18 +68,6 @@
           </li>
         </ul>
       </li>
-      <li class="<?php if($this->module == 'domain'){ echo 'active'; } ?>">
-        <a href="<?php echo base_url() ?>admin/domain_list">
-          <i class="linecons-star"></i>
-          <span class="title">域名管理</span>
-        </a>
-      </li>
-      <li class="<?php if($this->module == 'mark'){ echo 'active'; } ?>">
-        <a href="<?php echo base_url() ?>admin/mark_list">
-          <i class="linecons-star"></i>
-          <span class="title">商标管理</span>
-        </a>
-      </li>
       <li class="<?php if($this->module == 'article'){ echo 'active opened'; } ?>">
         <a href="<?php echo base_url() ?>admin/article_list">
           <i class="linecons-star"></i>
@@ -102,6 +90,24 @@
             </a>
           </li>
         </ul>
+      </li>
+      <li class="<?php if($this->module == 'domain'){ echo 'active'; } ?>">
+        <a href="<?php echo base_url() ?>admin/domain_list">
+          <i class="linecons-star"></i>
+          <span class="title">域名管理</span>
+        </a>
+      </li>
+      <li class="<?php if($this->module == 'mark'){ echo 'active'; } ?>">
+        <a href="<?php echo base_url() ?>admin/mark_list">
+          <i class="linecons-star"></i>
+          <span class="title">商标管理</span>
+        </a>
+      </li>
+      <li class="<?php if($this->module == 'company'){ echo 'active'; } ?>">
+        <a href="<?php echo base_url() ?>admin/company_list">
+          <i class="linecons-star"></i>
+          <span class="title">企业管理</span>
+        </a>
       </li>
     </ul>
         

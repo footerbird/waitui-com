@@ -1,4 +1,8 @@
 <?php
+require 'QueryList/phpQuery.php';
+require 'QueryList/QueryList.php';
+use QL\QueryList;
+
 class Index_controller extends CI_Controller {
     
     public function __construct()
@@ -824,7 +828,7 @@ class Index_controller extends CI_Controller {
         
         $page = $this->input->get('page');//得到页码
         if(empty($page)) $page = 1;//默认页码为1
-        $keyword = $this->input->get('keyword');//得到域名关键词
+        $keyword = $this->input->get('keyword');//得到商标关键词
         $is_onsale = $this->input->get('is_onsale');//得到出售状态
         $filter_category = $this->input->get('filter_category');//得到商标类别
         $user_id = $this->input->get('user_id');//得到用户编号
@@ -989,6 +993,213 @@ class Index_controller extends CI_Controller {
             }
         
         echo json_encode($data);
+    }
+    
+    public function company_list(){//企业名录列表
+        $this->module = 'company';
+        $this->sub_menu = '';
+        $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
+        
+        $page = $this->input->get('page');//得到页码
+        if(empty($page)) $page = 1;//默认页码为1
+        $keyword = $this->input->get('keyword');//得到企业关键词
+        
+        //加载企业模型类
+        $this->load->model('admin/Company_model','company');
+        //get_companyCount方法得到企业总数
+        $count = $this->company->get_companyCount($keyword);
+        
+        $page_size = 20;//单页记录数
+        $offset = ($page-1)*$page_size;//偏移量
+        switch($page){
+            case 1:
+                $num_links = 4;//num_links选中页右边的个数
+                break;
+            case 2:
+                $num_links = 3;
+                break;
+            case ceil($count/$page_size):
+                $num_links = 4;
+                break;
+            case ceil($count/$page_size)-1:
+                $num_links = 3;
+                break;
+            default:
+                $num_links = 2;
+                break;
+        }
+        
+        $this->load->library('pagination');
+        $config['base_url'] = base_url().'admin/company_list';
+        $config['total_rows'] = $count;
+        $config['per_page'] = $page_size;// $pagesize每页条数
+        $config['num_links'] = $num_links;//设置选中页左右两边的页数
+        
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_tag_open'] = '<li class="paginate_button first">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li class="paginate_button last">';
+        $config['last_tag_close'] = '</li>';
+        $config['next_tag_open'] = '<li class="paginate_button next">';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_tag_open'] = '<li class="paginate_button previous">';
+        $config['prev_tag_close'] = '</li>';
+        $config['num_tag_open'] = '<li class="paginate_button">';
+        $config['num_tag_close'] = '</li>';
+        $config['cur_tag_open'] = ' <li class="paginate_button active"><a>'; // 当前页开始样式   
+        $config['cur_tag_close'] = '</a></li>'; 
+        $config['first_link'] = '首页'; // 第一页显示   
+        $config['last_link'] = '尾页'; // 最后一页显示   
+        $config['next_link'] = '下一页'; // 下一页显示   
+        $config['prev_link'] = '上一页'; // 上一页显示 
+        
+        $this->pagination->initialize($config);
+        $data['page_count'] = $count;
+        $data['page_size'] = $page_size;
+        
+        //get_companyList方法到企业列表信息
+        $company_list = $this->company->get_companyList($keyword,$offset,$page_size);
+        $data['company_list'] = $company_list;
+        $data['keyword'] = $keyword;
+        
+        $this->load->view('admin/company_list',$data);
+    }
+    
+    public function spider_company_detail($url){//爬取企查查单个企业的详细信息
+        
+        $html = file_get_contents($url);
+        $data = QueryList::Query($html,array(
+                'Name' => array('#company-top > div.row > div.content > div.row.title.jk-tip > h1','text'),
+                'OperName' => array('#Cominfo > table h2.seo','text'),
+                'Info'=> array('#Cominfo > table','text'),
+              ))->data;
+        
+        if(is_array($data) && !empty($data[0]) && !empty($data[0]['Name']) && !empty($data[0]['OperName']) && !empty($data[0]['Info'])){
+            $company = array();
+            $company['Name'] = $data[0]['Name'];//公司名称
+            $company['OperName'] = $data[0]['OperName'];//法定代表人
+            
+            preg_match_all('/注册资本([\s\S]*?)实缴资本/i',$data[0]['Info'],$resRegistCapi);
+            $company['RegistCapi'] = trim($resRegistCapi[1][0]);//注册资本
+            
+            preg_match_all('/实缴资本([\s\S]*?)经营状态/i',$data[0]['Info'],$resRealCapi);
+            $company['RealCapi'] = trim($resRealCapi[1][0]);//实缴资本
+            
+            preg_match_all('/经营状态([\s\S]*?)成立日期/i',$data[0]['Info'],$resStatus);
+            $company['Status'] = trim($resStatus[1][0]);//经营状态
+            
+            preg_match_all('/成立日期([\s\S]*?)统一社会信用代码/i',$data[0]['Info'],$resStartDate);
+            $company['StartDate'] = trim($resStartDate[1][0]);//成立日期
+            
+            preg_match_all('/统一社会信用代码([\s\S]*?)纳税人识别号/i',$data[0]['Info'],$resCreditCode);
+            $company['CreditCode'] = trim($resCreditCode[1][0]);//统一社会信用代码
+            
+            preg_match_all('/纳税人识别号([\s\S]*?)注册号/i',$data[0]['Info'],$resTaxNo);
+            $company['TaxNo'] = trim($resTaxNo[1][0]);//纳税人识别号
+            
+            preg_match_all('/注册号([\s\S]*?)组织机构代码/i',$data[0]['Info'],$resNo);
+            $company['No'] = trim($resNo[1][0]);//注册号
+            
+            preg_match_all('/组织机构代码([\s\S]*?)企业类型/i',$data[0]['Info'],$resOrgNo);
+            $company['OrgNo'] = trim($resOrgNo[1][0]);//组织机构代码
+            
+            preg_match_all('/企业类型([\s\S]*?)所属行业/i',$data[0]['Info'],$resEconKind);
+            $company['EconKind'] = trim($resEconKind[1][0]);//企业类型
+            
+            preg_match_all('/所属行业([\s\S]*?)核准日期/i',$data[0]['Info'],$resIndustry);
+            $company['Industry'] = trim($resIndustry[1][0]);//所属行业
+            
+            preg_match_all('/核准日期([\s\S]*?)登记机关/i',$data[0]['Info'],$resCheckDate);
+            $company['CheckDate'] = trim($resCheckDate[1][0]);//核准日期
+            
+            preg_match_all('/登记机关([\s\S]*?)所属地区/i',$data[0]['Info'],$resBelongOrg);
+            $company['BelongOrg'] = trim($resBelongOrg[1][0]);//登记机关
+            
+            preg_match_all('/所属地区([\s\S]*?)英文名/i',$data[0]['Info'],$resProvince);
+            $company['Province'] = trim($resProvince[1][0]);//所属地区
+            
+            preg_match_all('/英文名([\s\S]*?)曾用名/i',$data[0]['Info'],$resEnName);
+            $company['EnName'] = trim($resEnName[1][0]);//英文名
+            
+            preg_match_all('/曾用名([\s\S]*?)参保人数/i',$data[0]['Info'],$resOriginalName);
+            $company['OriginalName'] = trim($resOriginalName[1][0]);//曾用名
+            
+            preg_match_all('/参保人数([\s\S]*?)人员规模/i',$data[0]['Info'],$resInsuredPerson);
+            $company['InsuredPerson'] = trim($resInsuredPerson[1][0]);//参保人数
+            
+            preg_match_all('/人员规模([\s\S]*?)营业期限/i',$data[0]['Info'],$resStaffSize);
+            $company['StaffSize'] = trim($resStaffSize[1][0]);//人员规模
+            
+            preg_match_all('/营业期限([\s\S]*?)企业地址/i',$data[0]['Info'],$resBusinessTerm);
+            $company['BusinessTerm'] = trim($resBusinessTerm[1][0]);//营业期限
+            
+            preg_match_all('/企业地址([\s\S]*?)经营范围/i',$data[0]['Info'],$resAddress);
+            $company['Address'] = trim(explode('查看地图',$resAddress[1][0])[0]);//企业地址
+            
+            $company['Scope'] = trim(substr($data[0]['Info'],strpos($data[0]['Info'],"经营范围")+12));//经营范围
+            
+            return $company;
+        }else{
+            return 'error => '.$url;
+        }
+    }
+    
+    public function company_update(){//企业名录编辑初始页
+        $this->module = 'company';
+        $this->sub_menu = '';
+        $data['admininfo'] = $this->get_admininfo();//验证是否登录,并获取管理员信息
+        
+        $site_list = trim($this->input->get_post('site_list'));//得到企业抓取网址
+        if(!empty($site_list)){
+            $data["site_list"] = $site_list;
+            $result_list = array();
+            $site_list_arr = explode("\r\n", $site_list);
+            foreach ($site_list_arr as $item){
+                $base_info = $this->spider_company_detail(trim($item));
+                if(is_array($base_info)){//如果采到了企业基础数据
+                    if(strpos($base_info['Name'],"公司") !== false){//是公司的才去采集
+                        //加载企业模型类
+                        $this->load->model('admin/Company_model','company');
+                        //get_companyNameStatus方法根据企业名称判断该企业是否已经录入，1为已录入，0为未录入
+                        $nameStatus = $this->company->get_companyNameStatus($base_info['Name']);
+                        if($nameStatus){//修改企业信息
+                            $updateStatus = $this->company->edit_companyByName($base_info['Name'],$base_info['OperName'],$base_info['RegistCapi'],$base_info['RealCapi'],$base_info['Status'],$base_info['StartDate'],$base_info['CreditCode'],$base_info['TaxNo'],$base_info['No'],$base_info['OrgNo'],$base_info['EconKind'],$base_info['Industry'],$base_info['CheckDate'],$base_info['BelongOrg'],$base_info['Province'],$base_info['EnName'],$base_info['OriginalName'],$base_info['InsuredPerson'],$base_info['StaffSize'],$base_info['BusinessTerm'],$base_info['Address'],$base_info['Scope'],'');
+                            if($updateStatus){
+                                $result["state"] = 'success';
+                                $result["msg"] = "修改成功，企业名称 => ".$base_info['Name'];
+                            }else{
+                                $result["state"] = 'failed';
+                                $result["msg"] = $base_info['Name']." => 修改失败";
+                            }
+                        }else{//添加企业信息
+                            $company_id = md5($base_info['Name'].$base_info['OperName'].random_string_numlet(6));
+                            $addStatus = $this->company->add_companyOne($company_id,$base_info['Name'],$base_info['OperName'],$base_info['RegistCapi'],$base_info['RealCapi'],$base_info['Status'],$base_info['StartDate'],$base_info['CreditCode'],$base_info['TaxNo'],$base_info['No'],$base_info['OrgNo'],$base_info['EconKind'],$base_info['Industry'],$base_info['CheckDate'],$base_info['BelongOrg'],$base_info['Province'],$base_info['EnName'],$base_info['OriginalName'],$base_info['InsuredPerson'],$base_info['StaffSize'],$base_info['BusinessTerm'],$base_info['Address'],$base_info['Scope'],'');
+                            if($addStatus){
+                                $result["state"] = 'success';
+                                $result["msg"] = "插入成功，企业名称 => ".$base_info['Name'];
+                            }else{
+                                $result["state"] = 'failed';
+                                $result["msg"] = $base_info['Name']." => 插入失败";
+                            }
+                        }
+                    }else{
+                        $result["state"] = 'failed';
+                        $result["msg"] = $base_info['Name']." => 企业类型不匹配";
+                    }
+                }else{
+                    $result["state"] = 'failed';
+                    $result["msg"] = $base_info;
+                }
+                array_push($result_list,$result);
+                sleep(1);
+            }
+            $data["result_list"] = $result_list;
+        }else{
+            
+        }
+        
+        $this->load->view('admin/company_update',$data);
     }
     
     public function login_out(){//退出登录
