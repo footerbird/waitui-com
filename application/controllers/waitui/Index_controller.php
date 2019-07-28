@@ -83,9 +83,9 @@ class Index_controller extends CI_Controller {
     
     public function get_articleListAjax_tpl(){//文章列表加载更多（模板加載）
         
-        $category = $this->input->get_post('category');//得到文章类型
+        $category = trim($this->input->get_post('category'));//得到文章类型
         $category = $category?$category:'';
-        $page = $this->input->get_post('page');//得到页码
+        $page = trim($this->input->get_post('page'));//得到页码
         $page = $page?$page:1;
         $repeat = $this->input->get_post('repeat');//得到过滤的重复文章id数组
         $repeat = $repeat?$repeat:[];
@@ -171,9 +171,9 @@ class Index_controller extends CI_Controller {
     
     public function get_articleSearchAjax_tpl(){//文章搜索加载更多（模板加載）
         
-        $keyword = $this->input->get_post('keyword');//得到文章类型
+        $keyword = trim($this->input->get_post('keyword'));//得到文章类型
         $keyword = $keyword?$keyword:'';
-        $page = $this->input->get_post('page');//得到页码
+        $page = trim($this->input->get_post('page'));//得到页码
         $page = $page?$page:1;
         $page_size = 10;//单页记录数
         $offset = ($page-1)*$page_size;//偏移量
@@ -281,7 +281,7 @@ class Index_controller extends CI_Controller {
     
     public function get_markBlockAjax_tpl(){
         
-        $category = $this->input->get_post('category');//得到商标大类
+        $category = trim($this->input->get_post('category'));//得到商标大类
         $category = $category?$category:'';
         
         //加载商标模型类
@@ -299,7 +299,7 @@ class Index_controller extends CI_Controller {
         $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         $data['keyword'] = urldecode($keyword);
-        $filter_category = $this->input->get_post('filter_category');//得到商标大类
+        $filter_category = trim($this->input->get_post('filter_category'));//得到商标大类
         $data['filter_category'] = $filter_category;
         
         //加载商标模型类
@@ -329,25 +329,25 @@ class Index_controller extends CI_Controller {
     
     public function get_markSearchAjax_tpl(){//商标搜索加载更多（模板加載）
         
-        $keyword = $this->input->get_post('keyword');//得到商标关键字
+        $keyword = trim($this->input->get_post('keyword'));//得到商标关键字
         $keyword = $keyword?$keyword:'';
         
-        $filter_category = $this->input->get_post('filter_category');//得到商标大类
+        $filter_category = trim($this->input->get_post('filter_category'));//得到商标大类
         $filter_category = $filter_category?$filter_category:'';
         
-        $filter_type = $this->input->get_post('filter_type');//得到商标类型
+        $filter_type = trim($this->input->get_post('filter_type'));//得到商标类型
         $filter_type = $filter_type?$filter_type:'';
         
-        $filter_price = $this->input->get_post('filter_price');//得到商标价格区间
+        $filter_price = trim($this->input->get_post('filter_price'));//得到商标价格区间
         $filter_price = $filter_price?$filter_price:'';
         
-        $filter_length = $this->input->get_post('filter_length');//得到商标长度区间
+        $filter_length = trim($this->input->get_post('filter_length'));//得到商标长度区间
         $filter_length = $filter_length?$filter_length:'';
         
-        $mark_sort = $this->input->get_post('mark_sort');//得到商标排序方式
+        $mark_sort = trim($this->input->get_post('mark_sort'));//得到商标排序方式
         $mark_sort = $mark_sort?$mark_sort:'';
         
-        $page = $this->input->get_post('mark_page');//得到页码
+        $page = trim($this->input->get_post('mark_page'));//得到页码
         $page = $page?$page:1;
         $page_size = 25;//单页记录数
         $offset = ($page-1)*$page_size;//偏移量
@@ -362,19 +362,19 @@ class Index_controller extends CI_Controller {
     
     public function get_markSearchCountAjax(){//商标搜索结果个数
         
-        $keyword = $this->input->get_post('keyword');//得到商标关键字
+        $keyword = trim($this->input->get_post('keyword'));//得到商标关键字
         $keyword = $keyword?$keyword:'';
         
-        $filter_category = $this->input->get_post('filter_category');//得到商标大类
+        $filter_category = trim($this->input->get_post('filter_category'));//得到商标大类
         $filter_category = $filter_category?$filter_category:'';
         
-        $filter_type = $this->input->get_post('filter_type');//得到商标类型
+        $filter_type = trim($this->input->get_post('filter_type'));//得到商标类型
         $filter_type = $filter_type?$filter_type:'';
         
-        $filter_price = $this->input->get_post('filter_price');//得到商标价格区间
+        $filter_price = trim($this->input->get_post('filter_price'));//得到商标价格区间
         $filter_price = $filter_price?$filter_price:'';
         
-        $filter_length = $this->input->get_post('filter_length');//得到商标长度区间
+        $filter_length = trim($this->input->get_post('filter_length'));//得到商标长度区间
         $filter_length = $filter_length?$filter_length:'';
         
         //加载头条模型类
@@ -422,13 +422,13 @@ class Index_controller extends CI_Controller {
         $this->module = constant('MEMU_DOMAIN');
         $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
-        $page = $this->input->get('page');//得到页码
+        $page = trim($this->input->get('page'));//得到页码
         if(empty($page)) $page = 1;//默认页码为1
         
-        $keyword = $this->input->get_post('keyword');//得到域名关键字
+        $keyword = trim($this->input->get_post('keyword'));//得到域名关键字
         $keyword = $keyword?$keyword:'';
         
-        $domain_type = $this->input->get_post('domain_type');//得到域名类型
+        $domain_type = trim($this->input->get_post('domain_type'));//得到域名类型
         $domain_type = $domain_type?$domain_type:'';
         
         //加载域名模型类
@@ -611,7 +611,7 @@ class Index_controller extends CI_Controller {
         $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
         $data['userinfo'] = $userinfo;
         
-        $keyword = $this->input->get_post('keyword');//得到域名关键字
+        $keyword = trim($this->input->get_post('keyword'));//得到域名关键字
         $keyword = $keyword?$keyword:'';
         
         $user_id = $userinfo->user_id;
@@ -676,7 +676,7 @@ class Index_controller extends CI_Controller {
         $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
         $data['userinfo'] = $userinfo;
         
-        $keyword = $this->input->get_post('keyword');//得到域名关键字
+        $keyword = trim($this->input->get_post('keyword'));//得到域名关键字
         $keyword = $keyword?$keyword:'';
         
         $user_id = $userinfo->user_id;
@@ -895,7 +895,7 @@ class Index_controller extends CI_Controller {
     public function upload_userFigureAjax(){//ajax上传用户头像临时路径
         $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
     
-        $figure_path = $this->input->get_post('figure_path');//得到用户头像临时目录
+        $figure_path = trim($this->input->get_post('figure_path'));//得到用户头像临时目录
         if(!empty($userinfo->user_id)){
             $user_id = $userinfo->user_id;
             $user_phone = $userinfo->user_phone;
@@ -943,7 +943,7 @@ class Index_controller extends CI_Controller {
     public function edit_userNameAjax(){
         $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
         
-        $user_name = $this->input->get_post('user_name');//得到用户昵称
+        $user_name = trim($this->input->get_post('user_name'));//得到用户昵称
         if(!empty($userinfo->user_id)){
             $user_id = $userinfo->user_id;
             //加载用户模型类
@@ -970,7 +970,7 @@ class Index_controller extends CI_Controller {
     public function edit_realNameAjax(){
         $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
         
-        $real_name = $this->input->get_post('real_name');//得到真实姓名
+        $real_name = trim($this->input->get_post('real_name'));//得到真实姓名
         if(!empty($userinfo->user_id)){
             $user_id = $userinfo->user_id;
             //加载用户模型类
@@ -997,7 +997,7 @@ class Index_controller extends CI_Controller {
     public function edit_userPhoneAjax(){
         $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
         
-        $user_phone = $this->input->get_post('user_phone');//得到手机号码
+        $user_phone = trim($this->input->get_post('user_phone'));//得到手机号码
         if($user_phone == $userinfo->user_phone){//如果手机号相同,说明没改
             $data['state'] = 'success';
             $data['user_phone'] = $user_phone;
@@ -1036,7 +1036,7 @@ class Index_controller extends CI_Controller {
     public function edit_userQQAjax(){
         $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
         
-        $user_qq = $this->input->get_post('user_qq');//得到QQ号码
+        $user_qq = trim($this->input->get_post('user_qq'));//得到QQ号码
         if(!empty($userinfo->user_id)){
             $user_id = $userinfo->user_id;
             //加载用户模型类
@@ -1063,7 +1063,7 @@ class Index_controller extends CI_Controller {
     public function edit_userEmailAjax(){
         $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
         
-        $user_email = $this->input->get_post('user_email');//得到用户邮箱
+        $user_email = trim($this->input->get_post('user_email'));//得到用户邮箱
         if(!empty($userinfo->user_id)){
             $user_id = $userinfo->user_id;
             //加载用户模型类
@@ -1090,7 +1090,7 @@ class Index_controller extends CI_Controller {
     public function edit_userWechatAjax(){
         $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
         
-        $user_wechat = $this->input->get_post('user_wechat');//得到微信号码
+        $user_wechat = trim($this->input->get_post('user_wechat'));//得到微信号码
         if(!empty($userinfo->user_id)){
             $user_id = $userinfo->user_id;
             //加载用户模型类
@@ -1147,7 +1147,7 @@ class Index_controller extends CI_Controller {
         $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
         $data['userinfo'] = $userinfo;
         
-        $certify_id = $this->input->get('certify_id');//得到企业认证编号
+        $certify_id = trim($this->input->get('certify_id'));//得到企业认证编号
         if(!empty($certify_id)){
             $data['operate'] = 'update';
             $user_id = $userinfo->user_id;
@@ -1193,7 +1193,7 @@ class Index_controller extends CI_Controller {
     
     public function upload_businessLicenseAjax(){//ajax上传营业执照临时路径
     
-        $license_path = $this->input->get_post('license_path');//得到营业执照临时目录
+        $license_path = trim($this->input->get_post('license_path'));//得到营业执照临时目录
         
         $imgInfo = getimagesize($license_path);
         switch($imgInfo[2]){
@@ -1223,14 +1223,14 @@ class Index_controller extends CI_Controller {
     public function company_certifyAjax(){
         $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
         
-        $operate = $this->input->get_post('operate');//得到操作
-        $certify_id = $this->input->get_post('certify_id');//得到认证编号
-        $business_license = $this->input->get_post('business_license');//得到营业执照
-        $company_name = $this->input->get_post('company_name');//得到公司全称
-        $oper_name = $this->input->get_post('oper_name');//得到法定代表人
-        $contact_phone = $this->input->get_post('contact_phone');//得到公司电话
-        $contact_email = $this->input->get_post('contact_email');//得到公司邮箱
-        $contact_address = $this->input->get_post('contact_address');//得到通讯地址
+        $operate = trim($this->input->get_post('operate'));//得到操作
+        $certify_id = trim($this->input->get_post('certify_id'));//得到认证编号
+        $business_license = trim($this->input->get_post('business_license'));//得到营业执照
+        $company_name = trim($this->input->get_post('company_name'));//得到公司全称
+        $oper_name = trim($this->input->get_post('oper_name'));//得到法定代表人
+        $contact_phone = trim($this->input->get_post('contact_phone'));//得到公司电话
+        $contact_email = trim($this->input->get_post('contact_email'));//得到公司邮箱
+        $contact_address = trim($this->input->get_post('contact_address'));//得到通讯地址
         $create_time = date("Y-m-d H:i:s", time());//发布时间
         
         if(!empty($userinfo->user_id)){
@@ -1272,7 +1272,7 @@ class Index_controller extends CI_Controller {
         $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
         $data['userinfo'] = $userinfo;
         
-        $status = $this->input->get('status');//得到消息状态
+        $status = trim($this->input->get('status'));//得到消息状态
         if(!in_array($status,array('unread','read','del'))) $status = '';//默认全部消息
         
         $user_id = $userinfo->user_id;
@@ -1342,7 +1342,7 @@ class Index_controller extends CI_Controller {
         $userinfo = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         $msgid_arr = $this->input->get_post('msgid_arr');//得到消息编号
-        $status = $this->input->get_post('status');//得到修改状态
+        $status = trim($this->input->get_post('status'));//得到修改状态
         if(!empty($userinfo->user_id)){
             //加载用户模型类
             $this->load->model('waitui/User_model','user');
@@ -1422,7 +1422,7 @@ class Index_controller extends CI_Controller {
     
     public function send_smsCodeAjax(){//发送验证码
     
-        $phone = $this->input->get_post('phone');//得到手机号
+        $phone = trim($this->input->get_post('phone'));//得到手机号
         
         $randCode = rand(pow(10, 5), (pow(10, 6)-1));//生成6位随机数
         
@@ -1453,7 +1453,7 @@ class Index_controller extends CI_Controller {
     
     public function check_phoneRegisterAjax(){//判断手机号是否已注册
         
-        $phone = $this->input->get_post('phone');//得到手机号
+        $phone = trim($this->input->get_post('phone'));//得到手机号
         //加载用户模型类
         $this->load->model('waitui/User_model','user');
         //get_phoneRegStatus方法得到手机号注册状态，1为已注册，0为未注册
@@ -1504,12 +1504,12 @@ class Index_controller extends CI_Controller {
     
     public function send_phoneLoginAjax(){//登录账号
         
-        $login_type = $this->input->get_post('login_type');//得到登录方式
-        $phone = $this->input->get_post('phone_num');//得到手机号
-        $pwd = $this->input->get_post('pwd_num');//得到登录密码
-        $code = $this->input->get_post('code_num');//得到短信验证码
-        $ip_address = $this->input->get_post('ip_address');//得到IP地址
-        $city_address = $this->input->get_post('city_address');//得到登录地区
+        $login_type = trim($this->input->get_post('login_type'));//得到登录方式
+        $phone = trim($this->input->get_post('phone_num'));//得到手机号
+        $pwd = trim($this->input->get_post('pwd_num'));//得到登录密码
+        $code = trim($this->input->get_post('code_num'));//得到短信验证码
+        $ip_address = trim($this->input->get_post('ip_address'));//得到IP地址
+        $city_address = trim($this->input->get_post('city_address'));//得到登录地区
         
         //判断手机号是否已注册,1为已注册，0为未注册
         $regStatus = $this->check_phoneRegister($phone);
@@ -1569,11 +1569,11 @@ class Index_controller extends CI_Controller {
         $this->load->helper('cookie');
         $this->load->library('user_agent');
         
-        $phone = $this->input->get_post('phone_reg');//得到手机号
-        $pwd = $this->input->get_post('pwd_reg');//得到登录密码
-        $code = $this->input->get_post('code_reg');//得到短信验证码
-        $ip_address = $this->input->get_post('ip_address');//得到IP地址
-        $city_address = $this->input->get_post('city_address');//得到登录地区
+        $phone = trim($this->input->get_post('phone_reg'));//得到手机号
+        $pwd = trim($this->input->get_post('pwd_reg'));//得到登录密码
+        $code = trim($this->input->get_post('code_reg'));//得到短信验证码
+        $ip_address = trim($this->input->get_post('ip_address'));//得到IP地址
+        $city_address = trim($this->input->get_post('city_address'));//得到登录地区
         
         //判断手机号是否已注册,1为已注册，0为未注册
         $regStatus = $this->check_phoneRegister($phone);
@@ -1639,9 +1639,9 @@ class Index_controller extends CI_Controller {
         $this->load->helper('cookie');
         $this->load->library('user_agent');
         
-        $phone = $this->input->get_post('phone_find');//得到手机号
-        $pwd = $this->input->get_post('pwd_find');//得到登录密码
-        $code = $this->input->get_post('code_find');//得到短信验证码
+        $phone = trim($this->input->get_post('phone_find'));//得到手机号
+        $pwd = trim($this->input->get_post('pwd_find'));//得到登录密码
+        $code = trim($this->input->get_post('code_find'));//得到短信验证码
         
         //判断手机号是否已注册,1为已注册，0为未注册
         $regStatus = $this->check_phoneRegister($phone);
