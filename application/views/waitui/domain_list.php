@@ -28,8 +28,8 @@
     </form>
     </div>
     
-    <div class="bg-white mb20">
-        <div class="container after-cls pb30">
+    <div class="bg-white mt20 mb20">
+        <div class="container after-cls pt20 pb30">
             <div class="domain-list" id="domain_list">
                 <table class="domain-table" width="100%">
                     <thead>

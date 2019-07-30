@@ -69,6 +69,10 @@ $route['mark_detail/(:any)\.html'] = 'waitui/Index_controller/mark_detail/$1';
 $route['domain_list.html'] = 'waitui/Index_controller/domain_list';
 $route['domain_detail/(:any)'] = 'waitui/Index_controller/domain_detail/$1';
 
+$route['company_list.html'] = 'waitui/Index_controller/company_list';
+$route['company_(:any).html'] = 'waitui/Index_controller/company_province/$1';
+$route['company_detail/(:any)\.html'] = 'waitui/Index_controller/company_detail/$1';
+
 $route['agreement.html'] = 'waitui/Index_controller/agreement';
 
 $route['my_console'] = 'waitui/Index_controller/my_console';

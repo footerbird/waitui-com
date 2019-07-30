@@ -5,7 +5,7 @@
         <div class="container pt20 pb20 after-cls">
             <dl>
                 <dt>企业服务</dt>
-                <dd><a href="/" target="_blank">企业名录</a></dd>
+                <dd><a href="<?php echo base_url() ?>company_list.html" target="_blank">企业名录</a></dd>
                 <dd><a href="<?php echo base_url() ?>mark_list.html" target="_blank">商标服务</a></dd>
                 <dd><a href="<?php echo base_url() ?>domain_list.html" target="_blank">域名服务</a></dd>
             </dl>

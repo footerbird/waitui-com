@@ -100,7 +100,7 @@
     <input type="hidden" id="mark_sort" value="" />
     <input type="hidden" id="mark_page" value="1" />
     
-    <div class="container after-cls pb30">
+    <div class="container after-cls pt20 pb30">
         <div class="mark-list" id="mark_list">
             <div class="sort">
                 <a href="javascript:;" data-sort="" class="cur">综合排序</a>
@@ -110,7 +110,7 @@
                 <div class="result">共找到<font id="mark_count"><?php echo $mark_count; ?></font>件商标</div>
             </div>
             
-            <div class="box">
+            <div class="box after-cls">
                 <?php foreach ($mark_list as $mark){ ?>
                 <a href="<?php echo base_url() ?>mark_detail/<?php echo $mark->regno_md; ?>.html" target="_blank" class="mark-item">
                     <!--tag有八种形式-->

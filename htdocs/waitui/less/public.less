@@ -1734,14 +1734,14 @@ input[type=radio]{
         }
     }
 }
-.ajax-pagination{
+.route-pagination-left{
     .after-cls;
     margin-top: 20px;
     .pagination{
-        float: right;
+        float: left;
     }
     .total{
-        float: right;
+        float: left;
         font-size: 13px;
         line-height: 24px;
         margin-right: 10px;
@@ -2914,8 +2914,6 @@ input[type=radio]{
 
 .mark-list{
     width: 1020px;
-    margin-top: 20px;
-    .after-cls;
     .sort{
         width: 1000px;
         height: 45px;
@@ -3231,12 +3229,7 @@ input[type=radio]{
 }
 
 .domain-list{
-    width: 1000px;
-    margin-top: 20px;
-    padding-top: 20px;
-    .after-cls;
     .domain-table{
-        table-layout: fixed;
         border: 1px solid #f1f1f1;
         thead{
             th{
@@ -3417,6 +3410,343 @@ input[type=radio]{
                 }
             }
         }
+    }
+}
+
+/*企业信息页面*/
+.company-top{
+    background-color: #fff;
+    border-bottom: 1px solid #e6e8eb;
+    .province{
+        dl{
+            .after-cls;
+            dt{
+                float: left;
+                width: 80px;
+                font-size: 13px;
+                line-height: 30px;
+                color: #999;
+            }
+            dd{
+                float: left;
+                width: 920px;
+                a{
+                    display: inline-block;
+                    font-size: 13px;
+                    line-height: 24px;
+                    padding: 0 6px;
+                    margin: 3px;
+                    &:hover{
+                        color: @base-color;
+                    }
+                    &.cur{
+                        color: @base-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.company-left{
+    float: left;
+    width: 660px;
+}
+
+.company-right{
+    float: right;
+    width: 270px;
+    .flash{
+        border-top: 2px solid @base-color;
+        .title{
+            font-size: 16px;
+            color: #3d464d;
+            text-align: center;
+            height: 48px;
+            line-height: 50px;
+            border-bottom: 1px solid #e6e8eb;
+            margin-bottom: 20px;
+        }
+        .flash-item{
+            padding: 0 0 15px 20px;
+            position: relative;
+            &:before{
+                content: "";
+                position: absolute;
+                left: 5px;
+                top: 5px;
+                border: 4px solid transparent;
+                border-left-color: @base-color;
+                border-top-color: transparent;
+                .transition-all;
+            }
+            &.active{
+                &:before{
+                    -webkit-transform: rotate(90deg);
+                    transform: rotate(90deg);
+                    -webkit-transform-origin: left center;
+                    transform-origin: left center;
+                }
+            }
+            a{
+                display: block;
+                font-size: 13px;
+                line-height: 20px;
+                margin-bottom: 5px;
+                .transition-all;
+                &:hover{
+                    color: @base-color;
+                }
+            }
+            div{
+                display: none;
+                margin: 10px 10px 10px 0;
+                border: 1px solid #e6e8eb;
+                padding: 10px;
+                font-size: 13px;
+                color: #757e88;
+                line-height: 24px;
+            }
+            p{
+                color: #a4abb1;
+            }
+        }
+    }
+    .swiper{
+        width: 100%;
+        height: 150px;
+        .swiper-slide{
+            a{
+                display: block;
+                width: 100%;
+                height: 100%;
+                img{
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+        .swiper-pagination-bullet{
+            width: 6px;
+            height: 6px;
+            background-color: #fff;
+            .opacity;
+        }
+        .swiper-pagination-bullet-active{
+            background-color: @base-color;
+        }
+        .swiper-button-next{
+            background-color: rgba(0,0,0,.2);
+            width: 22px;
+            height: 36px;
+            margin-top: -18px;
+            display: none;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            right: 0;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAIVBMVEUAAAD////////////////////////////////////////PIev5AAAACnRSTlMAz6AQkL/gsIAgRXAhngAAADNJREFUCNdjQAItMEaUApRhuAjKYJbCJ7QEymBaBmVoSUIFFhpABYTRBKqgAgyuIAEEAAAv8gfE4bTNQgAAAABJRU5ErkJggg==);
+            background-repeat: no-repeat;
+            background-size: 16px;
+        }
+        .swiper-button-prev{
+            background-color: rgba(0,0,0,.2);
+            width: 22px;
+            height: 36px;
+            margin-top: -18px;
+            display: none;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            left: 0;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAp0lEQVQ4T2NkoBAwEqP/////AkB164H4IiMjYwGyHoIGQDXvB2oyAOKNQAMCiDYATfNCoOYEdBfjdAExmkGGYTWAWM1YDQBqVoAGGMjPWJ2NNwyABjwAKpAnRjMuF0wASuQD8QUgdgQG3Ad8UY0rDBYANcUTYwi+WCDKELwJCRgeBA0hJiXiNYSgAaAARHLJAWCgOhKdlJEVAg0Bxc4HoAENZBmAKyoBVw9LEQ727RsAAAAASUVORK5CYII=);
+            background-repeat: no-repeat;
+            background-size: 16px;
+        }
+        &:hover{
+            .swiper-button-next,.swiper-button-prev{
+                display: block;
+            }
+        }
+    }
+    .recommend{
+        border-top: 2px solid @base-color;
+        .title{
+            font-size: 16px;
+            color: #3d464d;
+            text-align: center;
+            height: 48px;
+            line-height: 50px;
+            border-bottom: 1px solid #e6e8eb;
+            margin-bottom: 20px;
+        }
+        .recommend-item{
+            padding: 0 0 15px 20px;
+            position: relative;
+            &:before{
+                content: "";
+                width: 5px;
+                height: 5px;
+                background-color: @base-color;
+                .opacity(.8);
+                .border-radius(50%);
+                position: absolute;
+                left: 5px;
+                top: 7px;
+            }
+            a{
+                display: block;
+                font-size: 13px;
+                line-height: 20px;
+                max-height: 40px;
+                overflow: hidden;
+                word-break: break-all;
+                &:hover{
+                    color: @base-color;
+                }
+            }
+        }
+    }
+}
+
+.company-list{
+    .company-table{
+        border: 1px solid #e4eef6;
+        thead{
+            th{
+                line-height: 44px;
+                padding: 0 10px;
+                text-align: left;
+                font-size: 14px;
+                font-weight: normal;
+                background-color: #f2f9fc;
+            }
+        }
+        tbody{
+            tr{
+                td{
+                    line-height: 22px;
+                    padding: 11px 10px;
+                    text-align: left;
+                    font-size: 13px;
+                    color: #666;
+                    border: 1px solid #e4eef6;
+                    a{
+                        color: #5195d5;
+                        &:hover{
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .company-item-title{
+        font-size: 14px;
+        height: 48px;
+        line-height: 50px;
+        border-bottom: 1px solid #e6e8eb;
+        margin-bottom: 5px;
+    }
+    .company-item{
+        padding: 20px 0;
+        border-bottom: 1px solid #e6e8eb;
+        margin-bottom: 5px;
+        .title{
+            padding-bottom: 10px;
+            a{
+                font-size: 18px;
+                color: #5195d5;
+                line-height: 20px;
+                &:hover{
+                    color: @base-color;
+                }
+            }
+        }
+        p{
+            font-size: 12px;
+            line-height: 24px;
+        }
+    }
+}
+
+.company-detail{
+    .thumb-box{
+        float: left;
+        width: 230px;
+        height: 135px;
+        margin-right: 35px;
+        .thumb{
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .info-box{
+        float: left;
+        width: 735px;
+        h3{
+            font-size: 20px;
+            color: #13426b;
+        }
+        .tag-status{
+            float: left;
+            height: 20px;
+            line-height: 18px;
+            font-size: 12px;
+            color: #5182bb;
+            border: 1px solid #5182bb;
+            text-align: center;
+            padding: 0 6px;
+            .border-radius(2px);
+        }
+        .tag-certify{
+            float: left;
+            height: 20px;
+            line-height: 18px;
+            font-size: 12px;
+            color: #06c594;
+            border: 1px solid #06c594;
+            text-align: center;
+            padding: 0 6px;
+            .border-radius(2px);
+        }
+        table{
+            font-size: 12px;
+            color: #666;
+            line-height: 26px;
+            table-layout: fixed;
+            a{
+                font-size: 13px;
+                color: #5195d5;
+            }
+        }
+    }
+    .detail-title{
+        font-size: 16px;
+        color: #13426b;
+        line-height: 36px;
+    }
+    .company-left{
+        width: 710px;
+        .info-table{
+            table-layout: fixed;
+            border: 1px solid #d1dde6;
+            tr{
+                td{
+                    font-size: 13px;
+                    line-height: 20px;
+                    padding: 10px 15px;
+                    border: 1px solid #e4eef6;
+                    word-break: break-all;
+                    &.tb{
+                        background-color: #fafafa;
+                    }
+                }
+            }
+        }
+    }
+    .company-right{
+        width: 270px;
     }
 }
 

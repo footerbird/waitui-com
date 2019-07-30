@@ -3,9 +3,6 @@
     
     <head>
     <?php include_once(VIEWPATH.'waitui/templete/pub_head.php') ?>
-    <script type="text/javascript">
-    function loadHtmlImg(obj){}
-    </script>
     </head>
     
     <body>
