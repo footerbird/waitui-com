@@ -39,17 +39,16 @@ class Certify_model extends CI_Model {
         return $query->row();
     }
     
-    public function edit_certifyOne($certify_id,$company_name,$oper_name,$regist_capi,$start_date,$credit_code,$econ_kind,$business_term,$address,$scope,$status,$description){//修改企业认证信息
+    public function edit_certifyOne($certify_id,$regist_capi,$start_date,$credit_code,$econ_kind,$business_term,$address,$scope,$website,$status,$description){//修改企业认证信息
         $sql = "update company_certify set"
-            ." company_name='".$company_name
-            ."', oper_name='".$oper_name
-            ."', regist_capi='".$regist_capi
+            ." regist_capi='".$regist_capi
             ."', start_date='".$start_date
             ."', credit_code='".$credit_code
             ."', econ_kind='".$econ_kind
             ."', business_term='".$business_term
             ."', address='".$address
             ."', scope='".$scope
+            ."', website='".$website
             ."', status='".$status
             ."', description='".$description
             ."' where certify_id=".$certify_id;

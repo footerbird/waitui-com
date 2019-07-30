@@ -48,14 +48,14 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">企业名称</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="company_name" id="company_name" required="required" placeholder="请输入企业名称" value="<?php if(isset($certify)){ echo $certify->company_name; } ?>">
+                            <input type="text" class="form-control" value="<?php if(isset($certify)){ echo $certify->company_name; } ?>" readonly="readonly">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">法定代表人</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="oper_name" id="oper_name" required="required" placeholder="请输入法定代表人" value="<?php if(isset($certify)){ echo $certify->oper_name; } ?>">
+                            <input type="text" class="form-control" value="<?php if(isset($certify)){ echo $certify->oper_name; } ?>" readonly="readonly">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
@@ -70,7 +70,7 @@
                         <label class="col-sm-2 control-label">成立日期</label>
                         <div class="col-sm-10">
                             <div class="input-group">
-                                <input type="text" class="form-control datepicker" name="start_date" id="start_date" placeholder="请输入成立日期" value="<?php if(isset($certify)){ echo date('Y-m-d',strtotime($certify->start_date)); } ?>" data-format="yyyy-mm-dd">
+                                <input type="text" class="form-control datepicker" name="start_date" id="start_date" required="required" placeholder="请输入成立日期" value="<?php if(isset($certify)){ echo date('Y-m-d',strtotime($certify->start_date)); } ?>" data-format="yyyy-mm-dd">
                                 <div class="input-group-addon">
                                     <a href="#"><i class="linecons-calendar"></i></a>
                                 </div>
@@ -114,23 +114,30 @@
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">企业网址</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="website" id="website" value="<?php if(isset($certify)){ echo $certify->website; } ?>">
+                        </div>
+                    </div>
+                    <div class="form-group-separator"></div>
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">联系电话</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="<?php if(isset($certify)){ echo $certify->contact_phone; } ?>">
+                            <input type="text" class="form-control" value="<?php if(isset($certify)){ echo $certify->contact_phone; } ?>" readonly="readonly">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">联系邮箱</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="<?php if(isset($certify)){ echo $certify->contact_email; } ?>">
+                            <input type="text" class="form-control" value="<?php if(isset($certify)){ echo $certify->contact_email; } ?>" readonly="readonly">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">联系地址</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" value="<?php if(isset($certify)){ echo $certify->contact_address; } ?>">
+                            <input type="text" class="form-control" value="<?php if(isset($certify)){ echo $certify->contact_address; } ?>" readonly="readonly">
                         </div>
                     </div>
                     <div class="form-group-separator"></div>
@@ -171,14 +178,6 @@
 <script src="/htdocs/admin/js/datepicker/bootstrap-datepicker.js?<?php echo CACHE_TIME; ?>"></script>
 <script type="text/javascript">
 function certify_success(){
-    if($("#company_name").val() == ""){
-        toastr.error("企业名称不能为空");
-        return;
-    }
-    if($("#oper_name").val() == ""){
-        toastr.error("法定代表人不能为空");
-        return;
-    }
     if($("#regist_capi").val() == ""){
         toastr.error("注册资本不能为空");
         return;

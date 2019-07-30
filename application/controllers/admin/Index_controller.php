@@ -613,6 +613,7 @@ class Index_controller extends CI_Controller {
         $business_term = trim($this->input->get_post('business_term'));//营业期限
         $address = trim($this->input->get_post('address'));//企业地址
         $scope = trim($this->input->get_post('scope'));//经营范围
+        $website = trim($this->input->get_post('website'));//企业网址
         $status = trim($this->input->get_post('status'));//认证状态
         $description = trim($this->input->get_post('description'));//备注
         //加载企业认证模型类
@@ -622,8 +623,8 @@ class Index_controller extends CI_Controller {
             $data['state'] = 'failed';
             $data['msg'] = '只能认证操作，不能添加';
         }else{//修改
-            //edit_certifyOne方法修改企业认证
-            $updateStatus = $this->certify->edit_certifyOne($certify_id,$company_name,$oper_name,$regist_capi,$start_date,$credit_code,$econ_kind,$business_term,$address,$scope,$status,$description);
+            //edit_certifyOne方法修改企业认证(用户提交的字段信息管理员后台不能修改，管理员后台只能补充认证信息)
+            $updateStatus = $this->certify->edit_certifyOne($certify_id,$regist_capi,$start_date,$credit_code,$econ_kind,$business_term,$address,$scope,$website,$status,$description);
             if($updateStatus){
                 $data['state'] = 'success';
                 $data['msg'] = '修改成功';
