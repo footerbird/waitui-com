@@ -9,10 +9,10 @@ class Article_model extends CI_Model {
     public function get_articleList($category,$start,$length){//文章列表页面,传入category_type,如'venture',输出前$length条数
         if($category == ''){
             $sql = "select article_id,article_title,thumb_path,article_tag,create_time from article_info "
-                ." where status = 1 order by create_time desc limit ".$start.",".$length;
+                ." where status = 'active' order by create_time desc limit ".$start.",".$length;
         }else{
             $sql = "select article_id,article_title,thumb_path,article_tag,create_time from article_info "
-                ." where status = 1 and article_category = '".$category."' order by create_time desc limit ".$start.",".$length;
+                ." where status = 'active' and article_category = '".$category."' order by create_time desc limit ".$start.",".$length;
         }
         $query = $this->db->query($sql);
         return $query->result();

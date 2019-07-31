@@ -261,7 +261,8 @@ $(function(){
                 phone_num: $("#phone_num").val(),
                 pwd_num: $("#pwd_num").val(),
                 code_num: $("#code_num").val(),
-                ip_address: returnCitySN["cip"] || ''
+                ip_address: returnCitySN["cip"] || '',
+                city_address: returnCitySN["cname"] || ''
             },
             dataType:"json",
             success:function(data){
@@ -317,7 +318,8 @@ $(function(){
                 phone_reg: $("#phone_reg").val(),
                 pwd_reg: $("#pwd_reg").val(),
                 code_reg: $("#code_reg").val(),
-                ip_address: returnCitySN["cip"] || ''
+                ip_address: returnCitySN["cip"] || '',
+                city_address: returnCitySN["cname"] || ''
             },
             dataType:"json",
             success:function(data){
