@@ -741,8 +741,10 @@ class Index_controller extends CI_Controller {
         $user_butler = $this->user->get_butlerDetail($userinfo->user_butler);
         $data['user_butler'] = $user_butler;
         
+        //加载企业认证模型类
+        $this->load->model('waitui/Certify_model','certify');
         //get_certifyByUser方法得到用户企业认证信息
-        $certify_list = $this->user->get_certifyByUser($user_id);
+        $certify_list = $this->certify->get_certifyByUser($user_id);
         if(count($certify_list) == 0){
             $data['company_certify'] = '';
         }else{
@@ -1316,10 +1318,10 @@ class Index_controller extends CI_Controller {
         $data['userinfo'] = $userinfo;
         
         $user_id = $userinfo->user_id;
-        //加载用户模型类
-        $this->load->model('waitui/User_model','user');
+        //加载企业认证模型类
+        $this->load->model('waitui/Certify_model','certify');
         //get_certifyByUser方法得到用户企业认证信息
-        $certify_list = $this->user->get_certifyByUser($user_id);
+        $certify_list = $this->certify->get_certifyByUser($user_id);
         if(count($certify_list) == 0){//从未认证,去认证
             redirect(base_url().'company_certify');
         }else{
@@ -1347,10 +1349,10 @@ class Index_controller extends CI_Controller {
         if(!empty($certify_id)){
             $data['operate'] = 'update';
             $user_id = $userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
+            //加载企业认证模型类
+            $this->load->model('waitui/Certify_model','certify');
             //get_certifyDetail方法得到用户企业认证信息
-            $company_certify = $this->user->get_certifyDetail($user_id,$certify_id);
+            $company_certify = $this->certify->get_certifyDetail($user_id,$certify_id);
             if(empty($company_certify)){
                 $heading = '404 Page Not Found';
                 $message = 'The page you requested was not found.';
@@ -1431,12 +1433,12 @@ class Index_controller extends CI_Controller {
         
         if(!empty($userinfo->user_id)){
             $user_id = $userinfo->user_id;
-            //加载用户模型类
-            $this->load->model('waitui/User_model','user');
+            //加载企业认证模型类
+            $this->load->model('waitui/Certify_model','certify');
             if($operate == 'add'){//添加
                 //add_compCertifyOne方法添加一条企业认证记录
                 $status = 'wait';//添加时默认处于认证中状态
-                $addStatus = $this->user->add_certifyOne($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status,$create_time);
+                $addStatus = $this->certify->add_certifyOne($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status,$create_time);
                 if($addStatus){
                     $data['state'] = 'success';
                     $data['msg'] = '添加成功';
@@ -1447,7 +1449,7 @@ class Index_controller extends CI_Controller {
             }else{//修改
                 //edit_certifyOne方法修改公司认证信息
                 $status = 'wait';//修改时也需要将状态改为认证中,重新进行认证
-                $updateStatus = $this->user->edit_certifyOne($certify_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status,$create_time);
+                $updateStatus = $this->certify->edit_certifyOne($certify_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status,$create_time);
                 if($updateStatus){
                     $data['state'] = 'success';
                     $data['msg'] = '修改成功';
