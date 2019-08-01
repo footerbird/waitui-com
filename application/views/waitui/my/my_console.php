@@ -287,16 +287,16 @@
                     </div>
                     
                     <div class="console-swiper mb30">
-                        <div class="swiper-container swiper" id="article_swiper">
+                        <div class="swiper-container swiper" id="console_swiper">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
-                                    <a href="javascript:;">
-                                        <img src="<?php echo CDN_URL; ?>welfare/welfare_banner_1.jpg" />
+                                    <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2165223868&amp;site=qq&amp;menu=yes" target="_blank">
+                                        <img src="/htdocs/waitui/images/ad/ad-domain-entrust.png" />
                                     </a>
                                 </div>
                                 <div class="swiper-slide">
-                                    <a href="javascript:;">
-                                        <img src="<?php echo CDN_URL; ?>welfare/welfare_banner_2.jpg" />
+                                    <a href="<?php echo base_url() ?>/domain_list.html" target="_blank">
+                                        <img src="/htdocs/waitui/images/ad/ad-domain-market.png" />
                                     </a>
                                 </div>
                             </div>
@@ -320,7 +320,7 @@
         
         scrollTop("ico_top");//返回顶部
         
-        var mySwiper = new Swiper ('#article_swiper', {
+        var mySwiper = new Swiper ('#console_swiper', {
             loop : true,
             autoplay: {
                 delay: 8000,//8秒切换一次

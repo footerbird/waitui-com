@@ -516,7 +516,7 @@ class Index_controller extends CI_Controller {
     }
     
     public function company_list(){//企业列表
-        $this->module = '';
+        $this->module = constant('MEMU_COMPANY');
         $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         $page = trim($this->input->get('page'));//得到页码
@@ -576,7 +576,7 @@ class Index_controller extends CI_Controller {
     }
     
     public function company_province($code){//企业省份列表
-        $this->module = '';
+        $this->module = constant('MEMU_COMPANY');
         $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         $page = trim($this->input->get('page'));//得到页码
@@ -671,8 +671,91 @@ class Index_controller extends CI_Controller {
         $this->load->view('waitui/company_province',$data);
     }
     
+    public function company_search($keyword = ''){//企业搜索
+        $this->module = constant('MEMU_COMPANY');
+        $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
+        
+        $data['keyword'] = urldecode($keyword);
+        $page = trim($this->input->get('page'));//得到页码
+        if(empty($page)) $page = 1;//默认页码为1
+        
+        //企业省份列表
+        include_once(APPPATH . '/config/province_list.php');
+        $data['province_list'] = $province_list;
+        
+        //加载企业模型类
+        $this->load->model('waitui/Company_model','company');
+        //get_companySearchCount方法得到企业搜索列表总数
+        $count = $this->company->get_companySearchCount(urldecode($keyword));
+        $page_size = 10;//单页记录数
+        $offset = ($page-1)*$page_size;//偏移量
+        switch($page){
+            case 1:
+                $num_links = 4;//num_links选中页右边的个数
+                break;
+            case 2:
+                $num_links = 3;
+                break;
+            case ceil($count/$page_size):
+                $num_links = 4;
+                break;
+            case ceil($count/$page_size)-1:
+                $num_links = 3;
+                break;
+            default:
+                $num_links = 2;
+                break;
+        }
+        
+        $this->load->library('pagination');
+        $config['base_url'] = base_url().'company_search/'.$keyword;
+        $config['total_rows'] = $count;
+        $config['per_page'] = $page_size;// $pagesize每页条数
+        $config['num_links'] = $num_links;//设置选中页左右两边的页数
+        $this->pagination->initialize($config);
+        $data['page_count'] = $count;
+        $data['page_size'] = $page_size;
+        $data['cur_page'] = $page;
+        
+        //get_companySearch方法得到企业搜索列表
+        $company_list = $this->company->get_companySearch(urldecode($keyword),$offset,$page_size);
+        $data['company_list'] = $company_list;
+        
+        //加载头条模型类
+        $this->load->model('waitui/Article_model','article');
+        //get_articleRecommend方法得到推荐阅读列表
+        $article_recommend = $this->article->get_articleRecommend(0,5);
+        $data['article_recommend'] = $article_recommend;
+        
+        //加载快讯模型类
+        $this->load->model('waitui/Flash_model','flash');
+        //get_flashList方法得到头条列表
+        $flash_list = $this->flash->get_flashList(0,3);
+        foreach($flash_list as $flash){
+            $flash->create_time = format_article_time($flash->create_time);
+        }
+        $data['flash_list'] = $flash_list;
+        
+        $seo = array(
+            'seo_title'=>$keyword.'企业名录 - 企业工商信息一手掌握 | 外推网',
+            'seo_keywords'=>'',
+            'seo_description'=>''
+        );
+        $data['seo'] = json_decode(json_encode($seo));
+        
+        $data['styles'] = array(
+            '/htdocs/waitui/css/swiper.min.css?'.CACHE_TIME
+        );
+        $data['scripts'] = array(
+            '/htdocs/waitui/js/swiper.min.js?'.CACHE_TIME,
+            '/htdocs/waitui/js/swiper.animate.min.js?'.CACHE_TIME
+        );
+        
+        $this->load->view('waitui/company_search',$data);
+    }
+    
     public function company_detail($company_id){//企业详情
-        $this->module = '';
+        $this->module = constant('MEMU_COMPANY');
         $data['userinfo'] = $this->get_userinfo();//验证是否登录,并获取用户信息
         
         //加载企业模型类
@@ -684,6 +767,26 @@ class Index_controller extends CI_Controller {
             $message = 'The page you requested was not found.';
             show_error($message, 404, $heading );
             exit;
+        }
+        $company_name = $company->name;
+        //加载企业认证模型类
+        $this->load->model('waitui/Certify_model','certify');
+        //get_certifyByName方法根据名称得到用户企业认证信息
+        $company_certify = $this->certify->get_certifyByName($company_name);
+        if(!empty($company_certify)){
+            $company->contact_phone = $company_certify->contact_phone;
+            $company->contact_email = $company_certify->contact_email;
+            $company->contact_address = $company_certify->contact_address;
+            $company->website = $company_certify->website;
+            $company->description = $company_certify->description;
+            $company->certify_status = $company_certify->status;
+        }else{
+            $company->contact_phone = '';
+            $company->contact_email = '';
+            $company->contact_address = '';
+            $company->website = '';
+            $company->description = '';
+            $company->certify_status = '';
         }
         $data['company'] = $company;
         

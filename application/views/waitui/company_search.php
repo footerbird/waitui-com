@@ -13,7 +13,7 @@
         <div class="container after-cls pt25 pb20">
             <div class="search">
                 <form id="search_form" action="" method="post"></form>
-                <input type="text" placeholder="请输入企业名称 / 法人姓名" name="keyword" value="" id="keyword" onkeyup="keywordEnter()" />
+                <input type="text" placeholder="请输入企业名称 / 法人姓名" name="keyword" value="<?php echo $keyword; ?>" id="keyword" onkeyup="keywordEnter()" />
                 <input type="button" value="搜索" id="keywordBtn" onclick="keywordSearch()" />
             </div>
             <div class="province">
@@ -21,7 +21,7 @@
                     <dt>所属地区：</dt>
                     <dd>
                         <?php foreach ($province_list as $province){ ?>
-                        <a href="<?php echo base_url() ?>company_<?php echo $province['code']; ?>.html" <?php if($code == $province['code']){ echo 'class="cur"'; } ?>><?php echo $province['code'].' - '.$province['name']; ?></a>
+                        <a href="<?php echo base_url() ?>company_<?php echo $province['code']; ?>.html"><?php echo $province['code'].' - '.$province['name']; ?></a>
                         <?php } ?>
                     </dd>
                 </dl>
@@ -107,11 +107,12 @@
     
     function keywordSearch(){
         if($.trim($("#keyword").val()) == ""){
-            Pop.alert("企业关键词不能为空");
-            return;
+            $("#search_form").attr('action','<?php echo base_url() ?>company_list.html');
+            $("#search_form").submit();
+        }else{
+            $("#search_form").attr('action','<?php echo base_url() ?>company_search/'+$("#keyword").val());
+            $("#search_form").submit();
         }
-        $("#search_form").attr('action','<?php echo base_url() ?>company_search/'+$("#keyword").val());
-        $("#search_form").submit();
     }
     
     $(function(){

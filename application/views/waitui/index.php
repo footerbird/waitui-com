@@ -17,7 +17,7 @@
             <?php if(empty($userinfo)){ ?>
             <a href="javascript:;" onclick="func_upwin_login()" class="to-experience">立即体验</a>
             <?php }else{ ?>
-            <a href="<?php echo base_url() ?>my/account" class="to-experience">立即体验</a>
+            <a href="<?php echo base_url() ?>/my_console" class="to-experience">立即体验</a>
             <?php } ?>
         </div>
     </div>
@@ -31,7 +31,7 @@
                 <?php if(empty($userinfo)){ ?>
                 <a href="javascript:;" onclick="func_upwin_login()" >立即体验>></a>
                 <?php }else{ ?>
-                <a href="<?php echo base_url() ?>my/account" >立即体验>></a>
+                <a href="<?php echo base_url() ?>/my_console" >立即体验>></a>
                 <?php } ?>
             </div>
             <div class="image-box fl-r">
@@ -59,7 +59,7 @@
                 <?php if(empty($userinfo)){ ?>
                 <a href="javascript:;" onclick="func_upwin_login()" >立即体验>></a>
                 <?php }else{ ?>
-                <a href="<?php echo base_url() ?>my/account" >立即体验>></a>
+                <a href="<?php echo base_url() ?>/my_console" >立即体验>></a>
                 <?php } ?>
             </div>
         </div>
@@ -74,7 +74,7 @@
                 <?php if(empty($userinfo)){ ?>
                 <a href="javascript:;" onclick="func_upwin_login()" >立即体验>></a>
                 <?php }else{ ?>
-                <a href="<?php echo base_url() ?>my/account" >立即体验>></a>
+                <a href="<?php echo base_url() ?>/my_console" >立即体验>></a>
                 <?php } ?>
             </div>
             <div class="image-box fl-r">

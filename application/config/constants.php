@@ -98,6 +98,7 @@ define('MEMU_HOME','home');//首页
 define('MEMU_ARTICLE','article');//头条页面
 define('MEMU_MARK','mark');//商标页面
 define('MEMU_DOMAIN','domain');//域名页面
+define('MEMU_COMPANY','company');//企业页面
 define('MEMU_MY','my');//管理中心页面
 
 define('CDN_URL','https://waituicom-1257875732.cos.ap-chengdu.myqcloud.com/');//cdn地址

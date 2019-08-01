@@ -3417,7 +3417,45 @@ input[type=radio]{
 .company-top{
     background-color: #fff;
     border-bottom: 1px solid #e6e8eb;
+    .search{
+        width: 710px;
+        margin: 0 auto;
+        position: relative;
+        .after-cls;
+        input[type=text]{
+            float: left;
+            width: 620px;
+            height: 44px;
+            padding: 0 15px;
+            font-size: 14px;
+            color: #414a60;
+            border: 1px solid @base-color;
+            background-color: #fff;
+            .border-box;
+            .transition-all;
+            &:hover{
+                border-color: @base-color;
+            }
+        }
+        input[type=button]{
+            float: left;
+            width: 90px;
+            height: 44px;
+            text-align: center;
+            font-size: 14px;
+            color: #fff;
+            background-color: @base-color;
+            border: none;
+            cursor: pointer;
+            .border-box;
+            .transition-all;
+            &:hover{
+                .opacity(.8);
+            }
+        }
+    }
     .province{
+        margin-top: 25px;
         dl{
             .after-cls;
             dt{

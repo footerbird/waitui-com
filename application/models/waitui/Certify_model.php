@@ -19,6 +19,12 @@ class Certify_model extends CI_Model {
         return $query->row();
     }
     
+    public function get_certifyByName($company_name){//根据企业名称获取已认证的企业,传入company_name
+        $sql = "select * from company_certify where company_name = '".$company_name."' and status = 'success'";
+        $query = $this->db->query($sql);
+        return $query->row();
+    }
+    
     public function add_certifyOne($user_id,$business_license,$company_name,$oper_name,$contact_phone,$contact_email,$contact_address,$status,$create_time){//添加企业认证信息
         $sql = "insert into company_certify(certify_userid,business_license,company_name,oper_name,contact_phone,contact_email,contact_address,status,create_time"
             .")values(".$user_id.",'".$business_license."','".$company_name."','".$oper_name."','".$contact_phone."','".$contact_email."','".$contact_address."','".$status."','".$create_time."')";

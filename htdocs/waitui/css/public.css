@@ -5935,6 +5935,60 @@ input[type=radio]:checked:disabled + i {
   background-color: #fff;
   border-bottom: 1px solid #e6e8eb;
 }
+.company-top .search {
+  width: 710px;
+  margin: 0 auto;
+  position: relative;
+}
+.company-top .search:after {
+  content: " ";
+  display: block;
+  height: 0;
+  visibility: hidden;
+  clear: both;
+}
+.company-top .search input[type=text] {
+  float: left;
+  width: 620px;
+  height: 44px;
+  padding: 0 15px;
+  font-size: 14px;
+  color: #414a60;
+  border: 1px solid #ea6f5a;
+  background-color: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+}
+.company-top .search input[type=text]:hover {
+  border-color: #ea6f5a;
+}
+.company-top .search input[type=button] {
+  float: left;
+  width: 90px;
+  height: 44px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  background-color: #ea6f5a;
+  border: none;
+  cursor: pointer;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+}
+.company-top .search input[type=button]:hover {
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  opacity: 0.8;
+}
+.company-top .province {
+  margin-top: 25px;
+}
 .company-top .province dl:after {
   content: " ";
   display: block;

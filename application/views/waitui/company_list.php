@@ -11,6 +11,11 @@
     
     <div class="company-top">
         <div class="container after-cls pt25 pb20">
+            <div class="search">
+                <form id="search_form" action="" method="post"></form>
+                <input type="text" placeholder="请输入企业名称 / 法人姓名" name="keyword" value="" id="keyword" onkeyup="keywordEnter()" />
+                <input type="button" value="搜索" id="keywordBtn" onclick="keywordSearch()" />
+            </div>
             <div class="province">
                 <dl>
                     <dt>所属地区：</dt>
@@ -71,6 +76,21 @@
     <?php include_once(VIEWPATH.'waitui/templete/pub_foot.php') ?>
     
     <script type="text/javascript">
+    function keywordEnter(e){
+        var eve = e || window.event;
+        if(eve.keyCode == 13){
+            keywordSearch();
+        }
+    }
+    
+    function keywordSearch(){
+        if($.trim($("#keyword").val()) == ""){
+            Pop.alert("企业关键词不能为空");
+            return;
+        }
+        $("#search_form").attr('action','<?php echo base_url() ?>company_search/'+$("#keyword").val());
+        $("#search_form").submit();
+    }
     
     $(function(){
         
