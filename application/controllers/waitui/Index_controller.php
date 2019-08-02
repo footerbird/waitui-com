@@ -737,7 +737,7 @@ class Index_controller extends CI_Controller {
         $data['flash_list'] = $flash_list;
         
         $seo = array(
-            'seo_title'=>$keyword.'企业名录 - 企业工商信息一手掌握 | 外推网',
+            'seo_title'=>urldecode($keyword).'相关企业名录 - 企业工商信息一手掌握 | 外推网',
             'seo_keywords'=>'',
             'seo_description'=>''
         );
