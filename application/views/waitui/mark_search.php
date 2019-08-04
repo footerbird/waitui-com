@@ -132,6 +132,11 @@
                     <p><?php echo $mark->app_range; ?></p>
                 </a>
                 <?php } ?>
+                <?php if(count($mark_list) == 0){ ?>
+                <p class="ta-c f18 col-my pt50 pb30">很抱歉</p>
+                <p class="ta-c"><img src="/htdocs/waitui/images/console-certify.png"></p>
+                <p class="ta-c f14 col-gray9 lh28 pt30">未搜索到相应结果</p>
+                <?php } ?>
             </div>
             
         </div>

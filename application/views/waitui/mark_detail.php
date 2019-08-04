@@ -39,7 +39,7 @@
                     </div>
                     <div class="info-bottom">
                         <span class="price">价格：<font>¥<?php echo number_format($mark->mark_price); ?></font></span>
-                        <a class="pub-btn-blue ml50" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1003049243&amp;site=qq&amp;menu=yes" target="_blank">在线咨询</a>
+                        <a class="pub-btn-blue ml50" href="http://wpa.qq.com/msgrd?v=3&amp;uin=<?php echo constant('SERVICE_QQ'); ?>&amp;site=qq&amp;menu=yes" target="_blank">在线咨询</a>
                         <?php if(empty($userinfo)){ ?>
                         <a href="javascript:;" onclick="func_upwin_login()" class="pub-btn ml20">立即下单</a>
                         <?php }else{ ?>

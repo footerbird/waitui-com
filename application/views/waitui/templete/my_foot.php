@@ -16,7 +16,7 @@
         <div class="friend-link">
             <div class="container" style="border-top: 1px solid #e6e8eb;">
                 <div class="copyright">
-                    <span class="mr15">Copyright © 2018 waitui.com All Rights Reserved.</span>
+                    <span class="mr15">Copyright © 2019 waitui.com All Rights Reserved.</span>
                 </div>
             </div>
         </div>

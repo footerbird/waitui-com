@@ -18,15 +18,15 @@
             <dl>
                 <dt>联系我们</dt>
                 <dd><a href="/" target="_blank">杭州外推网络科技有限公司</a></dd>
-                <dd><p>公司地址&nbsp;&nbsp;杭州拱墅区上塘路333号海外海写字楼11楼</p></dd>
-                <dd><p>公司电话&nbsp;&nbsp;400-889-0135（09:00~18:00）</p></dd>
+                <dd><p>公司地址&nbsp;&nbsp;<?php echo constant('SERVICE_ADDRESS'); ?></p></dd>
+                <dd><p>公司电话&nbsp;&nbsp;<?php echo constant('SERVICE_TEL'); ?>（09:00~18:00）</p></dd>
             </dl>
             
             <dl class="fl-r">
                 <dt class="ta-r"><img class="bottom-logo" src="/htdocs/waitui/images/bottom-logo.png" /></dt>
-                <dd class="ta-r"><p>QQ咨询：<a class="in-block" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2165223868&amp;site=qq&amp;menu=yes" target="_blank">2165223868</a></p></dd>
-                <dd class="ta-r"><p>加入我们：<a class="in-block w90" href="mailto:hr@waitui.com">hr@waitui.com</a></p></dd>
-                <dd class="ta-r"><p>商务合作：<a class="in-block w90" href="mailto:bd@waitui.com">bd@waitui.com</a></p></dd>
+                <dd class="ta-r"><p>QQ咨询：<a class="in-block" href="http://wpa.qq.com/msgrd?v=3&amp;uin=<?php echo constant('SERVICE_QQ'); ?>&amp;site=qq&amp;menu=yes" target="_blank"><?php echo constant('SERVICE_QQ'); ?></a></p></dd>
+                <dd class="ta-r"><p>加入我们：<a class="in-block w90" href="mailto:<?php echo constant('SERVICE_HR_EMAIL'); ?>"><?php echo constant('SERVICE_HR_EMAIL'); ?></a></p></dd>
+                <dd class="ta-r"><p>商务合作：<a class="in-block w90" href="mailto:<?php echo constant('SERVICE_BD_EMAIL'); ?>"><?php echo constant('SERVICE_BD_EMAIL'); ?></a></p></dd>
             </dl>
             
             <div class="fl-r"></div>
@@ -42,7 +42,7 @@
                     <li><a href="http://www.shangbiao.com/" target="_blank">商标圈</a></li>
                 </ul>
                 <div class="copyright">
-                    <span class="mr15">Copyright © 2018 外推网</span>
+                    <span class="mr15">Copyright © 2019 外推网 All Rights Reserved.</span>
                     <span>浙ICP备14009787号-1</span>
                 </div>
             </div>
@@ -60,7 +60,7 @@
 <?php if(!empty($redirect)){ ?>
 <!--底部固定栏-->
 <div id="redirect_bar" class="redirect-bar">
-    <div class="container">【<font><?php echo $redirect; ?></font>】您正在访问的域名可以转让！<a class="pub-btn-blue fl-r" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1003049243&amp;site=qq&amp;menu=yes" target="_blank">在线咨询</a><a class="close" href="javascript:;" onclick="removeRedirectBar();"></a></div>
+    <div class="container">【<font><?php echo $redirect; ?></font>】您正在访问的域名可以转让！<a class="pub-btn-blue fl-r" href="http://wpa.qq.com/msgrd?v=3&amp;uin=<?php echo constant('SERVICE_QQ'); ?>&amp;site=qq&amp;menu=yes" target="_blank">在线咨询</a><a class="close" href="javascript:;" onclick="removeRedirectBar();"></a></div>
 </div>
 <?php } ?>
 

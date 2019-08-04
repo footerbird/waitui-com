@@ -49,19 +49,23 @@
                             <td class="pl30"><a href="<?php echo base_url() ?>domain_detail/<?php echo $domain->domain_name; ?>" target="_blank" class="domain"><?php echo $domain->domain_name; ?></a></td>
                             <td><?php echo $domain->domain_summary; ?></td>
                             <td>一口价</td>
-                            <td><?php echo $domain->domain_price; ?>元</td>
+                            <td><?php echo number_format(1.2*$domain->domain_price); ?>元</td>
                             <td><?php echo $domain->expired_date; ?>天</td>
                             <td><?php echo $domain->register_registrar; ?></td>
                             <?php if(empty($userinfo)){ ?>
                             <td><a href="javascript:;" onclick="func_upwin_login()" class="buy-btn">购买</a></td>
                             <?php }else{ ?>
-                            <td><a href="javascript:;" class="buy-btn">购买</a></td>
+                            <td><a href="<?php echo base_url() ?>domain_detail/<?php echo $domain->domain_name; ?>" target="_blank" class="buy-btn">购买</a></td>
                             <?php } ?>
                         </tr>
                         <?php } ?>
                         <?php if(count($domain_list) == 0){ ?>
                         <tr>
-                        	<td colspan="7" class="ta-c">未搜索到相应结果</td>
+                        	<td colspan="7" class="ta-c">
+                                <p class="ta-c f18 col-my pt50 pb30">很抱歉</p>
+                                <p class="ta-c"><img src="/htdocs/waitui/images/console-certify.png"></p>
+                                <p class="ta-c f14 col-gray9 lh28 pt30">未搜索到相应结果</p>
+                            </td>
                         </tr>
                         <?php } ?>
                     </tbody>

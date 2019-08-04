@@ -41,6 +41,11 @@
                         <p>地址：<?php echo $company->address; ?></p>
                     </div>
                     <?php } ?>
+                    <?php if(count($company_list) == 0){ ?>
+                    <p class="ta-c f18 col-my pt50 pb30">很抱歉</p>
+                    <p class="ta-c"><img src="/htdocs/waitui/images/console-certify.png"></p>
+                    <p class="ta-c f14 col-gray9 lh28 pt30">未搜索到相应结果</p>
+                    <?php } ?>
                     
                     <div class="route-pagination">
                     <?php echo $this->pagination->create_links(); ?>

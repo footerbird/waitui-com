@@ -101,4 +101,11 @@ define('MEMU_DOMAIN','domain');//域名页面
 define('MEMU_COMPANY','company');//企业页面
 define('MEMU_MY','my');//管理中心页面
 
-define('CDN_URL','https://waituicom-1257875732.cos.ap-chengdu.myqcloud.com/');//cdn地址
+define('CDN_URL','');//cdn地址
+
+/*设置服务QQ,服务邮箱，服务电话*/
+define('SERVICE_QQ','2165223868');
+define('SERVICE_TEL','18767172019');
+define('SERVICE_HR_EMAIL','hr@waitui.com');
+define('SERVICE_BD_EMAIL','bd@waitui.com');
+define('SERVICE_ADDRESS','杭州拱墅区上塘路333号海外海写字楼11楼');

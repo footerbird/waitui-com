@@ -49,8 +49,8 @@ class Domain_model extends CI_Model {
     }
     
     public function get_domainRecommend($start,$length){//推荐域名列表,输出前$length条数
-        $sql = "select domain_name,domain_price,domain_summary from domain_info "
-            ." order by rand() limit ".$start.",".$length;
+        $sql = "select * from domain_info "
+            ." where is_onsale = 'sale' order by rand() limit ".$start.",".$length;
         $query = $this->db->query($sql);
         return $query->result();
     }
